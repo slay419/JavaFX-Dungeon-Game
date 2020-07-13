@@ -10,9 +10,12 @@ import javafx.beans.property.SimpleIntegerProperty;
  */
 public class Entity {
 
+    String name;
+
     // IntegerProperty is used so that changes to the entities position can be
     // externally observed.
     private IntegerProperty x, y;
+    Boolean impassible; 
 
     /**
      * Create an entity positioned in square (x,y)
@@ -38,5 +41,9 @@ public class Entity {
 
     public int getX() {
         return x().get();
+    }
+
+    public String getName() {
+        return name;
     }
 }
