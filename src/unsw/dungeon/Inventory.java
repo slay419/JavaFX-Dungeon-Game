@@ -36,7 +36,9 @@ public class Inventory {
      */
     public void add(Entity entity) {
         if (entity instanceof Key) {
-            // add key 
+            Key k = (Key) entity;
+            addKey(k);
+            System.out.println("Added key to inventory!");
         } else if (entity instanceof Treasure) {
             Treasure t = (Treasure) entity;
             addTreasure(t);
@@ -47,5 +49,9 @@ public class Inventory {
 
     private void addTreasure(Treasure treasure) {
         this.treasure.add(treasure);
+    }
+
+    private void addKey(Key key) {
+        this.keys.add(key);
     }
 }
