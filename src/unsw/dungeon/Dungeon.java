@@ -56,4 +56,17 @@ public class Dungeon {
         System.out.println("removed entity: " + entity.getName());
         entities.remove(entity);
     }
+
+    // Checks what entity exists at the given tile
+    public Entity getEntity(int x, int y) {
+        for (Entity e : entities) {
+            int entityX = e.getX();
+            int entityY = e.getY();
+
+            if (entityX == x && entityY == y) {
+                return e;
+            }
+        }
+        return null;
+    }
 }

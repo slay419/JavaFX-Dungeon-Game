@@ -13,9 +13,11 @@ public class Key extends Entity{
         super(x, y);
         this.id = id;
         impassible = false;
+        item = true;
         name = "key";
     }
 
+    @Override
     public int getId() {
         return id;
     }

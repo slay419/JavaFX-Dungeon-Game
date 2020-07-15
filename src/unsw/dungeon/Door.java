@@ -1,5 +1,6 @@
 package unsw.dungeon;
 
+
 public class Door extends Entity {
     
     private int id;
@@ -17,6 +18,7 @@ public class Door extends Entity {
         name = "door";
     }
 
+    @Override
     public int getId() {
         return id;
     }
@@ -37,4 +39,5 @@ public class Door extends Entity {
         setImpassible(false);
     }
     
+
 }
