@@ -74,6 +74,8 @@ public abstract class DungeonLoader {
 
     public abstract void onLoad(Wall wall);
 
+    public abstract void onLoad(Exit exit);
+
     // TODO Create additional abstract methods for the other entities
 
 }

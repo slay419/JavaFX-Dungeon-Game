@@ -66,11 +66,11 @@ public class Player extends Entity {
         List<Entity> levelEntities = dungeon.getEntities();
         
         for (Entity e : levelEntities) {
-            System.out.println("Checking name: " + e.getName());
+            //System.out.println("Checking name: " + e.getName());
             int entityX = e.getX();
-            System.out.println("entityX is: " + entityX);
+            //System.out.println("entityX is: " + entityX);
             int entityY = e.getY();
-            System.out.println("entityY is: " + entityY);
+            //System.out.println("entityY is: " + entityY);
             
             if (entityX == x && entityY == y && e.impassible) {
                 System.out.println("Found an impassible object!");
@@ -78,13 +78,26 @@ public class Player extends Entity {
                 if(e instanceof Door){
                     inventory.checkKey(((Door)e).getId());
                     ((Door)e).openDoor();
+                } else if (e instanceof Exit) {
+                    System.out.println("reached the exit");
                 }
                 return true;
             }
             
         }   
         
-        System.out.println("returning false");
+        //System.out.println("returning false");
+        return false;
+    }
+
+    private Boolean reachedExit() {
+        // Loop through dungeon entities and find the exit 
+        List<Entity> levelEntities = dungeon.getEntities();
+
+        for (Entity e : levelEntities) {
+             e.getName().equals("exit");
+             return true;
+        }
         return false;
     }
 }

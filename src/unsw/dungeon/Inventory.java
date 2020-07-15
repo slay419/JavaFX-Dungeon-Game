@@ -40,6 +40,7 @@ public class Inventory {
         } else if (entity instanceof Treasure) {
             Treasure t = (Treasure) entity;
             addTreasure(t);
+            System.out.println("Added Treasure to inventory!");
         }
 
     }
