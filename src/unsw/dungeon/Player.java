@@ -13,7 +13,7 @@ import javafx.beans.property.IntegerProperty;
 public class Player extends Entity {
 
     private Dungeon dungeon;
-
+    private Inventory inventory;
     /**
      * Create a player positioned in square (x,y)
      * @param x
@@ -22,6 +22,7 @@ public class Player extends Entity {
     public Player(Dungeon dungeon, int x, int y) {
         super(x, y);
         this.dungeon = dungeon;
+        this.inventory = new Inventory(this);
         name = "player";
     }
     // 0 is the top
@@ -73,6 +74,11 @@ public class Player extends Entity {
             
             if (entityX == x && entityY == y && e.impassible) {
                 System.out.println("Found an impassible object!");
+                //Now we're going to check the type of impassible object
+                if(e instanceof Door){
+                    inventory.checkKey(((Door)e).getId());
+                    ((Door)e).openDoor();
+                }
                 return true;
             }
             
