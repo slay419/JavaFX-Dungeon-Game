@@ -6,4 +6,16 @@ public class Exit extends Entity {
         impassible = false;
         name = "exit";
     }
+
+    /**
+     * 
+     * @param x - x coordinates of the player
+     * @param y - y coordinates of the player
+     * @return Boolean
+     */
+    public Boolean reachedExit(int x, int y) {
+        int exitX = getX(); 
+        int exitY = getY();
+        return exitX == x && exitY == y;
+    }
 }

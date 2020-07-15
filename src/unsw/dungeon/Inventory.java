@@ -6,6 +6,7 @@ import java.util.List;
 public class Inventory {
     private Player player;
     private List<Key> keys;
+    private List<Treasure> treasure;
     
     /**
      * 
@@ -14,6 +15,7 @@ public class Inventory {
     public Inventory(Player player){
         this.player = player;
         this.keys = new ArrayList<>();
+        this.treasure = new ArrayList<>();
     }
 
     //checkKey called when a player moves into an impassible door (closed door)
@@ -25,5 +27,24 @@ public class Inventory {
             }
         }
         return false;
+    }
+
+    /**
+     * Adds an entity to the players inventory 
+     * Only accepts entities: keys, treasure, sword and potion
+     * @param entity
+     */
+    public void add(Entity entity) {
+        if (entity instanceof Key) {
+            // add key 
+        } else if (entity instanceof Treasure) {
+            Treasure t = (Treasure) entity;
+            addTreasure(t);
+        }
+
+    }
+
+    private void addTreasure(Treasure treasure) {
+        this.treasure.add(treasure);
     }
 }
