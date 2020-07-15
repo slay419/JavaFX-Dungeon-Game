@@ -51,4 +51,9 @@ public class Dungeon {
     public List<Entity> getEntities() {
         return entities;
     }
+
+    public void removeEntity(Entity entity) {
+        System.out.println("removed entity: " + entity.getName());
+        entities.remove(entity);
+    }
 }

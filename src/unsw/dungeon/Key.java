@@ -12,6 +12,8 @@ public class Key extends Entity{
     public Key(int x, int y, int id){
         super(x, y);
         this.id = id;
+        impassible = false;
+        name = "key";
     }
 
     public int getId() {

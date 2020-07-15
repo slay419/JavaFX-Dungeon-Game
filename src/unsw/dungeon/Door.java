@@ -3,7 +3,6 @@ package unsw.dungeon;
 public class Door extends Entity {
     
     private int id;
-    private Boolean impassible;
     
     /**
      * 
@@ -14,7 +13,7 @@ public class Door extends Entity {
     public Door(int x, int y, int id){
         super(x, y);
         this.id = id;
-        impassible = false;
+        impassible = true;
         name = "door";
     }
 

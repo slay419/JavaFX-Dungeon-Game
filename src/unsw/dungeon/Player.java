@@ -76,12 +76,24 @@ public class Player extends Entity {
                 System.out.println("Found an impassible object!");
                 //Now we're going to check the type of impassible object
                 if(e instanceof Door){
-                    inventory.checkKey(((Door)e).getId());
-                    ((Door)e).openDoor();
+                    if (inventory.checkKey(((Door)e).getId())) {
+                        ((Door)e).openDoor();
+                    }
                 } else if (e instanceof Exit) {
                     System.out.println("reached the exit");
                 }
                 return true;
+            } else if (entityX == x && entityY == y && !e.impassible) {
+                // Check if you can pick it up 
+                if (e instanceof Key) {
+                    inventory.add(e);
+                    dungeon.removeEntity(e);
+                    break;
+                } else if (e instanceof Treasure) {
+                    inventory.add(e);
+                    dungeon.removeEntity(e);
+                    break;
+                }
             }
             
         }   

@@ -54,4 +54,8 @@ public class Inventory {
     private void addKey(Key key) {
         this.keys.add(key);
     }
+
+    public int countTreasure() {
+        return treasure.size();
+    }
 }

@@ -46,6 +46,7 @@ public abstract class DungeonLoader {
         String type = json.getString("type");
         int x = json.getInt("x");
         int y = json.getInt("y");
+        int id;
 
         Entity entity = null;
         switch (type) {
@@ -66,12 +67,14 @@ public abstract class DungeonLoader {
             entity = exit;
             break;
         case "door":
-            Door door = new Door(x, y, 1);
+            id = json.getInt("id");
+            Door door = new Door(x, y, id);
             onLoad(door);
             entity = door; 
             break;
         case "key":
-            Key key = new Key(x, y, 1);
+            id = json.getInt("id");
+            Key key = new Key(x, y, id);
             onLoad(key);
             entity = key;
             break;
