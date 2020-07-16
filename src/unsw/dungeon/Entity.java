@@ -13,9 +13,9 @@ public class Entity {
     // IntegerProperty is used so that changes to the entities position can be
     // externally observed.
     private IntegerProperty x, y;
-    Boolean impassible; 
-    Boolean item = false;
-    String name;
+    private Boolean impassible; 
+    private String name;
+    private Boolean item = false;
 
     /**
      * Create an entity positioned in square (x,y)
@@ -43,12 +43,32 @@ public class Entity {
         return x().get();
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
 
+    public void setItem(Boolean item) {
+        this.item = item;
+    }
+
+    public Boolean getItem() {
+        return item;
+    }
+
     public int getId() {
         return -1;
+    }
+
+    public void setImpassible(Boolean impassible) {
+        this.impassible = impassible;
+    }
+
+    public Boolean isImpassible() {
+        return impassible;
     }
 
     public void process(Entity e) {

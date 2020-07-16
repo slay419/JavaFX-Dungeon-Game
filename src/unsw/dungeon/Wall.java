@@ -5,8 +5,8 @@ public class Wall extends Entity {
 
     public Wall(int x, int y) {
         super(x, y);
-        impassible = true;
-        name = "wall";
+        setImpassible(true);
+        setName("wall");
     }
 
 

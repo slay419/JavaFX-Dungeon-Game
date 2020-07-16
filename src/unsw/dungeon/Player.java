@@ -23,7 +23,7 @@ public class Player extends Entity {
         super(x, y);
         this.dungeon = dungeon;
         this.inventory = new Inventory(this);
-        name = "player";
+        setName("player");
     }
     // 0 is the top
     public void moveUp() {
@@ -106,7 +106,7 @@ public class Player extends Entity {
             int entityY = e.getY();
             //System.out.println("entityY is: " + entityY);
             
-            if (entityX == x && entityY == y && e.impassible) {
+            if (entityX == x && entityY == y && e.isImpassible()) {
                 System.out.println("Found an impassible object!");
                 //Now we're going to check the type of impassible object
                 if(e instanceof Door){

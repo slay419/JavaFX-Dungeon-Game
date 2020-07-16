@@ -11,8 +11,9 @@ public class Treasure extends Entity {
      */
     public Treasure(int x, int y) {
         super(x, y);
-        impassible = false;
-        name = "treasure";
+        setImpassible(false);
+        setName("treasure");
+        setItem(true);
     }
     
 }

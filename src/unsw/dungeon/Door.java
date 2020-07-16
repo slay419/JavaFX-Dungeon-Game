@@ -14,8 +14,8 @@ public class Door extends Entity {
     public Door(int x, int y, int id){
         super(x, y);
         this.id = id;
-        impassible = true;
-        name = "door";
+        setImpassible(true);
+        setName("door");
     }
 
     @Override
@@ -25,14 +25,6 @@ public class Door extends Entity {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Boolean getImpassible() {
-        return impassible;
-    }
-
-    public void setImpassible(Boolean impassible) {
-        this.impassible = impassible;
     }
 
     public void openDoor(){

@@ -12,9 +12,9 @@ public class Key extends Entity{
     public Key(int x, int y, int id){
         super(x, y);
         this.id = id;
-        impassible = false;
-        item = true;
-        name = "key";
+        setImpassible(false);
+        setName("key");
+        setItem(true);
     }
 
     @Override
