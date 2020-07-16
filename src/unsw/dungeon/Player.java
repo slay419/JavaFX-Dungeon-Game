@@ -87,7 +87,7 @@ public class Player extends Entity {
     private void processImpassible(String name) {
         switch (name) {
         case "door":
-
+            
 
 
 
