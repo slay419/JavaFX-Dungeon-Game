@@ -4,27 +4,35 @@ import java.util.ArrayList;
 
 public class Boulder extends Entity {
     
-    private int x;
-    private int y;
+    //private int x;
+    //private int y;
 
     public Boulder(int x, int y){
         super(x, y);
-        this.x = x;
-        this.y = y;
+        //this.x = x;
+        //this.y = y;
         setImpassible(true);
         setName("boulder");
     }
 
     @Override
     public void process(Player player) {
+        System.out.println("Current position is: " + "(" + getX() + ", " + getY() + ")");
         int playerX = player.getX();
         int playerY = player.getY();
-        int futureX = getBoulderFuturePos(playerX, this.x);
-        int futureY = getBoulderFuturePos(playerY, this.y);
+        int futureX = getBoulderFuturePos(playerX, getX());
+        
+        int futureY = getBoulderFuturePos(playerY, getY());
+        
 
         //Check if currently on a Switch
-        Entity currentSwitch = checkSwitchPos(this.x, this.y, player);
+        Entity currentSwitch = checkSwitchPos(getX(), getY(), player);
         Entity futureSwitch = checkSwitchPos(futureX, futureY, player);
+        if (futureSwitch != null) {
+            System.out.println("Switch position is: " + "(" + futureSwitch.getX() + ", " + futureSwitch.getY() + ")");
+        } else {
+            System.out.println("Did not find a switch");
+        }
 
         ArrayList<Entity> entityList = player.getEntityList(futureX, futureY);
 
@@ -50,9 +58,9 @@ public class Boulder extends Entity {
      */
     private int getBoulderFuturePos(int playerPos, int boulderPos){
         int futurePos = 0;
-        for (int direction = -1; direction < 1; direction++){
+        for (int direction = -1; direction <= 1; direction++){
             if(playerPos + direction == boulderPos){
-                futurePos = this.x + direction;
+                futurePos = boulderPos + direction;
                 break;
             }
         }
@@ -62,7 +70,11 @@ public class Boulder extends Entity {
     //Checks if there is a switch at a given position
     private Entity checkSwitchPos(int x, int y, Player player){
         ArrayList<Entity> entityList = player.getEntityList(x, y);
-        Entity entity = checkEntityList(entityList, "floorswitch");
+        System.out.println(entityList);
+        if (entityList == null) {
+            return null;
+        }
+        Entity entity = checkEntityList(entityList, "floorSwitch");
         return entity;
     }
 
@@ -73,10 +85,13 @@ public class Boulder extends Entity {
     }
 
     private void moveBoulder(int x, int y){
-        setX(x);
-        setY(y);
+        setXPos(x);
+        setYPos(y);
+        //setX(x);
+        //setY(y);
     }
 
+    /*
     public int getX() {
         return x;
     }
@@ -84,7 +99,7 @@ public class Boulder extends Entity {
     public void setX(int x) {
         this.x = x;
     }
-
+    
     public int getY() {
         return y;
     }
@@ -92,4 +107,5 @@ public class Boulder extends Entity {
     public void setY(int y) {
         this.y = y;
     }
+    */
 }

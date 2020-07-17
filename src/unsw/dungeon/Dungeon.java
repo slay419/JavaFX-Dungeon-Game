@@ -74,10 +74,12 @@ public class Dungeon {
         for (Entity e : entities) {
             int entityX = e.getX();
             int entityY = e.getY();
+            System.out.println("Entity: " + e.getName() + " is at: (" + entityX + ", " + entityY + ")");
             
             ArrayList<Entity> eList = new ArrayList<>();
             if (entityX == x && entityY == y && !(e instanceof Player)) {
                 eList.add(e);
+                System.out.println("Added entity: " + e.getName() + " to the list");
             }
             if(!eList.isEmpty()){
                 return eList;

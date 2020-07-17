@@ -89,6 +89,17 @@ public abstract class DungeonLoader {
             onLoad(portal);
             entity = portal;
             break;
+        case "boulder": 
+            Boulder boulder = new Boulder(x, y);
+            onLoad(boulder);
+            entity = boulder;
+            break;
+        case "switch":
+            FloorSwitch floorSwitch = new FloorSwitch(x, y);
+            onLoad(floorSwitch);
+            entity = floorSwitch;
+            break;
+
         // TODO Handle other possible entities
         }
         dungeon.addEntity(entity);
@@ -105,6 +116,10 @@ public abstract class DungeonLoader {
     public abstract void onLoad(Key key);
 
     public abstract void onLoad(Treasure treasure);
+
+    public abstract void onLoad(Boulder boulder);
+
+    public abstract void onLoad(FloorSwitch floorSwitch);
 
     public abstract void onLoad(Portal portal);
 

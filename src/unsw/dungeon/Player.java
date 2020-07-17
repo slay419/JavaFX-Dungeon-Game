@@ -81,6 +81,7 @@ public class Player extends Entity {
             System.out.println("Found entity: " + entity.getName());
             entity.process(this);  
         } 
+        //dungeon.displayEntities();
     } 
 
     /**
@@ -91,11 +92,23 @@ public class Player extends Entity {
      * @return
      */
     public Boolean checkImpassible(int x, int y) {
-        Entity entity = dungeon.getEntity(x, y);
-        if (entity == null) {
+        //Entity entity = dungeon.getEntity(x, y);
+        System.out.println("==============");
+        ArrayList<Entity> entityList = dungeon.getEntityList(x, y);
+        System.out.println(entityList);
+        if (entityList == null) {
+            System.out.println("found nothing");
             return false;
         }
-        return entity.isImpassible();
+        for (Entity e : entityList) {
+            if (e.isImpassible()) {
+                return true;
+            }
+            
+        }
+        System.out.println("All entities here were passible");
+        System.out.println("=======================");
+        return false;
     }
 
     /**
