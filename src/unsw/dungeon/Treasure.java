@@ -26,7 +26,6 @@ public class Treasure extends Entity {
         Inventory inventory = player.getInventory();
         inventory.add(this);
         System.out.println("Added treasure number: " + inventory.countTreasure() + " to inventory!");
-        //dungeon.removeEntity(entity);
     }
 
     

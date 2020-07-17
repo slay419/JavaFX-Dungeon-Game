@@ -1,6 +1,6 @@
 package unsw.dungeon;
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.property.IntegerProperty;
@@ -69,47 +69,19 @@ public class Player extends Entity {
         // Check if the next tile is impassible or not 
         if (!checkImpassible(x, y)) {
             // Move the player if it's not impassible
-            x().set(x);
-            y().set(y);
+            setXPos(x);
+            setYPos(y);
         }
         // Always process the tile the player would move/has moved to
         
         // This line basically replaces all switch statements
         // Calls the entity process method in the child class
         Entity entity = dungeon.getEntity(x, y);
-        entity.process(this);  
-
+        if (entity != null) {
+            System.out.println("Found entity: " + entity.getName());
+            entity.process(this);  
+        } 
     } 
-    
-    /**
-     * Processes the impassible object at the given tile coordinate
-     * e.g. if processing the door, then perform key check
-     * @param name
-     */
-    private void processTile(int x, int y) {
-        Entity entity = dungeon.getEntity(x, y);
-        if (entity == null) {
-            return;
-        }
-        // This line basically replaces all switch statements
-        entity.process(this);
-
-        /*
-        String name = entity.getName();
-        switch (name) {
-        case "door":
-            ((Door) entity).process(inventory);
-            break;
-        case "key":
-            ((Key) entity).process(inventory);
-            //processItem(entity);
-            break;
-        case "treasure":
-            (entity).process(inventory);
-            //processItem(entity);
-        }
-        */
-    }
 
     /**
      * Checks the coordinates to see if the entity there is impassible and allows 
@@ -137,16 +109,13 @@ public class Player extends Entity {
     public Inventory getInventory() {
         return inventory;
     }
-   
 
-    private Boolean reachedExit() {
-        // Loop through dungeon entities and find the exit 
-        List<Entity> levelEntities = dungeon.getEntities();
-
-        for (Entity e : levelEntities) {
-             e.getName().equals("exit");
-             return true;
-        }
-        return false;
+    /**
+     * Searches the level for a list of matching entities
+     * @return
+     */
+    public ArrayList<Entity> levelEntites(String name) {
+        return dungeon.findEntities(name);
     }
+   
 }
