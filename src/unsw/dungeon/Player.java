@@ -138,7 +138,6 @@ public class Player extends Entity {
         return inventory;
     }
    
-
     private Boolean reachedExit() {
         // Loop through dungeon entities and find the exit 
         List<Entity> levelEntities = dungeon.getEntities();
@@ -148,5 +147,9 @@ public class Player extends Entity {
              return true;
         }
         return false;
+    }
+
+    public Entity getEntity(int x, int y){
+        return dungeon.getEntity(x, y);
     }
 }
