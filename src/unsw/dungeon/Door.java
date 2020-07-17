@@ -30,6 +30,14 @@ public class Door extends Entity {
     public void openDoor(){
         setImpassible(false);
     }
+
+    @Override
+	public void process(Player player) {
+        Inventory inventory = player.getInventory();
+        if (inventory.checkKey(getId())) {
+            openDoor();
+        }
+	}
     
 
 }

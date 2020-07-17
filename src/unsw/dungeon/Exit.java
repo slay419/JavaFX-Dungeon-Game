@@ -17,5 +17,16 @@ public class Exit extends Entity {
         int exitX = getX(); 
         int exitY = getY();
         return exitX == x && exitY == y;
+    }   
+
+    @Override
+    public void process(Player player) {
+        int playerX = player.getX();
+        int playerY = player.getY();
+
+        if (reachedExit(playerX, playerY)) {
+            System.out.println("Reached the exit!");
+        }
     }
+
 }

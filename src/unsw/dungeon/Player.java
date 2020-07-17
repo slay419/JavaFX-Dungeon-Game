@@ -53,10 +53,10 @@ public class Player extends Entity {
     }
 
     // Check what entity exists at the current tile 
-    public void checkItem(Entity entity) {
+    public void processItem(Entity entity) {
         if (entity.isItem()) {
             inventory.add(entity);
-            dungeon.removeEntity(entity);
+            //dungeon.removeEntity(entity);
         }
     }
 
@@ -66,65 +66,78 @@ public class Player extends Entity {
      * @param y - future y position 
      */
     public void processMovement(int x, int y) {
-        Entity entity = dungeon.getEntity(x, y);
-        // Check if the next time is impassible or not 
+        // Check if the next tile is impassible or not 
         if (!checkImpassible(x, y)) {
             // Move the player if it's not impassible
             x().set(x);
             y().set(y);
-
-            // Check if there is an item at the given tile 
-            if (entity != null) {
-                checkItem(entity);
-            }
-        } else {
-            String name = entity.getName();
-            processImpassible(name);
         }
+        // Always process the tile the player would move/has moved to
+        
+        // This line basically replaces all switch statements
+        // Calls the entity process method in the child class
+        Entity entity = dungeon.getEntity(x, y);
+        entity.process(this);  
+
     } 
     
+    /**
+     * Processes the impassible object at the given tile coordinate
+     * e.g. if processing the door, then perform key check
+     * @param name
+     */
+    private void processTile(int x, int y) {
+        Entity entity = dungeon.getEntity(x, y);
+        if (entity == null) {
+            return;
+        }
+        // This line basically replaces all switch statements
+        entity.process(this);
 
-    private void processImpassible(String name) {
+        /*
+        String name = entity.getName();
         switch (name) {
         case "door":
-            
-
-
-
+            ((Door) entity).process(inventory);
+            break;
+        case "key":
+            ((Key) entity).process(inventory);
+            //processItem(entity);
+            break;
+        case "treasure":
+            (entity).process(inventory);
+            //processItem(entity);
         }
+        */
     }
 
-    // Checks if there exists an impassible object at this location 
+    /**
+     * Checks the coordinates to see if the entity there is impassible and allows 
+     * player movement
+     * @param x
+     * @param y
+     * @return
+     */
     public Boolean checkImpassible(int x, int y) {
-        // Go to dungeon and check if there is an entity at xy
-        List<Entity> levelEntities = dungeon.getEntities();
-        
-        for (Entity e : levelEntities) {
-            //System.out.println("Checking name: " + e.getName());
-            int entityX = e.getX();
-            //System.out.println("entityX is: " + entityX);
-            int entityY = e.getY();
-            //System.out.println("entityY is: " + entityY);
-            
-            if (entityX == x && entityY == y && e.isImpassible()) {
-                System.out.println("Found an impassible object!");
-                //Now we're going to check the type of impassible object
-                if(e instanceof Door){
-                    Door newDoor = (Door) e;
-                    if (inventory.checkKey(newDoor.getId())) {
-                        newDoor.openDoor();
-                    }                   
-
-                } else if (e instanceof Exit) {
-                    System.out.println("reached the exit");
-                }
-                return true;
-            }
-        }   
-        
-        //System.out.println("returning false");
-        return false;
+        Entity entity = dungeon.getEntity(x, y);
+        if (entity == null) {
+            return false;
+        }
+        return entity.isImpassible();
     }
+
+    /**
+     * Removes the item from the level
+     * @param entity
+     */
+    public void pickUp(Entity entity) {
+        dungeon.removeEntity(entity);
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+   
 
     private Boolean reachedExit() {
         // Loop through dungeon entities and find the exit 
