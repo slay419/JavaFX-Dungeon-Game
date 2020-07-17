@@ -78,6 +78,11 @@ public abstract class DungeonLoader {
             onLoad(key);
             entity = key;
             break;
+        case "treasure":
+            Treasure treasure = new Treasure(x, y);
+            onLoad(treasure);
+            entity = treasure;
+            break;
         // TODO Handle other possible entities
         }
         dungeon.addEntity(entity);

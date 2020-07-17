@@ -44,8 +44,9 @@ public class Inventory {
             addTreasure(t);
             System.out.println("Added Treasure to inventory!");
         }
-
+        player.pickUp(entity);
     }
+
 
     private void addTreasure(Treasure treasure) {
         this.treasure.add(treasure);

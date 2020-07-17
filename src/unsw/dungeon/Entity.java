@@ -68,19 +68,22 @@ public class Entity {
     }
 
     public Boolean isImpassible() {
+        if (impassible == true) {
+            System.out.println("Found an impassible object!");
+        }
         return impassible;
     }
+    
+    public void processItem(Entity entity, Dungeon dungeon) {
+        dungeon.removeEntity(entity);
 
-    public void process(Entity e) {
-        return;
     }
-
-    public void process(Entity e, Inventory inventory) {
-        return;
-    }
-
     public Boolean isItem() {
         return item;
     }
 
+    
+    public void process(Player player) {
+        return;
+    }
 }

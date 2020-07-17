@@ -1,6 +1,6 @@
 package unsw.dungeon;
 
-public class Key extends Entity{
+public class Key extends Entity {
     private int id;
 
     /**
@@ -32,5 +32,12 @@ public class Key extends Entity{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void process(Player player) {
+        Inventory inventory = player.getInventory();
+        inventory.add(this);
+        System.out.println("Added key with id: " + getId() + " to inventory!");
     }
 }
