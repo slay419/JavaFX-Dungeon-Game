@@ -1,5 +1,7 @@
 package unsw.dungeon;
 
+import java.util.ArrayList;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -43,6 +45,14 @@ public class Entity {
         return x().get();
     }
 
+    public void setXPos(int x) {
+        x().set(x);
+    }
+
+    public void setYPos(int y) {
+        y().set(y);
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -81,9 +91,19 @@ public class Entity {
     public Boolean isItem() {
         return item;
     }
-
     
     public void process(Player player) {
         return;
+    }
+
+    public Entity checkEntityList(ArrayList<Entity> eList, String name){
+        for(Entity e: eList){
+            if (e.getName().equals(name)){
+                System.out.println("Found entity " + name);
+                return e;
+            }
+        }
+        System.out.println("No entity was found");
+        return null;
     }
 }

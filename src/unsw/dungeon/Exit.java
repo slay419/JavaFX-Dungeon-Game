@@ -23,7 +23,6 @@ public class Exit extends Entity {
     public void process(Player player) {
         int playerX = player.getX();
         int playerY = player.getY();
-
         if (reachedExit(playerX, playerY)) {
             System.out.println("Reached the exit!");
         }

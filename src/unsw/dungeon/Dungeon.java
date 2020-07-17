@@ -62,11 +62,50 @@ public class Dungeon {
         for (Entity e : entities) {
             int entityX = e.getX();
             int entityY = e.getY();
-
-            if (entityX == x && entityY == y) {
+            
+            if (entityX == x && entityY == y && !(e instanceof Player)) {
                 return e;
             }
         }
         return null;
+    }
+
+    public ArrayList<Entity> getEntityList(int x, int y) {
+        for (Entity e : entities) {
+            int entityX = e.getX();
+            int entityY = e.getY();
+            
+            ArrayList<Entity> eList = new ArrayList<>();
+            if (entityX == x && entityY == y && !(e instanceof Player)) {
+                eList.add(e);
+            }
+            if(!eList.isEmpty()){
+                return eList;
+            }
+        }
+        return null;
+    }
+
+    public void displayEntities() {
+        for (Entity e: entities) {
+            if (e.getName().equals("wall")) {
+                continue;
+            }
+            System.out.println(e.getName() + "(" + e.getX() + ", " + e.getY() + ")");
+        }
+    }
+
+    /**
+     * Loops through the list of entities and returns a list of matching entity names
+     * @return
+     */
+    public ArrayList<Entity> findEntities(String name) {
+        ArrayList<Entity> result = new ArrayList<Entity>();
+        for (Entity e : entities) {
+            if (e.getName().equals(name)) {
+                result.add(e);
+            }
+        }
+        return result;
     }
 }

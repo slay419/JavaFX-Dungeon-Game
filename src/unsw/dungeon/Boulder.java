@@ -1,7 +1,8 @@
 package unsw.dungeon;
 
+import java.util.ArrayList;
 
-public class Boulder extends Entity{
+public class Boulder extends Entity {
     
     private int x;
     private int y;
@@ -21,10 +22,24 @@ public class Boulder extends Entity{
         int futureX = getBoulderFuturePos(playerX, this.x);
         int futureY = getBoulderFuturePos(playerY, this.y);
 
-        if(player.getEntity(futureX, futureY) == null){
-            setX(futureX);
-            setY(futureY);
+        //Check if currently on a Switch
+        Entity currentSwitch = checkSwitchPos(this.x, this.y, player);
+        Entity futureSwitch = checkSwitchPos(futureX, futureY, player);
+
+        ArrayList<Entity> entityList = player.getEntityList(futureX, futureY);
+
+        //Case 1, there's nothing
+        if(entityList == null){
+            moveBoulder(futureX, futureY);
+            processSwitch(currentSwitch, player);
         }
+        //Case 2, there's a floorswitch and nothing on it
+        else if(futureSwitch != null){
+            moveBoulder(futureX, futureY);
+            processSwitch(currentSwitch, player);
+            processSwitch(futureSwitch, player);
+        }
+        //Case 3, there's a floorswitch with a boulder on it
     }
 
     /**
@@ -42,6 +57,24 @@ public class Boulder extends Entity{
             }
         }
         return futurePos;
+    }
+
+    //Checks if there is a switch at a given position
+    private Entity checkSwitchPos(int x, int y, Player player){
+        ArrayList<Entity> entityList = player.getEntityList(x, y);
+        Entity entity = checkEntityList(entityList, "floorswitch");
+        return entity;
+    }
+
+    private void processSwitch(Entity floorSwitch, Player player){
+        if(floorSwitch != null){
+            floorSwitch.process(player);
+        }
+    }
+
+    private void moveBoulder(int x, int y){
+        setX(x);
+        setY(y);
     }
 
     public int getX() {
