@@ -8,6 +8,11 @@
       "type": "wall"
     },
     {
+      "x": 5,
+      "y": 4,
+      "type": "switch"
+    },
+    {
       "x": 3,
       "y": 0,
       "type": "wall"

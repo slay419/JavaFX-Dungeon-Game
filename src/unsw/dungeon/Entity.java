@@ -99,11 +99,9 @@ public class Entity {
     public Entity checkEntityList(ArrayList<Entity> eList, String name){
         for(Entity e: eList){
             if (e.getName().equals(name)){
-                System.out.println("Found entity " + name);
                 return e;
             }
         }
-        System.out.println("No entity was found");
         return null;
     }
 }

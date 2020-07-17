@@ -71,21 +71,20 @@ public class Dungeon {
     }
 
     public ArrayList<Entity> getEntityList(int x, int y) {
+        ArrayList<Entity> eList = new ArrayList<>();
         for (Entity e : entities) {
             int entityX = e.getX();
             int entityY = e.getY();
-            System.out.println("Entity: " + e.getName() + " is at: (" + entityX + ", " + entityY + ")");
             
-            ArrayList<Entity> eList = new ArrayList<>();
             if (entityX == x && entityY == y && !(e instanceof Player)) {
                 eList.add(e);
-                System.out.println("Added entity: " + e.getName() + " to the list");
             }
-            if(!eList.isEmpty()){
-                return eList;
-            }
+            
         }
-        return null;
+        if (eList.isEmpty()) {
+            return null;
+        }
+        return eList;
     }
 
     public void displayEntities() {
@@ -93,7 +92,6 @@ public class Dungeon {
             if (e.getName().equals("wall")) {
                 continue;
             }
-            System.out.println(e.getName() + "(" + e.getX() + ", " + e.getY() + ")");
         }
     }
 

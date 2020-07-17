@@ -12,8 +12,7 @@ public class FloorSwitch extends Entity {
         
     }
 
-    @Override
-    public void process(Player player){
+    public void processSwitch(Player player){
         if (isTriggered()){
             System.out.println("Turning off switch");
             setTriggered(false);

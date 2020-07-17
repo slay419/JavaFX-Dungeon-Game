@@ -66,6 +66,9 @@ public class Player extends Entity {
      * @param y - future y position 
      */
     public void processMovement(int x, int y) {
+
+        ArrayList<Entity> entityList = dungeon.getEntityList(x, y);
+
         // Check if the next tile is impassible or not 
         if (!checkImpassible(x, y)) {
             // Move the player if it's not impassible
@@ -76,12 +79,13 @@ public class Player extends Entity {
         
         // This line basically replaces all switch statements
         // Calls the entity process method in the child class
-        Entity entity = dungeon.getEntity(x, y);
-        if (entity != null) {
-            System.out.println("Found entity: " + entity.getName());
-            entity.process(this);  
-        } 
-        //dungeon.displayEntities();
+        //Entity entity = dungeon.getEntity(x, y);
+        if (entityList != null) {
+            for (Entity e : entityList) {
+                e.process(this);
+            }
+        }
+
     } 
 
     /**
@@ -92,12 +96,8 @@ public class Player extends Entity {
      * @return
      */
     public Boolean checkImpassible(int x, int y) {
-        //Entity entity = dungeon.getEntity(x, y);
-        System.out.println("==============");
         ArrayList<Entity> entityList = dungeon.getEntityList(x, y);
-        System.out.println(entityList);
         if (entityList == null) {
-            System.out.println("found nothing");
             return false;
         }
         for (Entity e : entityList) {
@@ -106,8 +106,6 @@ public class Player extends Entity {
             }
             
         }
-        System.out.println("All entities here were passible");
-        System.out.println("=======================");
         return false;
     }
 

@@ -17,7 +17,6 @@ public class Boulder extends Entity {
 
     @Override
     public void process(Player player) {
-        System.out.println("Current position is: " + "(" + getX() + ", " + getY() + ")");
         int playerX = player.getX();
         int playerY = player.getY();
         int futureX = getBoulderFuturePos(playerX, getX());
@@ -28,14 +27,8 @@ public class Boulder extends Entity {
         //Check if currently on a Switch
         Entity currentSwitch = checkSwitchPos(getX(), getY(), player);
         Entity futureSwitch = checkSwitchPos(futureX, futureY, player);
-        if (futureSwitch != null) {
-            System.out.println("Switch position is: " + "(" + futureSwitch.getX() + ", " + futureSwitch.getY() + ")");
-        } else {
-            System.out.println("Did not find a switch");
-        }
 
         ArrayList<Entity> entityList = player.getEntityList(futureX, futureY);
-
         //Case 1, there's nothing
         if(entityList == null){
             moveBoulder(futureX, futureY);
@@ -46,6 +39,8 @@ public class Boulder extends Entity {
             moveBoulder(futureX, futureY);
             processSwitch(currentSwitch, player);
             processSwitch(futureSwitch, player);
+        } else {
+            System.out.println("IS THIS BRANCH MEANT TO TRIGGER");
         }
         //Case 3, there's a floorswitch with a boulder on it
     }
@@ -70,7 +65,6 @@ public class Boulder extends Entity {
     //Checks if there is a switch at a given position
     private Entity checkSwitchPos(int x, int y, Player player){
         ArrayList<Entity> entityList = player.getEntityList(x, y);
-        System.out.println(entityList);
         if (entityList == null) {
             return null;
         }
@@ -80,15 +74,13 @@ public class Boulder extends Entity {
 
     private void processSwitch(Entity floorSwitch, Player player){
         if(floorSwitch != null){
-            floorSwitch.process(player);
+            ((FloorSwitch) floorSwitch).processSwitch(player);
         }
     }
 
     private void moveBoulder(int x, int y){
         setXPos(x);
         setYPos(y);
-        //setX(x);
-        //setY(y);
     }
 
     /*
