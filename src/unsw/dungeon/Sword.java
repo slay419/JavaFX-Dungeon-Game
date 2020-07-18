@@ -15,8 +15,13 @@ public class Sword extends Entity{
     @Override
     public void process(Player player) {
         Inventory inventory = player.getInventory();
-        inventory.add(this);
-        System.out.println("Added Sword to inventory!");
+        if(!inventory.hasSword()){
+            inventory.add(this);
+            System.out.println("Added Sword to inventory!");
+        }
+        else{
+            System.out.println("There is already a sword in the inventory!");
+        }
     }
 
     public void consumeCharge(){

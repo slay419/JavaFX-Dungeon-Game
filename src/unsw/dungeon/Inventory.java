@@ -46,6 +46,11 @@ public class Inventory {
             addTreasure(t);
             System.out.println("Added Treasure to inventory!");
         }
+        else if (entity instanceof Sword) {
+            Sword s = (Sword) entity;
+            addSword(s);
+            System.out.println("Added Sword to inventory!");
+        }
         player.pickUp(entity);
     }
 
@@ -56,6 +61,10 @@ public class Inventory {
 
     private void addKey(Key key) {
         this.keys.add(key);
+    }
+
+    private void addSword(Sword sword){
+        this.weapons.add(sword);
     }
 
     public void useKey(){
@@ -75,5 +84,14 @@ public class Inventory {
 
     public Boolean hasKey(){
         return !keys.isEmpty();
+    }
+
+    public Boolean hasSword(){
+        for (Entity e: weapons){
+            if (e.getName().equals("sword")){
+                return true;
+            }
+        }
+        return false;
     }
 }
