@@ -5,9 +5,11 @@ import java.util.List;
 
 public class Inventory {
     private Player player;
-    private List<Key> keys;
+    //private List<Key> keys;
+    private Key key;
     private List<Treasure> treasure;
-    private List<Entity> weapons;
+    //private List<Entity> weapons;
+    private Sword sword;
     private InvincibilityPotion potion;
     
     /**
@@ -16,20 +18,26 @@ public class Inventory {
      */
     public Inventory(Player player){
         this.player = player;
-        this.keys = new ArrayList<>();
+        //this.keys = new ArrayList<>();
         this.treasure = new ArrayList<>();
-        this.weapons = new ArrayList<>();
+        //this.weapons = new ArrayList<>();
     }
 
     //checkKey called when a player moves into an impassible door (closed door)
     //and checks if the ID of the door matches any of the key ID's in the inventory
     public Boolean checkKey(int id){
+        /*
         for(Key k: keys){
             if(k.checkKey(id)){
                 return true;
             }
         }
         return false;
+        */
+        if (key == null) {
+            return false;
+        }
+        return key.getId() == id;
     }
 
     /**
@@ -51,6 +59,9 @@ public class Inventory {
             Sword s = (Sword) entity;
             addSword(s);
             System.out.println("Added Sword to inventory!");
+        } else if (entity instanceof InvincibilityPotion) {
+            InvincibilityPotion potion = (InvincibilityPotion) entity;
+            addPotion(potion);
         }
         player.pickUp(entity);
     }
@@ -61,15 +72,21 @@ public class Inventory {
     }
 
     private void addKey(Key key) {
-        this.keys.add(key);
+        this.key = key;
+        //this.keys.add(key);
     }
 
     private void addSword(Sword sword){
-        this.weapons.add(sword);
+        this.sword = sword;
+    }
+
+    private void addPotion(InvincibilityPotion potion) {
+        this.potion = potion;
     }
 
     public void useKey(){
-        this.keys.clear();
+        this.key = null;
+        //this.keys.clear();
     }
 
     public int countTreasure() {
@@ -83,20 +100,47 @@ public class Inventory {
     /**
      * @return true if a sword or potion exists in the inventory 
      */
-    public Boolean hasWeapon() {
-        return !weapons.isEmpty();
+    public Boolean hasPotion() {
+        return potion != null;
     }
 
     public Boolean hasKey(){
-        return !keys.isEmpty();
+        return key != null;
     }
 
     public Boolean hasSword(){
+        /*
         for (Entity e: weapons){
             if (e.getName().equals("sword")){
                 return true;
             }
         }
         return false;
+        */
+        if (sword != null) {
+            return true;
+        } 
+        return false;
+    }
+
+    public void removeSword() {
+        sword = null;
+    }
+
+    public void useSword() {
+        sword.consumeCharge();
+        if (sword.getCharges() == 0) {
+            removeSword();
+        }
+    }
+
+    public void usePotion() {
+        if (potion != null) {
+            potion.useCharge(player);
+        }
+    }
+
+    public void removePotion() {
+        potion = null;
     }
 }

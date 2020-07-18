@@ -47,12 +47,16 @@ public class DefaultEnemyState implements EnemyState {
                 enemy.setYPos(enemyY);
             } 
         }
+        if (enemy.isAttackingPlayer(player)) {
+            enemy.processEnemy(player);
+        }
 
     }
-
+    /*
     public void interact(Player player) {
+        // Check if player has sword equipped 
         System.out.println("Killed the player!");
     }
-
+    */
 
 }

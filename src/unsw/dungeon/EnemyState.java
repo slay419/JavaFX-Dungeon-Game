@@ -9,7 +9,7 @@ public interface EnemyState {
 
     void move(Player player);
 
-	void interact(Player player);
+	//void interact(Player player);
 
 
 

@@ -69,13 +69,15 @@ public class EscapeEnemyState implements EnemyState {
                 enemy.setYPos(enemyY);
             } 
         }
+        if (enemy.isAttackingPlayer(player)) {
+            enemy.processEnemy(player);
+        }
     }
+    /*
 
-    /**
-     * Removes the enemy from the entitiy list
-     */
     public void interact(Player player) {
         System.out.println("The player killed the enemy!");
         player.killEnemy(enemy);
     }
+    */
 }

@@ -70,8 +70,8 @@ public class Player extends Entity {
     public void processMovement(int x, int y) {
 
         ArrayList<Entity> entityList = dungeon.getEntityList(x, y);
-        moveEnemies();
-
+        
+        processPotion();
         // Check if the next tile is impassible or not 
         if (!checkImpassible(x, y)) {
             // Move the player if it's not impassible
@@ -88,7 +88,8 @@ public class Player extends Entity {
                 e.process(this);
             }
         }
-
+        
+        moveEnemies();
         
 
     } 
@@ -145,7 +146,7 @@ public class Player extends Entity {
      * @return - true if the player has a sword or potion in their inventory 
      */
     public Boolean isInvincible() {
-        return inventory.hasWeapon();
+        return inventory.hasPotion();
     }
     
     /**
@@ -161,4 +162,17 @@ public class Player extends Entity {
     public void killEnemy(Entity enemy) {
         dungeon.removeEntity(enemy);
     }
+
+    public void useSword() {
+        inventory.useSword();
+    }
+
+    public Boolean hasSword() {
+        return inventory.hasSword();
+    }
+
+    public void processPotion() {
+        inventory.usePotion();
+    }
+
 }

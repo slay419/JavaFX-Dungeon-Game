@@ -3,6 +3,47 @@
   "height": 18,
   "entities": [
     {
+      "x": 2,
+      "y": 17,
+      "type": "enemy"
+    },
+    {
+      "x": 18,
+      "y": 15,
+      "type": "enemy"
+    },
+    {
+      "x": 18,
+      "y": 14,
+      "type": "enemy"
+    },
+    {
+      "x": 18,
+      "y": 13,
+      "type": "enemy"
+    },
+    {
+      "x": 18,
+      "y": 12,
+      "type": "enemy"
+    },
+    {
+      "x": 18,
+      "y": 11,
+      "type": "enemy"
+    },
+    {
+      "x": 18,
+      "y": 10,
+      "type": "enemy"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "id": 0,
+      "type": "sword"
+    },
+    {
       "x": 8,
       "y": 15,
       "id": 0,
@@ -40,7 +81,7 @@
     {
       "x": 1,
       "y": 9,
-      "type": "treasure"
+      "type": "boulder"
     },
     {
       "x": 0,

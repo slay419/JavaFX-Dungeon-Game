@@ -5,7 +5,7 @@
     {
       "x": 6,
       "y": 1,
-      "type": "treasure"
+      "type": "sword"
     },
     {
       "x": 0,
@@ -385,6 +385,11 @@
     {
       "x": 11,
       "y": 10,
+      "type": "invincibility"
+    },
+    {
+      "x": 15,
+      "y": 12,
       "type": "invincibility"
     },
     {

@@ -23,8 +23,7 @@ public class Enemy extends Entity {
     /**
      * This function will only be called if the player moves onto the same tile as the enemy
      */
-    @Override
-    public void process(Player player) {
+    public void processEnemy(Player player) {
         interactWithPlayer(player);
     }
 
@@ -42,7 +41,15 @@ public class Enemy extends Entity {
     }
 
     private void interactWithPlayer(Player player) {
-        currentState.interact(player);
+        //currentState.interact(player);
+        if (player.isInvincible()) {
+            player.killEnemy(this);
+        } else if (player.hasSword()) {
+            player.useSword();
+            player.killEnemy(this);
+        } else {
+            System.out.println("You died");
+        }
     }
 
     /**
@@ -104,5 +111,11 @@ public class Enemy extends Entity {
         int enemyY = this.getY();
 
         return playerY - enemyY;
+    }
+
+    public Boolean isAttackingPlayer(Player player) {
+        int playerX = player.getX();
+        int playerY = player.getY();
+        return playerX == this.getX() && playerY == this.getY();
     }
 }

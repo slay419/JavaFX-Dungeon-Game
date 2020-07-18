@@ -140,13 +140,10 @@ public abstract class DungeonLoader {
 
     public abstract void onLoad(Enemy enemy);
 
-<<<<<<< HEAD
     public abstract void onLoad(InvincibilityPotion invincibilityPotion);
     
-=======
     public abstract void onLoad(Sword sword);
 
     // TODO Create additional abstract methods for the other entities
->>>>>>> master
 
 }

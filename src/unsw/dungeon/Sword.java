@@ -17,7 +17,6 @@ public class Sword extends Entity{
         Inventory inventory = player.getInventory();
         if(!inventory.hasSword()){
             inventory.add(this);
-            System.out.println("Added Sword to inventory!");
         }
         else{
             System.out.println("There is already a sword in the inventory!");
@@ -26,6 +25,11 @@ public class Sword extends Entity{
 
     public void consumeCharge(){
         this.charges = this.charges - 1;
+        System.out.println("Sword now has: " + this.charges + " charges left");
+    }
+
+    public int getCharges() {
+        return charges;
     }
 
 }
