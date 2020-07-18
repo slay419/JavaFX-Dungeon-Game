@@ -109,7 +109,13 @@ public abstract class DungeonLoader {
             onLoad(potion);
             entity = potion;
             break;
-        
+        case "sword":
+            Sword sword = new Sword(x, y);
+            onLoad(sword);
+            entity = sword;
+            break;
+
+        // TODO Handle other possible entities
         }
         dungeon.addEntity(entity);
     }
@@ -134,7 +140,13 @@ public abstract class DungeonLoader {
 
     public abstract void onLoad(Enemy enemy);
 
+<<<<<<< HEAD
     public abstract void onLoad(InvincibilityPotion invincibilityPotion);
     
+=======
+    public abstract void onLoad(Sword sword);
+
+    // TODO Create additional abstract methods for the other entities
+>>>>>>> master
 
 }

@@ -34,6 +34,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image boulderImage;
     private Image floorSwitchImage;
     private Image enemyImage;
+    private Image swordImage;
     private Image potionImage;
 
     public DungeonControllerLoader(String filename)
@@ -50,6 +51,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         boulderImage = new Image((new File("images/boulder.png")).toURI().toString());
         floorSwitchImage = new Image((new File("images/pressure_plate.png")).toURI().toString());
         enemyImage = new Image((new File("images/hound.png")).toURI().toString());
+        swordImage = new Image((new File("images/greatsword_1_new.png")).toURI().toString()); 
         potionImage = new Image((new File("images/bubbly.png")).toURI().toString());
     }
 
@@ -117,6 +119,11 @@ public class DungeonControllerLoader extends DungeonLoader {
     public void onLoad(InvincibilityPotion potion) {
         ImageView view = new ImageView(potionImage);
         addEntity(potion, view);
+        
+    @Override
+    public void onLoad(Sword sword) {
+        ImageView view = new ImageView(swordImage);
+        addEntity(sword, view);
     }
 
 
