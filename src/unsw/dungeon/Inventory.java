@@ -58,6 +58,10 @@ public class Inventory {
         this.keys.add(key);
     }
 
+    public void useKey(){
+        this.keys.clear();
+    }
+
     public int countTreasure() {
         return treasure.size();
     }
@@ -67,5 +71,9 @@ public class Inventory {
      */
     public Boolean hasWeapon() {
         return !weapons.isEmpty();
+    }
+
+    public Boolean hasKey(){
+        return !keys.isEmpty();
     }
 }
