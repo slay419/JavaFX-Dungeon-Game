@@ -37,7 +37,12 @@ public class Key extends Entity {
     @Override
     public void process(Player player) {
         Inventory inventory = player.getInventory();
-        inventory.add(this);
-        System.out.println("Added key with id: " + getId() + " to inventory!");
+        if(!inventory.hasKey()){
+            inventory.add(this);
+            System.out.println("Added key with id: " + getId() + " to inventory!");
+        }
+        else{
+            System.out.println("There is already a key in the inventory. New key wasn't picked up");
+        }
     }
 }
