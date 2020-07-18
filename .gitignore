@@ -5,3 +5,4 @@ hs_err_pid*
 /lib/
 .vscode/launch.json
 lib/symlink_javafx
+/build/
