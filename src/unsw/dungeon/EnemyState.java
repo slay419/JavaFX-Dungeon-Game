@@ -1,4 +1,4 @@
-package unsw;
+package unsw.dungeon;
 
 import unsw.dungeon.Player;
 
@@ -9,7 +9,7 @@ public interface EnemyState {
 
     void move(Player player);
 
-	void interact();
+	void interact(Player player);
 
 
 

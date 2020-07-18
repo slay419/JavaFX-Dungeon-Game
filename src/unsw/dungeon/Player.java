@@ -16,8 +16,6 @@ public class Player extends Entity {
     private Dungeon dungeon;
     private Inventory inventory;
 
-    //PlayerState defaultState;
-    //PlayerState invincibleState;
     /**
      * Create a player positioned in square (x,y)
      * @param x
@@ -158,5 +156,9 @@ public class Player extends Entity {
         for (Entity e : enemies) {
             ((Enemy) e).processMovement(this);
         }
+    }
+
+    public void killEnemy(Entity enemy) {
+        dungeon.removeEntity(enemy);
     }
 }

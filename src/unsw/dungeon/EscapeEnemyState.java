@@ -1,4 +1,4 @@
-package unsw;
+package unsw.dungeon;
 
 import unsw.dungeon.Enemy;
 import unsw.dungeon.Player;
@@ -10,6 +10,7 @@ public class EscapeEnemyState implements EnemyState {
     public EscapeEnemyState(Enemy enemy) {
         this.enemy = enemy;
     }
+   
 
     /**
      * In the escape state, the enemy will run away from the player
@@ -24,19 +25,40 @@ public class EscapeEnemyState implements EnemyState {
         int diffX = playerX - enemyX;
         int diffY = playerY - enemyY;
 
+        // Check to see if the enemy is further away in the x or y direction
         int maxDiff = Math.abs(diffX) - Math.abs(diffY);
         int futureX = enemyX - Integer.signum(diffX); 
         int futureY = enemyY - Integer.signum(diffY);
+
+        if (futureY == enemyY) {
+            futureY++;
+        }
+
+        if (futureX == enemyX) {
+            futureX++;
+        }
+
         if (maxDiff > 0) {
-            // Enemy is further along in x direction 
+            // Enemy is further along in x direction
             if (!player.checkImpassible(futureX, enemyY)) {
-                // Move the player if it's not impassible
+                //System.out.println("Checking coordinates 1: " + "(" + futureX + ", " + enemyY + ")");
+                // Move the enemy if it's not impassible
                 enemy.setXPos(futureX);
                 enemy.setYPos(enemyY);
             } else if (!player.checkImpassible(enemyX, futureY)) {
+                //System.out.println("Checking coordinates 2: " + "(" + enemyX + ", " + futureY + ")");
+                // If the enemy cant move left/right, then move up/down
                 enemy.setXPos(enemyX);
                 enemy.setYPos(futureY);
+            } 
+            /*
+            else if (!player.checkImpassible(enemyX, futureY - 2)) {
+                //System.out.println("Checking coordinates 3: " + "(" + futureX + ", " + (enemyY-2) + ")");
+                enemy.setXPos(enemyX);
+                System.out.println("future y is: " + (futureY - 2));
+                enemy.setYPos(futureY - 2);
             }
+            */
         } else {
             if (!player.checkImpassible(enemyX, futureY)) {
                 enemy.setXPos(enemyX);
@@ -49,8 +71,11 @@ public class EscapeEnemyState implements EnemyState {
         }
     }
 
-    public void interact() {
+    /**
+     * Removes the enemy from the entitiy list
+     */
+    public void interact(Player player) {
         System.out.println("The player killed the enemy!");
-
+        player.killEnemy(enemy);
     }
 }

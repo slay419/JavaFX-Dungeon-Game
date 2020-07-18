@@ -1,9 +1,5 @@
 package unsw.dungeon;
 
-import unsw.DefaultEnemyState;
-import unsw.EnemyState;
-import unsw.EscapeEnemyState;
-
 public class Enemy extends Entity {
 
     Dungeon dungeon;
@@ -21,7 +17,7 @@ public class Enemy extends Entity {
         this.dungeon = dungeon;
         defaultState = new DefaultEnemyState(this);
         escapeState = new EscapeEnemyState(this);
-        currentState = escapeState;
+        currentState = defaultState;
     }
 
     /**
@@ -29,7 +25,7 @@ public class Enemy extends Entity {
      */
     @Override
     public void process(Player player) {
-        interactWithPlayer();
+        interactWithPlayer(player);
     }
 
     /**
@@ -38,14 +34,15 @@ public class Enemy extends Entity {
      */
     private void setEnemyState(Player player) {
         if (player.isInvincible()) {
+            System.out.println("Changed enemy to escapeState");
             currentState = escapeState;
         } else {
             currentState = defaultState;
         }
     }
 
-    private void interactWithPlayer() {
-        currentState.interact();
+    private void interactWithPlayer(Player player) {
+        currentState.interact(player);
     }
 
     /**
@@ -53,7 +50,7 @@ public class Enemy extends Entity {
      * @param player
      */
     public void processMovement(Player player) {
-        //setEnemyState(player);
+        setEnemyState(player);
         currentState.move(player);
     }
 
@@ -83,5 +80,29 @@ public class Enemy extends Entity {
             this.setXPos(this.getX() + 1);
             this.setYPos(this.getY());
         }
+    }
+
+    /**
+     * This function returns how far right the player is of the enemy
+     * @param player
+     * @return
+     */
+    public int playerXDistance(Player player) {
+        int playerX = player.getX();
+        int enemyX = this.getX();
+
+        return playerX - enemyX;
+    }
+
+    /**
+     * This function returns how far below the player is of the enemy
+     * @param player
+     * @return
+     */
+    public int playerYDistance(Player player) {
+        int playerY = player.getY();
+        int enemyY = this.getY();
+
+        return playerY - enemyY;
     }
 }
