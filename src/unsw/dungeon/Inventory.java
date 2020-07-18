@@ -8,6 +8,7 @@ public class Inventory {
     private List<Key> keys;
     private List<Treasure> treasure;
     private List<Entity> weapons;
+    private InvincibilityPotion potion;
     
     /**
      * 
@@ -60,6 +61,10 @@ public class Inventory {
 
     public int countTreasure() {
         return treasure.size();
+    }
+
+    public InvincibilityPotion getPotion() {
+        return potion;
     }
 
     /**

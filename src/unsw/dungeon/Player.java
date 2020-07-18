@@ -70,7 +70,7 @@ public class Player extends Entity {
     public void processMovement(int x, int y) {
 
         ArrayList<Entity> entityList = dungeon.getEntityList(x, y);
-        moveEnemy();
+        moveEnemies();
 
         // Check if the next tile is impassible or not 
         if (!checkImpassible(x, y)) {
@@ -151,7 +151,7 @@ public class Player extends Entity {
     /**
      * Moves all the enemies in the dungeon
      */
-    public void moveEnemy() {
+    public void moveEnemies() {
         ArrayList<Entity> enemies = dungeon.findEntities("enemy");
         for (Entity e : enemies) {
             ((Enemy) e).processMovement(this);

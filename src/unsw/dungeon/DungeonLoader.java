@@ -104,8 +104,12 @@ public abstract class DungeonLoader {
             onLoad(enemy);
             entity = enemy;
             break;
-
-        // TODO Handle other possible entities
+        case "invincibility":
+            InvincibilityPotion potion = new InvincibilityPotion(x, y);
+            onLoad(potion);
+            entity = potion;
+            break;
+        
         }
         dungeon.addEntity(entity);
     }
@@ -130,6 +134,7 @@ public abstract class DungeonLoader {
 
     public abstract void onLoad(Enemy enemy);
 
-    // TODO Create additional abstract methods for the other entities
+    public abstract void onLoad(InvincibilityPotion invincibilityPotion);
+    
 
 }
