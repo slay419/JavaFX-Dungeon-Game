@@ -7,6 +7,7 @@ public class Inventory {
     private Player player;
     private List<Key> keys;
     private List<Treasure> treasure;
+    private List<Entity> weapons;
     
     /**
      * 
@@ -16,6 +17,7 @@ public class Inventory {
         this.player = player;
         this.keys = new ArrayList<>();
         this.treasure = new ArrayList<>();
+        this.weapons = new ArrayList<>();
     }
 
     //checkKey called when a player moves into an impassible door (closed door)
@@ -58,5 +60,12 @@ public class Inventory {
 
     public int countTreasure() {
         return treasure.size();
+    }
+
+    /**
+     * @return true if a sword or potion exists in the inventory 
+     */
+    public Boolean hasWeapon() {
+        return !weapons.isEmpty();
     }
 }

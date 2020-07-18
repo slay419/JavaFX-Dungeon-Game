@@ -1,5 +1,6 @@
 package unsw.dungeon;
 
+import java.lang.module.FindException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,9 @@ public class Player extends Entity {
 
     private Dungeon dungeon;
     private Inventory inventory;
+
+    //PlayerState defaultState;
+    //PlayerState invincibleState;
     /**
      * Create a player positioned in square (x,y)
      * @param x
@@ -24,6 +28,7 @@ public class Player extends Entity {
         this.dungeon = dungeon;
         this.inventory = new Inventory(this);
         setName("player");
+        //invincibleState = new InvincibleState(this); 
     }
     // 0 is the top
     public void moveUp() {
@@ -56,7 +61,6 @@ public class Player extends Entity {
     public void processItem(Entity entity) {
         if (entity.isItem()) {
             inventory.add(entity);
-            //dungeon.removeEntity(entity);
         }
     }
 
@@ -68,6 +72,7 @@ public class Player extends Entity {
     public void processMovement(int x, int y) {
 
         ArrayList<Entity> entityList = dungeon.getEntityList(x, y);
+        moveEnemy();
 
         // Check if the next tile is impassible or not 
         if (!checkImpassible(x, y)) {
@@ -79,12 +84,14 @@ public class Player extends Entity {
         
         // This line basically replaces all switch statements
         // Calls the entity process method in the child class
-        //Entity entity = dungeon.getEntity(x, y);
+
         if (entityList != null) {
             for (Entity e : entityList) {
                 e.process(this);
             }
         }
+
+        
 
     } 
 
@@ -104,7 +111,6 @@ public class Player extends Entity {
             if (e.isImpassible()) {
                 return true;
             }
-            
         }
         return false;
     }
@@ -136,5 +142,21 @@ public class Player extends Entity {
     public ArrayList<Entity> levelEntites(String name) {
         return dungeon.findEntities(name);
     }
-   
+
+    /**
+     * @return - true if the player has a sword or potion in their inventory 
+     */
+    public Boolean isInvincible() {
+        return inventory.hasWeapon();
+    }
+    
+    /**
+     * Moves all the enemies in the dungeon
+     */
+    public void moveEnemy() {
+        ArrayList<Entity> enemies = dungeon.findEntities("enemy");
+        for (Entity e : enemies) {
+            ((Enemy) e).processMovement(this);
+        }
+    }
 }

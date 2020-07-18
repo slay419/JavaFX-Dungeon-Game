@@ -99,6 +99,11 @@ public abstract class DungeonLoader {
             onLoad(floorSwitch);
             entity = floorSwitch;
             break;
+        case "enemy":
+            Enemy enemy = new Enemy(dungeon, x, y);
+            onLoad(enemy);
+            entity = enemy;
+            break;
 
         // TODO Handle other possible entities
         }
@@ -122,6 +127,8 @@ public abstract class DungeonLoader {
     public abstract void onLoad(FloorSwitch floorSwitch);
 
     public abstract void onLoad(Portal portal);
+
+    public abstract void onLoad(Enemy enemy);
 
     // TODO Create additional abstract methods for the other entities
 
