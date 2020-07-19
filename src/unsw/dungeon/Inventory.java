@@ -3,12 +3,12 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Inventory {
+public class Inventory implements Subject {
+    
+    private ArrayList<Observer> observers;
     private Player player;
-    //private List<Key> keys;
     private Key key;
     private List<Treasure> treasure;
-    //private List<Entity> weapons;
     private Sword sword;
     private InvincibilityPotion potion;
     
@@ -18,22 +18,27 @@ public class Inventory {
      */
     public Inventory(Player player){
         this.player = player;
-        //this.keys = new ArrayList<>();
-        this.treasure = new ArrayList<>();
-        //this.weapons = new ArrayList<>();
+        this.treasure = new ArrayList<Treasure>();
+        observers = new ArrayList<Observer>();
+    }
+
+    public void register(Observer o) {
+        observers.add(o);
+    }
+
+    public void unregister(Observer o) {
+        observers.remove(o);
+    }
+
+    public void notifyObserver() {
+        for (Observer o : observers) {
+            o.update(countTreasure());
+        }
     }
 
     //checkKey called when a player moves into an impassible door (closed door)
     //and checks if the ID of the door matches any of the key ID's in the inventory
     public Boolean checkKey(int id){
-        /*
-        for(Key k: keys){
-            if(k.checkKey(id)){
-                return true;
-            }
-        }
-        return false;
-        */
         if (key == null) {
             return false;
         }
@@ -69,6 +74,7 @@ public class Inventory {
 
     private void addTreasure(Treasure treasure) {
         this.treasure.add(treasure);
+        notifyObserver();
     }
 
     private void addKey(Key key) {
@@ -86,7 +92,6 @@ public class Inventory {
 
     public void useKey(){
         this.key = null;
-        //this.keys.clear();
     }
 
     public int countTreasure() {
@@ -109,14 +114,6 @@ public class Inventory {
     }
 
     public Boolean hasSword(){
-        /*
-        for (Entity e: weapons){
-            if (e.getName().equals("sword")){
-                return true;
-            }
-        }
-        return false;
-        */
         if (sword != null) {
             return true;
         } 
