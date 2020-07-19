@@ -13,11 +13,13 @@ public class Exit extends Entity {
      * @param y - y coordinates of the player
      * @return Boolean
      */
+    /*
     public Boolean reachedExit(int x, int y) {
         int exitX = getX(); 
         int exitY = getY();
         return exitX == x && exitY == y;
     }   
+    */
 
     public Boolean reachedExit(Player player) {
         int playerX = player.getX();
@@ -27,9 +29,7 @@ public class Exit extends Entity {
 
     @Override
     public void process(Player player) {
-        int playerX = player.getX();
-        int playerY = player.getY();
-        if (reachedExit(playerX, playerY)) {
+        if (reachedExit(player)) {
             System.out.println("Reached the exit!");
         }
     }
