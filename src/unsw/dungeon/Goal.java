@@ -1,20 +1,7 @@
 package unsw.dungeon;
 
-public class Goal implements Observer {
-    private int numTreasure; 
-    private Subject inventory;
+public interface Goal {
 
-    public Goal(Subject inventory) {
-        this.inventory = inventory;
-        inventory.register(this);
-    }
+    public void processGoal();
 
-    @Override
-    public void update(int numTreasure) {
-        setNumTreasure(numTreasure);
-    }
-
-    public void setNumTreasure(int numTreasure) {
-        this.numTreasure = numTreasure;
-    }
 }

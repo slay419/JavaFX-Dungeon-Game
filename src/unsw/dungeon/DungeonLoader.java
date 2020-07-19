@@ -36,6 +36,12 @@ public abstract class DungeonLoader {
 
         JSONArray jsonEntities = json.getJSONArray("entities");
 
+        JSONObject jsonGoals = json.getJSONObject("goal-condition");
+        String goal = jsonGoals.getString("goal");
+
+        loadGoal(dungeon, goal);
+        System.out.println("goal is; " + goal);
+
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
@@ -47,6 +53,8 @@ public abstract class DungeonLoader {
         int x = json.getInt("x");
         int y = json.getInt("y");
         int id;
+
+        ObserverBoulders boulderGoal;
 
         Entity entity = null;
         switch (type) {
@@ -63,6 +71,7 @@ public abstract class DungeonLoader {
             break;
         case "exit":
             Exit exit = new Exit(x, y);
+            ObserverExit subGoal = new SubGoal(exit);
             onLoad(exit);
             entity = exit;
             break;
@@ -96,6 +105,7 @@ public abstract class DungeonLoader {
             break;
         case "switch":
             FloorSwitch floorSwitch = new FloorSwitch(x, y);
+            boulderGoal = new SubGoal(floorSwitch);
             onLoad(floorSwitch);
             entity = floorSwitch;
             break;
@@ -118,6 +128,11 @@ public abstract class DungeonLoader {
         // TODO Handle other possible entities
         }
         dungeon.addEntity(entity);
+    }
+
+    private void loadGoal(Dungeon dungeon, String goal) {
+        //SubGoal subgoal = new SubGoal(goal);
+        //dungeon.setGoal(subgoal);
     }
 
     public abstract void onLoad(Entity player);

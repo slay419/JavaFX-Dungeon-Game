@@ -20,12 +20,17 @@ public class Dungeon {
     private int width, height;
     private List<Entity> entities;
     private Player player;
+    private SubGoal goal;
 
     public Dungeon(int width, int height) {
         this.width = width;
         this.height = height;
         this.entities = new ArrayList<>();
         this.player = null;
+    }
+
+    public void setGoal(SubGoal goal) {
+        this.goal = goal;
     }
 
     public int getWidth() {
@@ -112,4 +117,5 @@ public class Dungeon {
     public Boolean entityExists(Entity entity) {
         return entities.contains(entity);
     }
+
 }

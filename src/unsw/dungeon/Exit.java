@@ -1,30 +1,28 @@
 package unsw.dungeon;
 
-public class Exit extends Entity {
+import java.util.ArrayList;
+
+public class Exit extends Entity implements SubjectExit {
+
+    private ArrayList<ObserverExit> observers = new ArrayList<ObserverExit>();
+    private Boolean playerReached; 
+
     public Exit(int x, int y) {
         super(x, y);
+        playerReached = false;
         setImpassible(false);
         setName("exit");
     }
 
-    /**
-     * 
-     * @param x - x coordinates of the player
-     * @param y - y coordinates of the player
-     * @return Boolean
-     */
-    /*
-    public Boolean reachedExit(int x, int y) {
-        int exitX = getX(); 
-        int exitY = getY();
-        return exitX == x && exitY == y;
-    }   
-    */
-
     public Boolean reachedExit(Player player) {
         int playerX = player.getX();
         int playerY = player.getY();
-        return playerX == this.getX() && playerY == this.getY();
+        if (playerX == this.getX() && playerY == this.getY()) {
+            System.out.println("vefore notifying observer");
+            notifyObserver();
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -32,6 +30,26 @@ public class Exit extends Entity {
         if (reachedExit(player)) {
             System.out.println("Reached the exit!");
         }
+    }
+
+    @Override
+    public void register(ObserverExit o) {
+        observers.add(o);
+
+    }
+
+    @Override
+    public void unregister(ObserverExit o) {
+        observers.remove(o);
+
+    }
+
+    @Override
+    public void notifyObserver() {
+        for (ObserverExit o : observers) {
+            o.update();
+        }
+
     }
 
 }

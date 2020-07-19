@@ -3,9 +3,9 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Inventory implements Subject {
+public class Inventory {
     
-    private ArrayList<Observer> observers;
+    //private ArrayList<Observer> observers;
     private Player player;
     private Key key;
     private List<Treasure> treasure;
@@ -19,22 +19,9 @@ public class Inventory implements Subject {
     public Inventory(Player player){
         this.player = player;
         this.treasure = new ArrayList<Treasure>();
-        observers = new ArrayList<Observer>();
+        //observers = new ArrayList<Observer>();
     }
 
-    public void register(Observer o) {
-        observers.add(o);
-    }
-
-    public void unregister(Observer o) {
-        observers.remove(o);
-    }
-
-    public void notifyObserver() {
-        for (Observer o : observers) {
-            o.update(countTreasure());
-        }
-    }
 
     //checkKey called when a player moves into an impassible door (closed door)
     //and checks if the ID of the door matches any of the key ID's in the inventory
@@ -74,7 +61,7 @@ public class Inventory implements Subject {
 
     private void addTreasure(Treasure treasure) {
         this.treasure.add(treasure);
-        notifyObserver();
+        //notifyObserver();
     }
 
     private void addKey(Key key) {
