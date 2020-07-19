@@ -138,7 +138,7 @@ public abstract class DungeonLoader {
 
     // pass the json subgoals into dungeon
     private void loadGoal(Dungeon dungeon, String goal) {
-        dungeon.
+        //dungeon.
     }
 
     public abstract void onLoad(Entity player);
