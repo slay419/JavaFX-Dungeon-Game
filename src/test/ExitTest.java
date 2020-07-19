@@ -27,7 +27,7 @@ public class ExitTest {
     public void playerAtExit() {
         Dungeon d = new Dungeon(10, 10);
         Player player = new Player(d, 10, 10);
-        Exit exit = new Exit(10 ,10);
+        Exit exit = new Exit(10, 10);
         d.addEntity(player);
         d.addEntity(exit);
         assertTrue(exit.reachedExit(player));
@@ -36,8 +36,8 @@ public class ExitTest {
     @Test
     public void playerMoveToExit() {
         Dungeon d = new Dungeon(10, 10);
-        Player player = new Player(d, 10, 9);
-        Exit exit = new Exit(10 ,10);
+        Player player = new Player(d, 9, 8);
+        Exit exit = new Exit(9, 9);
         d.addEntity(player);
         d.addEntity(exit);
         assertFalse(exit.reachedExit(player));
