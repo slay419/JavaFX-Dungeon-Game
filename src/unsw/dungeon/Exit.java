@@ -19,6 +19,12 @@ public class Exit extends Entity {
         return exitX == x && exitY == y;
     }   
 
+    public Boolean reachedExit(Player player) {
+        int playerX = player.getX();
+        int playerY = player.getY();
+        return playerX == this.getX() && playerY == this.getY();
+    }
+
     @Override
     public void process(Player player) {
         int playerX = player.getX();
