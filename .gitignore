@@ -6,3 +6,4 @@ hs_err_pid*
 .vscode/launch.json
 lib/symlink_javafx
 /build/
+test.gradle
