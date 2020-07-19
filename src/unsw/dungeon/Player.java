@@ -26,7 +26,6 @@ public class Player extends Entity {
         this.dungeon = dungeon;
         this.inventory = new Inventory(this);
         setName("player");
-        //invincibleState = new InvincibleState(this); 
     }
     // 0 is the top
     public void moveUp() {
@@ -80,7 +79,6 @@ public class Player extends Entity {
         }
         // Always process the tile the player would move/has moved to
         
-        // This line basically replaces all switch statements
         // Calls the entity process method in the child class
 
         if (entityList != null) {
@@ -90,8 +88,6 @@ public class Player extends Entity {
         }
         
         moveEnemies();
-        
-
     } 
 
     /**

@@ -25,6 +25,15 @@ public class Enemy extends Entity {
      */
     public void processEnemy(Player player) {
         interactWithPlayer(player);
+    }   
+
+    public String getCurrentState() {
+        if (currentState == defaultState) {
+            return "defaultState";
+        } else if (currentState == escapeState) {
+            return "escapeState";
+        }
+        return "";
     }
 
     /**
@@ -49,6 +58,7 @@ public class Enemy extends Entity {
             player.killEnemy(this);
         } else {
             System.out.println("You died");
+            dungeon.removeEntity(player);
         }
     }
 

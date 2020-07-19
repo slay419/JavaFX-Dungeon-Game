@@ -108,4 +108,8 @@ public class Dungeon {
         }
         return result;
     }
+
+    public Boolean entityExists(Entity entity) {
+        return entities.contains(entity);
+    }
 }

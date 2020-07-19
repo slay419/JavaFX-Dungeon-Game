@@ -78,9 +78,6 @@ public class Entity {
     }
 
     public Boolean isImpassible() {
-        if (impassible == true) {
-            System.out.println("Found an impassible object!");
-        }
         return impassible;
     }
     
