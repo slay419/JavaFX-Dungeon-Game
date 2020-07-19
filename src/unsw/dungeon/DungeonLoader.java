@@ -48,14 +48,17 @@ public abstract class DungeonLoader {
         return dungeon;
     }
 
+    // Want to attach observers to all switch objects
+
     private void loadEntity(Dungeon dungeon, JSONObject json) {
         String type = json.getString("type");
         int x = json.getInt("x");
         int y = json.getInt("y");
         int id;
 
-        ObserverBoulders boulderGoal;
-
+        ObserverBoulders boulderGoal = new SubGoal();
+        ObserverExit subGoal = new SubGoal();
+        
         Entity entity = null;
         switch (type) {
         case "player":
@@ -71,7 +74,8 @@ public abstract class DungeonLoader {
             break;
         case "exit":
             Exit exit = new Exit(x, y);
-            ObserverExit subGoal = new SubGoal(exit);
+            //ObserverExit subGoal = new SubGoal(exit);
+            exit.register(subGoal);
             onLoad(exit);
             entity = exit;
             break;
@@ -105,7 +109,9 @@ public abstract class DungeonLoader {
             break;
         case "switch":
             FloorSwitch floorSwitch = new FloorSwitch(x, y);
-            boulderGoal = new SubGoal(floorSwitch);
+            floorSwitch.register(boulderGoal);
+            ((SubGoal) boulderGoal).incrementSwitches();
+            //boulderGoal = new SubGoal(floorSwitch);
             onLoad(floorSwitch);
             entity = floorSwitch;
             break;
@@ -130,9 +136,9 @@ public abstract class DungeonLoader {
         dungeon.addEntity(entity);
     }
 
+    // pass the json subgoals into dungeon
     private void loadGoal(Dungeon dungeon, String goal) {
-        //SubGoal subgoal = new SubGoal(goal);
-        //dungeon.setGoal(subgoal);
+        dungeon.
     }
 
     public abstract void onLoad(Entity player);

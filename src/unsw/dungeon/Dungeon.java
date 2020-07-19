@@ -118,4 +118,12 @@ public class Dungeon {
         return entities.contains(entity);
     }
 
+    // have a lsit of subgoals - from loading goals
+    // have a function that processes list and looks through subgoal 
+    // depening on subgoal e.g. exit 
+        // look for those entities and register them to observer 
+        // if floor switch subgoal then look for all switches and register them 
+    // All registered - works
+
+    // make sure load goals same as load entities
 }

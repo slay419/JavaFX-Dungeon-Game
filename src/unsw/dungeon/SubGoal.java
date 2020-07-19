@@ -8,14 +8,15 @@ public class SubGoal implements ObserverExit, ObserverBoulders {
     String goal;
     Boolean goalCompleted;
 
-    private int numSwitches = 0; 
+    private int numSwitches; 
 
     SubjectExit subjectExit;
 
     
-    public SubGoal(SubjectExit subject) {
-        this.subjectExit = subject;
-        subjectExit.register(this);
+    public SubGoal() {
+        this.numSwitches = 0;
+        //this.subjectExit = subject;
+        //subjectExit.register(this);
     }
 
     public void SubGoalOld(String goal) {
@@ -27,6 +28,7 @@ public class SubGoal implements ObserverExit, ObserverBoulders {
         return goalCompleted;
     }
 
+    /*
     @Override
     public void update() {
         switch (goal) {
@@ -38,10 +40,29 @@ public class SubGoal implements ObserverExit, ObserverBoulders {
             numSwitches--;
         }
     }
-
+    */
     @Override
-    public void update(asdasd)
+    public void update() {
+        System.out.println("Setting the subgoal: true");
+        goalCompleted = true;
+    }
 
-   
+    @Override 
+    public void update(String string) {
+        if (string.equals("increment")) {
+            System.out.println("num siwtches is: " + numSwitches);
+            incrementSwitches();
+        } else if (string.equals("decrement")) {
+            System.out.println("trying to decrement");
+            //decrementSwitches();
+            numSwitches--;
+        }
+    }
+
+    public void incrementSwitches() {
+        numSwitches++;
+        System.out.println("Increasing num switches to: " + numSwitches);
+    }
+    
 
 }
