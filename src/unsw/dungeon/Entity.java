@@ -65,10 +65,6 @@ public class Entity {
         this.item = item;
     }
 
-    public Boolean getItem() {
-        return item;
-    }
-
     public int getId() {
         return -1;
     }
@@ -81,10 +77,6 @@ public class Entity {
         return impassible;
     }
     
-    public void processItem(Entity entity, Dungeon dungeon) {
-        dungeon.removeEntity(entity);
-
-    }
     public Boolean isItem() {
         return item;
     }
@@ -93,6 +85,12 @@ public class Entity {
         return;
     }
 
+    /**
+     * Check if a specific entity exist given a list of entities
+     * @param eList The list of entities to be checked
+     * @param name The name of the entity
+     * @return The entity if found, otherwise null
+     */
     public Entity checkEntityList(ArrayList<Entity> eList, String name){
         for(Entity e: eList){
             if (e.getName().equals(name)){

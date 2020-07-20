@@ -13,17 +13,16 @@ public class FloorSwitch extends Entity implements SubjectBoulders {
         setImpassible(false);
         setName("floorSwitch");
         this.triggered = false;
-        
     }
 
-    public void processSwitch(Player player){
+    //Process Switch sets a switch to triggered if it isn't, and decrements the observers count.
+    //If the switch is already triggered it will be untriggered and the observer count incremented.
+    public void processSwitch(){
         if (isTriggered()){
-            System.out.println("Turning off switch");
             setTriggered(false);
             notifyObserver("increment");
         }
         else{
-            System.out.println("Turning on switch");
             setTriggered(true);
             notifyObserver("decrement");
         }
