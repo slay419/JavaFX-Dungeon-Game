@@ -12,20 +12,17 @@ public class Sword extends Entity{
         this.charges = 5;
     }
 
+    //Adds sword to the players inventory if they don't already have on in inventory
     @Override
     public void process(Player player) {
         Inventory inventory = player.getInventory();
         if(!inventory.hasSword()){
             inventory.add(this);
         }
-        else{
-            System.out.println("There is already a sword in the inventory!");
-        }
     }
 
     public void consumeCharge(){
         this.charges = this.charges - 1;
-        System.out.println("Sword now has: " + this.charges + " charges left");
     }
 
     public int getCharges() {

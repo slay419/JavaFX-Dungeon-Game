@@ -24,7 +24,6 @@ public class Portal extends Entity {
     public void process(Player player) {
         Portal exit = findExit(player);
         if (exit == null) {
-            System.out.println("Could not find an exit portal");
             return;
         }
         int exitX = exit.getX();
@@ -36,11 +35,10 @@ public class Portal extends Entity {
     /**
      * Loops through list of entities to find a matching portal with the same id
      */
-    public Portal findExit(Player player) {
+    private Portal findExit(Player player) {
         ArrayList<Entity> portals = player.levelEntites("portal");
         for (Entity e : portals) {
             if (e.getId() == this.id && e != this) {
-                System.out.println("Found a matching portal at: " + "(" + e.getX() + ", " + e.getY() + ")");
                 return (Portal) e;
             }
         }

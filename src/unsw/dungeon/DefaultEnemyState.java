@@ -1,8 +1,5 @@
 package unsw.dungeon;
 
-import unsw.dungeon.Enemy;
-import unsw.dungeon.Player;
-
 public class DefaultEnemyState implements EnemyState {
     
     private Enemy enemy; 

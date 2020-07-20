@@ -1,10 +1,6 @@
 package unsw.dungeon;
 
-import java.lang.module.FindException;
 import java.util.ArrayList;
-import java.util.List;
-
-import javafx.beans.property.IntegerProperty;
 
 /**
  * The player entity
@@ -27,7 +23,7 @@ public class Player extends Entity {
         this.inventory = new Inventory(this);
         setName("player");
     }
-    // 0 is the top
+
     public void moveUp() {
         if (getY() > 0) {
             processMovement(getX(), getY() - 1);
@@ -35,13 +31,11 @@ public class Player extends Entity {
     }
 
     public void moveDown() {
-        // if y value less than 17
         if (getY() < dungeon.getHeight() - 1) {
             processMovement(getX(), getY() + 1);
         }
     }
 
-    // 0 is the left
     public void moveLeft() {
         if (getX() > 0) {
             processMovement(getX() - 1, getY());
@@ -54,19 +48,12 @@ public class Player extends Entity {
         }
     }
 
-    // Check what entity exists at the current tile 
-    public void processItem(Entity entity) {
-        if (entity.isItem()) {
-            inventory.add(entity);
-        }
-    }
-
     /**
      * Checking tiles of where the player will move
      * @param x - future x position 
      * @param y - future y position 
      */
-    public void processMovement(int x, int y) {
+    private void processMovement(int x, int y) {
 
         ArrayList<Entity> entityList = dungeon.getEntityList(x, y);
         
@@ -76,17 +63,14 @@ public class Player extends Entity {
             setXPos(x);
             setYPos(y);
             processPotion();
-        }
-        // Always process the tile the player would move/has moved to
-        
+        }        
         // Calls the entity process method in the child class
-
         if (entityList != null) {
             for (Entity e : entityList) {
                 e.process(this);
             }
         }
-        
+        // Enemies will move after the player
         moveEnemies();
     } 
 
@@ -122,10 +106,6 @@ public class Player extends Entity {
         return inventory;
     }
 
-    public Entity getEntity(int x, int y){
-        return dungeon.getEntity(x, y);
-    }
-
     public ArrayList<Entity> getEntityList(int x, int y){
         return dungeon.getEntityList(x, y);
     }
@@ -148,7 +128,7 @@ public class Player extends Entity {
     /**
      * Moves all the enemies in the dungeon
      */
-    public void moveEnemies() {
+    private void moveEnemies() {
         ArrayList<Entity> enemies = dungeon.findEntities("enemy");
         for (Entity e : enemies) {
             ((Enemy) e).processMovement(this);

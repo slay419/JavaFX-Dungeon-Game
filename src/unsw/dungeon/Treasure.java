@@ -2,9 +2,6 @@ package unsw.dungeon;
 
 import java.util.ArrayList;
 
-import unsw.dungeon.Entity;
-
-
 public class Treasure extends Entity implements SubjectTreasure {
 
     ArrayList<ObserverTreasure> observers = new ArrayList<ObserverTreasure>();
@@ -23,6 +20,7 @@ public class Treasure extends Entity implements SubjectTreasure {
     /**
      * Processed when the player collides with the treasure entity 
      * Treasure is added to the inventory and removed from the level
+     * The observer is then notified
      * @param inventory
      */
     @Override
@@ -30,7 +28,6 @@ public class Treasure extends Entity implements SubjectTreasure {
         Inventory inventory = player.getInventory();
         inventory.add(this);
         notifyObserver();
-        System.out.println("Added treasure number: " + inventory.countTreasure() + " to inventory!");
     }
 
     @Override
@@ -52,6 +49,4 @@ public class Treasure extends Entity implements SubjectTreasure {
         }
 
     }
-
-    
 }
