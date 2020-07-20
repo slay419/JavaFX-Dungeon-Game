@@ -1,14 +1,18 @@
 package unsw.dungeon;
 
-public class Enemy extends Entity {
+import java.util.ArrayList;
 
-    Dungeon dungeon;
+public class Enemy extends Entity implements SubjectEnemy {
+
+    private Dungeon dungeon;
+
+    private ArrayList<ObserverEnemy> observers = new ArrayList<ObserverEnemy>();
 
     // Tracks the state of the player
-    EnemyState defaultState;
-    EnemyState escapeState; 
+    private EnemyState defaultState;
+    private EnemyState escapeState; 
 
-    EnemyState currentState;
+    private EnemyState currentState;
 
     public Enemy(Dungeon dungeon, int x, int y) {
         super(x, y);
@@ -24,7 +28,17 @@ public class Enemy extends Entity {
      * This function will only be called if the player moves onto the same tile as the enemy
      */
     public void processEnemy(Player player) {
-        interactWithPlayer(player);
+        if (player.isInvincible()) {
+            player.killEnemy(this);
+            notifyObserver();
+        } else if (player.hasSword()) {
+            player.useSword();
+            player.killEnemy(this);
+            notifyObserver();
+        } else {
+            System.out.println("You died");
+            dungeon.removeEntity(player);
+        }
     }   
 
     public String getCurrentState() {
@@ -48,19 +62,12 @@ public class Enemy extends Entity {
             currentState = defaultState;
         }
     }
-
+    /*
     private void interactWithPlayer(Player player) {
         //currentState.interact(player);
-        if (player.isInvincible()) {
-            player.killEnemy(this);
-        } else if (player.hasSword()) {
-            player.useSword();
-            player.killEnemy(this);
-        } else {
-            System.out.println("You died");
-            dungeon.removeEntity(player);
-        }
+        
     }
+    */
 
     /**
      * Set the state before performing the appropriate move depending on the state
@@ -127,5 +134,25 @@ public class Enemy extends Entity {
         int playerX = player.getX();
         int playerY = player.getY();
         return playerX == this.getX() && playerY == this.getY();
+    }
+
+    @Override
+    public void register(ObserverEnemy o) {
+        observers.add(o);
+
+    }
+
+    @Override
+    public void unregister(ObserverEnemy o) {
+        observers.remove(o);
+
+    }
+
+    @Override
+    public void notifyObserver() {
+        for (ObserverEnemy o : observers) {
+            o.updateEnemy();
+        }
+
     }
 }

@@ -18,7 +18,7 @@ public class Exit extends Entity implements SubjectExit {
         int playerX = player.getX();
         int playerY = player.getY();
         if (playerX == this.getX() && playerY == this.getY()) {
-            System.out.println("vefore notifying observer");
+            System.out.println("Before notifying observer");
             notifyObserver();
             return true;
         }

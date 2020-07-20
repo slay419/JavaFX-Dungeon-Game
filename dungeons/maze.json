@@ -4,18 +4,18 @@
   "entities": [
     {
       "x": 2,
-      "y": 17,
-      "type": "enemy"
+      "y": 16,
+      "type": "treasure"
     },
     {
       "x": 18,
       "y": 15,
-      "type": "enemy"
+      "type": "treasure"
     },
     {
       "x": 18,
       "y": 14,
-      "type": "enemy"
+      "type": "treasure"
     },
     {
       "x": 18,
@@ -1149,6 +1149,6 @@
     }
   ],
   "goal-condition": {
-    "goal": "exit"
+    "goal": "enemies"
   }
 }
