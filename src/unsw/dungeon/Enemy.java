@@ -7,7 +7,7 @@ public class Enemy extends Entity implements SubjectEnemy {
     private Dungeon dungeon;
     private ArrayList<ObserverEnemy> observers = new ArrayList<ObserverEnemy>();
 
-    // Tracks the state of the player
+    // Tracks the state of the enemy
     private EnemyState defaultState;
     private EnemyState escapeState; 
     private EnemyState currentState;
