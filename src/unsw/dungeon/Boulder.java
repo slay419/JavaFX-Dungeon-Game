@@ -4,9 +4,6 @@ import java.util.ArrayList;
 
 public class Boulder extends Entity {
     
-    //private int x;
-    //private int y;
-
     public Boulder(int x, int y){
         super(x, y);
         //this.x = x;
@@ -85,22 +82,4 @@ public class Boulder extends Entity {
         setXPos(x);
         setYPos(y);
     }
-
-    /*
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-    
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-    */
 }

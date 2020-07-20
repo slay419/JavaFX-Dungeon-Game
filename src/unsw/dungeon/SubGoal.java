@@ -81,9 +81,6 @@ public class SubGoal implements Goal, ObserverExit, ObserverBoulders, ObserverTr
         if (numEnemies == 0) {
             System.out.println("Killed all the enemies");
             goalCompleted = true;
-            if (compositeGoal == null) {
-                System.out.println("found a null");
-            }
             compositeGoal.processGoal();
         }
 
