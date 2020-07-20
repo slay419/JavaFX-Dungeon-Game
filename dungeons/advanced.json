@@ -601,13 +601,18 @@
       "x": 17,
       "y": 15,
       "type": "wall"
+    },
+    {
+      "x": 16,
+      "y": 14,
+      "type": "exit"
     }
   ],
   "goal-condition": {
     "goal": "AND",
     "subgoals": [
       {
-        "goal": "enemies"
+        "goal": "exit"
       },
       {
         "goal": "treasure"
