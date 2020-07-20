@@ -70,12 +70,12 @@ public class Player extends Entity {
 
         ArrayList<Entity> entityList = dungeon.getEntityList(x, y);
         
-        processPotion();
         // Check if the next tile is impassible or not 
         if (!checkImpassible(x, y)) {
             // Move the player if it's not impassible
             setXPos(x);
             setYPos(y);
+            processPotion();
         }
         // Always process the tile the player would move/has moved to
         

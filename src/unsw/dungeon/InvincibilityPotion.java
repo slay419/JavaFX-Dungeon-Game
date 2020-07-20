@@ -27,16 +27,6 @@ public class InvincibilityPotion extends Entity {
         // Reset the charges and remove potion from level if the player is already invincible
         Inventory inventory = player.getInventory();
         inventory.add(this);
-        /*
-        if (alreadyInvincible(player)) {
-            player.pickUp(this);
-            setCharges(chargeDuration);
-            System.out.println("Setting charge to: " + chargeDuration);
-        } else {
-            Inventory inventory = player.getInventory();
-            inventory.add(this);
-        }
-        */
     }
 
     /**

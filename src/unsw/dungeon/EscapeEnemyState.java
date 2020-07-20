@@ -41,24 +41,14 @@ public class EscapeEnemyState implements EnemyState {
         if (maxDiff > 0) {
             // Enemy is further along in x direction
             if (!player.checkImpassible(futureX, enemyY)) {
-                //System.out.println("Checking coordinates 1: " + "(" + futureX + ", " + enemyY + ")");
                 // Move the enemy if it's not impassible
                 enemy.setXPos(futureX);
                 enemy.setYPos(enemyY);
             } else if (!player.checkImpassible(enemyX, futureY)) {
-                //System.out.println("Checking coordinates 2: " + "(" + enemyX + ", " + futureY + ")");
                 // If the enemy cant move left/right, then move up/down
                 enemy.setXPos(enemyX);
                 enemy.setYPos(futureY);
             } 
-            /*
-            else if (!player.checkImpassible(enemyX, futureY - 2)) {
-                //System.out.println("Checking coordinates 3: " + "(" + futureX + ", " + (enemyY-2) + ")");
-                enemy.setXPos(enemyX);
-                System.out.println("future y is: " + (futureY - 2));
-                enemy.setYPos(futureY - 2);
-            }
-            */
         } else {
             if (!player.checkImpassible(enemyX, futureY)) {
                 enemy.setXPos(enemyX);

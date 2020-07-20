@@ -127,4 +127,8 @@ public class Inventory {
     public void removePotion() {
         potion = null;
     }
+
+    public int potionCharges() {
+        return potion.getCharges();
+    }
 }
