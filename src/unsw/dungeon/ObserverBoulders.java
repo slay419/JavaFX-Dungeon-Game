@@ -2,5 +2,5 @@ package unsw.dungeon;
 
 public interface ObserverBoulders {
     
-    public void update(String string);
+    public void updateSwitches(String string);
 }

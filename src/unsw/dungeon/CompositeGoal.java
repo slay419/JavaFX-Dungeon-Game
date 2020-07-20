@@ -32,6 +32,22 @@ public class CompositeGoal implements Goal {
         }
     }
 
+    /**
+     * Checks if all other goals except for exit has been complete
+     * @return
+     */
+    public Boolean allOtherGoalsComplete() {
+        for (Goal g : subGoals) {
+            if (g.getName().equals("exit")) {
+                continue;
+            }
+            if (!g.processGoal()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public void setName(String name) {
         this.name = name;

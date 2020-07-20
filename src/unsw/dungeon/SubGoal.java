@@ -51,13 +51,18 @@ public class SubGoal implements Goal, ObserverExit, ObserverBoulders, ObserverTr
     }
 
     @Override
-    public void update() {
-        System.out.println("Setting the subgoal: true");
-        goalCompleted = true;
+    public void updateExit() {
+        if (compositeGoal.allOtherGoalsComplete()) {
+            System.out.println("Setting the subgoal: true");
+            goalCompleted = true;
+        } else {
+            System.out.println("Need to complete other goals first");
+        }
+        
     }
 
     @Override 
-    public void update(String string) {
+    public void updateSwitches(String string) {
         if (string.equals("increment")) {
             incrementSwitches();
         } else if (string.equals("decrement")) {

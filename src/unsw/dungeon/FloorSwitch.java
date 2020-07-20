@@ -52,7 +52,7 @@ public class FloorSwitch extends Entity implements SubjectBoulders {
     @Override
     public void notifyObserver(String string) {
         for (ObserverBoulders o : observers) {
-            o.update(string);
+            o.updateSwitches(string);
         }
 
     }

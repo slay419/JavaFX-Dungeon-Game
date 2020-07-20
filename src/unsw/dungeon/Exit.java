@@ -47,7 +47,7 @@ public class Exit extends Entity implements SubjectExit {
     @Override
     public void notifyObserver() {
         for (ObserverExit o : observers) {
-            o.update();
+            o.updateExit();
         }
 
     }
