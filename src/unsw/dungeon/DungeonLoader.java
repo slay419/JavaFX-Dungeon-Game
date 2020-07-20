@@ -37,15 +37,38 @@ public abstract class DungeonLoader {
         JSONArray jsonEntities = json.getJSONArray("entities");
 
         JSONObject jsonGoals = json.getJSONObject("goal-condition");
-        String goal = jsonGoals.getString("goal");
+        //String goal = jsonGoals.getString("goal");
+        loadGoal(dungeon, jsonGoals);
 
-        loadGoal(dungeon, goal);
-        System.out.println("goal is; " + goal);
+        //System.out.println("goal is: " + goal);
 
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
         return dungeon;
+    }
+
+    // pass the json subgoals into dungeon
+    private void loadGoal(Dungeon dungeon, JSONObject jsonGoal) {
+        String goal = json.getString("goal");
+
+        switch (goal) {
+        case "exit":
+            ObserverExit obsExit = new SubGoal();
+            break;
+        case "boulders": 
+            break;
+        case "enemies":
+            break;
+        case "treasure": 
+            break;
+        case "AND":
+            break;
+        }
+
+        dungeon.addGoal();
+        
+        //dungeon.
     }
 
     // Want to attach observers to all switch objects
@@ -136,10 +159,7 @@ public abstract class DungeonLoader {
         dungeon.addEntity(entity);
     }
 
-    // pass the json subgoals into dungeon
-    private void loadGoal(Dungeon dungeon, String goal) {
-        //dungeon.
-    }
+    
 
     public abstract void onLoad(Entity player);
 
