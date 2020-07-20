@@ -414,7 +414,8 @@ Also both worked on submitting the issues on the board together.
 
 ### Week-07
 
-Fill in here.
+Equal contribution, assigned equal workload and met up during evenings for
+pair programming.
 
 ### Week-08
 
