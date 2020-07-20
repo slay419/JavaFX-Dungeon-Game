@@ -97,6 +97,65 @@ public class SwordTest {
     }
 
     @Test
+    public void useAllSwordCharges(){
+        Enemy enemy1 = new Enemy(d, 4, 1);
+        Enemy enemy2 = new Enemy(d, 5, 1);
+        Enemy enemy3 = new Enemy(d, 6, 1);
+        Enemy enemy4 = new Enemy(d, 7, 1);
+        Enemy enemy5 = new Enemy(d, 8, 1);
+        Sword s = new Sword(2, 1);
+        d.addEntity(enemy1);
+        d.addEntity(enemy2);
+        d.addEntity(enemy3);
+        d.addEntity(enemy4);
+        d.addEntity(enemy5);
+        d.addEntity(p);
+        d.addEntity(s);
+        i = p.getInventory();
+
+        //Pick up the sword
+        p.moveRight();
+
+        //Check player has sword
+        assertTrue(i.hasSword());
+
+        //Check charges of sword is max (5)
+        assertEquals(s.getCharges(), 5);
+
+        //This movement will kill the first enemy (and cause the
+        //second enemy to kill itself)
+        p.moveRight();
+
+        //Check player has sword
+        assertTrue(i.hasSword());
+
+        //Check charges is now 3
+        assertEquals(s.getCharges(), 3);
+
+        //This movement will kill the third enemy (and cause the
+        //fourth enemy to kill itself)
+        p.moveRight();
+
+        //Check player has sword
+        assertTrue(i.hasSword());
+
+        //Check charges is now 1
+        assertEquals(s.getCharges(), 1);
+
+        //Check player has sword
+        assertTrue(i.hasSword());
+
+        //This movement will kill the last enemy
+        p.moveRight();
+
+        //Check charges is now 0
+        assertEquals(s.getCharges(), 0);
+
+        //Check player doesn't have the sword
+        assertFalse(i.hasSword());
+    }
+
+    @Test
     public void walkIntoEnemyWithSwordAndPotion(){
         //Walls to prevent enemy from running away
         Wall w1 = new Wall (6, 1);
@@ -150,4 +209,5 @@ public class SwordTest {
         //Sword charge shouldn't be consumed
         assertEquals(s.getCharges(), 5);
     }
+
 }

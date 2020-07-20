@@ -66,7 +66,7 @@ public abstract class DungeonLoader {
             break;
         }
 
-        dungeon.addGoal();
+        //dungeon.addGoal();
         
         //dungeon.
     }
