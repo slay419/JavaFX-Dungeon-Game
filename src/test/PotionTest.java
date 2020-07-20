@@ -1,20 +1,13 @@
 package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import unsw.dungeon.Dungeon;
-import unsw.dungeon.Player;
-import unsw.dungeon.Enemy;
 import unsw.dungeon.Inventory;
 import unsw.dungeon.InvincibilityPotion;
-import unsw.dungeon.Sword;
+import unsw.dungeon.Player;
 import unsw.dungeon.Wall;
 
 public class PotionTest {

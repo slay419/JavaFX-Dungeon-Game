@@ -4,16 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
-import unsw.dungeon.Dungeon;
-import unsw.dungeon.Player;
 import unsw.dungeon.Door;
-import unsw.dungeon.Key;
+import unsw.dungeon.Dungeon;
 import unsw.dungeon.Inventory;
+import unsw.dungeon.Key;
+import unsw.dungeon.Player;
 public class DoorKeysTest {
 
     Dungeon d = new Dungeon(10, 10);

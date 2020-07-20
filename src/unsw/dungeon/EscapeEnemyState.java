@@ -1,8 +1,5 @@
 package unsw.dungeon;
 
-import unsw.dungeon.Enemy;
-import unsw.dungeon.Player;
-
 public class EscapeEnemyState implements EnemyState {
 
     Enemy enemy; 
@@ -11,7 +8,6 @@ public class EscapeEnemyState implements EnemyState {
         this.enemy = enemy;
     }
    
-
     /**
      * In the escape state, the enemy will run away from the player
      */
