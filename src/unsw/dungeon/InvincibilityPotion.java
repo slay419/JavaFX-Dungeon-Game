@@ -12,36 +12,29 @@ public class InvincibilityPotion extends Entity {
         setName("Invincibility Potion");
     }
 
-    public void setCharges(int charges) {
+    private void setCharges(int charges) {
         this.charges = charges;
-        System.out.println("this charges = " + this.charges);
-        System.out.println("charges = " + charges);
     }
 
     public int getCharges() {
         return charges;
     }
 
+    // Reset the charges and remove potion from level if the player is already invincible
     @Override
     public void process(Player player) {
-        // Reset the charges and remove potion from level if the player is already invincible
         Inventory inventory = player.getInventory();
         inventory.add(this);
     }
-
+    
     /**
-     * Returns true if the player already has a potion equipped with charges
+     * Decrements the charge of the potion, removing the potion if there are no more charges
+     * @param player
      */
-    private Boolean alreadyInvincible(Player player) {
-        return player.isInvincible();
-    }
-
     public void useCharge(Player player) {
         setCharges(getCharges() - 1);
-        System.out.println("Potion charge remaining: " + getCharges());
         if (getCharges() == 0) {
             Inventory inventory = player.getInventory();
-            System.out.println("Removed the potion");
             inventory.removePotion();
         }
     }

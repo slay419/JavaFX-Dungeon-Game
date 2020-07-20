@@ -22,27 +22,12 @@ public class Key extends Entity {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    //checkKey takes in a Door's id and returns true if it matches the keys id
-    public Boolean checkKey(int id){
-        if(id == this.id){
-            return true;
-        }
-        return false;
-    }
-
+    //Adds a key to the inventory if the player doesn't already have one in inventory
     @Override
     public void process(Player player) {
         Inventory inventory = player.getInventory();
         if(!inventory.hasKey()){
             inventory.add(this);
-            System.out.println("Added key with id: " + getId() + " to inventory!");
-        }
-        else{
-            System.out.println("There is already a key in the inventory. New key wasn't picked up");
         }
     }
 }

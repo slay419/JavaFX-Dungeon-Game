@@ -19,12 +19,17 @@ public class Inventory {
     public Inventory(Player player){
         this.player = player;
         this.treasure = new ArrayList<Treasure>();
-        //observers = new ArrayList<Observer>();
     }
 
 
-    //checkKey called when a player moves into an impassible door (closed door)
-    //and checks if the ID of the door matches any of the key ID's in the inventory
+
+    /**
+     * 
+     *checkKey called when a player moves into an impassible door (closed door)
+     *and checks if the ID of the door matches any of the key ID's in the inventory
+     * @param id ID of the key
+     * @return
+     */
     public Boolean checkKey(int id){
         if (key == null) {
             return false;
@@ -41,16 +46,13 @@ public class Inventory {
         if (entity instanceof Key) {
             Key k = (Key) entity;
             addKey(k);
-            System.out.println("Added key to inventory!");
         } else if (entity instanceof Treasure) {
             Treasure t = (Treasure) entity;
             addTreasure(t);
-            System.out.println("Added Treasure to inventory!");
         }
         else if (entity instanceof Sword) {
             Sword s = (Sword) entity;
             addSword(s);
-            System.out.println("Added Sword to inventory!");
         } else if (entity instanceof InvincibilityPotion) {
             InvincibilityPotion potion = (InvincibilityPotion) entity;
             addPotion(potion);
@@ -58,15 +60,12 @@ public class Inventory {
         player.pickUp(entity);
     }
 
-
     private void addTreasure(Treasure treasure) {
         this.treasure.add(treasure);
-        //notifyObserver();
     }
 
     private void addKey(Key key) {
         this.key = key;
-        //this.keys.add(key);
     }
 
     private void addSword(Sword sword){
@@ -89,9 +88,6 @@ public class Inventory {
         return potion;
     }
 
-    /**
-     * @return true if a sword or potion exists in the inventory 
-     */
     public Boolean hasPotion() {
         return potion != null;
     }

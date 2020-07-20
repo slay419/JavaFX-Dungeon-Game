@@ -63,11 +63,4 @@ public class EscapeEnemyState implements EnemyState {
             enemy.processEnemy(player);
         }
     }
-    /*
-
-    public void interact(Player player) {
-        System.out.println("The player killed the enemy!");
-        player.killEnemy(enemy);
-    }
-    */
 }

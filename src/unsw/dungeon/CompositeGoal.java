@@ -5,31 +5,29 @@ import java.util.ArrayList;
 public class CompositeGoal implements Goal {
 
     private String name; 
-
-    //private Boolean goalCompleted;
-
     private ArrayList<Goal> subGoals;
 
     public CompositeGoal() {
         subGoals = new ArrayList<Goal>();
     }
 
+    //Process goal checks if all subgoals are completed (return true). If all are completed then it will return true
     public Boolean processGoal() {
         for (Goal s : subGoals) {
             if (!s.processGoal()) {
                 return false;
             }
         }
-        System.out.println("completed all goals!");
+        System.out.println("Completed all goals!");
         return true;
     }
 
+    /**
+     * Adds a subgoal to the list of subgoals
+     * @param subgoal The subgoal to be added
+     */
     public void addGoal(Goal subgoal) {
         subGoals.add(subgoal);
-        System.out.println("goals so far:");
-        for (Goal g : subGoals) {
-            System.out.println("\t subgoal:" + g.getName());
-        }
     }
 
     @Override
