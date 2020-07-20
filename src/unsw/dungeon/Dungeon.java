@@ -121,7 +121,6 @@ public class Dungeon {
     }
 
     public void removeEntity(Entity entity) {
-        System.out.println("removed entity: " + entity.getName());
         entities.remove(entity);
     }
 
