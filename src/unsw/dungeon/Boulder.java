@@ -69,7 +69,10 @@ public class Boulder extends Entity {
             return null;
         }
         Entity entity = checkEntityList(entityList, "floorSwitch");
-        return entity;
+        if (entityList.size() == 1){
+            return entity;
+        }
+        return null;
     }
 
     private void processSwitch(Entity floorSwitch, Player player){
