@@ -35,7 +35,7 @@ public class Boulder extends Entity {
             processSwitch(currentSwitch, player);
         }
         //Case 2, there's a floorswitch and nothing on it
-        else if(futureSwitch != null){
+        else if(futureSwitch != null && checkSwitchEmpty(futureX, futureY, player)){
             moveBoulder(futureX, futureY);
             processSwitch(currentSwitch, player);
             processSwitch(futureSwitch, player);
@@ -69,10 +69,15 @@ public class Boulder extends Entity {
             return null;
         }
         Entity entity = checkEntityList(entityList, "floorSwitch");
-        if (entityList.size() == 1){
-            return entity;
+        return entity;
+    }
+
+    private Boolean checkSwitchEmpty(int x, int y, Player player){
+        ArrayList<Entity> entityList = player.getEntityList(x, y);
+        if(entityList.size() > 1){
+            return false;
         }
-        return null;
+        return true;
     }
 
     private void processSwitch(Entity floorSwitch, Player player){
