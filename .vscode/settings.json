@@ -1,4 +1,13 @@
 {
     "java.import.gradle.enabled": false,
-    "java.import.gradle.wrapper.enabled": false
+    "java.import.gradle.wrapper.enabled": false,
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/**/*.jar",
+            "/import/kamen/3/z5162299/Desktop/**/*.jar"
+        ],
+        "exclude": [
+            "lib/json.jar"
+        ]
+    }
 }
