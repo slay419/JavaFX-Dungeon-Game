@@ -21,12 +21,17 @@ public class Dungeon {
     private List<Entity> entities;
     private Player player;
     private SubGoal goal;
+    private List<SubGoal> goals;
 
     public Dungeon(int width, int height) {
         this.width = width;
         this.height = height;
         this.entities = new ArrayList<>();
         this.player = null;
+    }
+
+    public void addGoal(SubGoal goal) {
+        this.goals.add(goal);
     }
 
     public void setGoal(SubGoal goal) {

@@ -3,6 +3,7 @@ package unsw.dungeon;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
+import org.graalvm.compiler.asm.aarch64.AArch64Assembler.ExtendType;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -51,10 +52,12 @@ public abstract class DungeonLoader {
     // pass the json subgoals into dungeon
     private void loadGoal(Dungeon dungeon, JSONObject jsonGoal) {
         String goal = json.getString("goal");
+        SubGoal subgoal = null;
 
         switch (goal) {
         case "exit":
-            ObserverExit obsExit = new SubGoal();
+            SubGoal exitGoal = new SubGoal();
+            subgoal = exitGoal;
             break;
         case "boulders": 
             break;
@@ -66,7 +69,7 @@ public abstract class DungeonLoader {
             break;
         }
 
-        dungeon.addGoal();
+        dungeon.addGoal(subgoal);
         
         //dungeon.
     }
@@ -79,8 +82,8 @@ public abstract class DungeonLoader {
         int y = json.getInt("y");
         int id;
 
-        ObserverBoulders boulderGoal = new SubGoal();
-        ObserverExit subGoal = new SubGoal();
+        //ObserverBoulders boulderGoal = new SubGoal();
+        //ObserverExit subGoal = new SubGoal();
         
         Entity entity = null;
         switch (type) {
