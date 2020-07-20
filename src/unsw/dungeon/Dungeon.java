@@ -20,17 +20,65 @@ public class Dungeon {
     private int width, height;
     private List<Entity> entities;
     private Player player;
-    private SubGoal goal;
+    //private SubGoal goal;
+    private List<Goal> goals;
 
     public Dungeon(int width, int height) {
         this.width = width;
         this.height = height;
         this.entities = new ArrayList<>();
+        this.goals = new ArrayList<>();
         this.player = null;
     }
 
-    public void setGoal(SubGoal goal) {
-        this.goal = goal;
+    public void addGoal(Goal goal) {
+        this.goals.add(goal);
+    }
+
+    public void processExitGoal(Goal subgoal) {
+        // Look for the exit and call exit.register()
+        ArrayList<Entity> exits = findEntities("exit");
+        Exit exit = (Exit) exits.get(0);
+
+        ObserverExit observer = (ObserverExit) subgoal;
+        exit.register(observer);
+        subgoal.setName("exit");
+    }
+
+    public void processBouldersGoal(Goal subgoal) {
+        ArrayList<Entity> switches = findEntities("floorSwitch");
+        ObserverBoulders observer = (ObserverBoulders) subgoal;
+        // attach this obs to all switches 
+        for (Entity e : switches) {
+            FloorSwitch floorSwitch = (FloorSwitch) e;
+            floorSwitch.register(observer);
+        }
+        ((SubGoal) subgoal).setNumSwitches(switches.size());
+        subgoal.setName("boulders");
+    }
+
+    public void processTreasureGoal(Goal subgoal) {
+        ArrayList<Entity> treasureList = findEntities("treasure");
+        ObserverTreasure observer = (ObserverTreasure) subgoal;
+
+        for (Entity e : treasureList) {
+            Treasure treasure = (Treasure) e;
+            treasure.register(observer);
+        }
+        ((SubGoal) subgoal).setNumTreasure(treasureList.size());
+        subgoal.setName("treasure");
+    }
+
+    public void processEnemiesGoal(Goal subgoal) {
+        ArrayList<Entity> enemyList = findEntities("enemy");
+        ObserverEnemy observer = (ObserverEnemy) subgoal;
+
+        for (Entity e : enemyList) {
+            Enemy enemy = (Enemy) e;
+            enemy.register(observer);
+        }
+        ((SubGoal) subgoal).setNumEnemies(enemyList.size());
+        subgoal.setName("enemy");
     }
 
     public int getWidth() {

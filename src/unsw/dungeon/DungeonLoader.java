@@ -2,6 +2,7 @@ package unsw.dungeon;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -38,35 +39,60 @@ public abstract class DungeonLoader {
 
         JSONObject jsonGoals = json.getJSONObject("goal-condition");
         //String goal = jsonGoals.getString("goal");
-        loadGoal(dungeon, jsonGoals);
 
         //System.out.println("goal is: " + goal);
 
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
+        //ArrayList<Goal> goalList = new ArrayList<Goal>();
+        loadGoal(dungeon, jsonGoals);
         return dungeon;
     }
 
     // pass the json subgoals into dungeon
-    private void loadGoal(Dungeon dungeon, JSONObject jsonGoal) {
-        String goal = json.getString("goal");
+    private Goal loadGoal(Dungeon dungeon, JSONObject jsonGoal) {
+        String goal = jsonGoal.getString("goal");       
+        System.out.println("goal is: " + goal);
+
+        CompositeGoal compositeGoal = new CompositeGoal();
+        Goal subgoal = null;
+        
+        
+        dungeon.addGoal(subgoal);
 
         switch (goal) {
         case "exit":
-            ObserverExit obsExit = new SubGoal();
+            subgoal = new SubGoal();
+            dungeon.processExitGoal(subgoal);
             break;
         case "boulders": 
+            subgoal = new SubGoal();
+            dungeon.processBouldersGoal(subgoal);
             break;
         case "enemies":
+            subgoal = new SubGoal();
+            dungeon.processEnemiesGoal(subgoal);
             break;
         case "treasure": 
+            subgoal = new SubGoal();
+            dungeon.processTreasureGoal(subgoal);
             break;
         case "AND":
+            JSONArray listSubgoals = jsonGoal.getJSONArray("subgoals");
+            for (int i = 0; i < listSubgoals.length(); i++) {
+                Goal g = loadGoal(dungeon, listSubgoals.getJSONObject(i));
+                ((SubGoal) g).setCompositeGoal(compositeGoal);
+                compositeGoal.addGoal(g);
+            }
             break;
         }
-
-        //dungeon.addGoal();
+        if (subgoal != null) {
+            System.out.println("test");
+            compositeGoal.addGoal(subgoal);
+            ((SubGoal) subgoal).setCompositeGoal(compositeGoal);
+        }
+        return subgoal;
         
         //dungeon.
     }
@@ -79,8 +105,8 @@ public abstract class DungeonLoader {
         int y = json.getInt("y");
         int id;
 
-        ObserverBoulders boulderGoal = new SubGoal();
-        ObserverExit subGoal = new SubGoal();
+        //ObserverBoulders boulderGoal = new SubGoal();
+        //ObserverExit subGoal = new SubGoal();
         
         Entity entity = null;
         switch (type) {
@@ -98,7 +124,7 @@ public abstract class DungeonLoader {
         case "exit":
             Exit exit = new Exit(x, y);
             //ObserverExit subGoal = new SubGoal(exit);
-            exit.register(subGoal);
+            //exit.register(subGoal);
             onLoad(exit);
             entity = exit;
             break;
@@ -132,8 +158,8 @@ public abstract class DungeonLoader {
             break;
         case "switch":
             FloorSwitch floorSwitch = new FloorSwitch(x, y);
-            floorSwitch.register(boulderGoal);
-            ((SubGoal) boulderGoal).incrementSwitches();
+            //floorSwitch.register(boulderGoal);
+            //((SubGoal) boulderGoal).incrementSwitches();
             //boulderGoal = new SubGoal(floorSwitch);
             onLoad(floorSwitch);
             entity = floorSwitch;
