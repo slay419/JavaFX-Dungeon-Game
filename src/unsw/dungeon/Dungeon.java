@@ -183,4 +183,5 @@ public class Dungeon {
     public Boolean entityExists(Entity entity) {
         return entities.contains(entity);
     }
+    
 }

@@ -8,8 +8,6 @@ public class Enemy extends Entity implements SubjectEnemy {
     private ArrayList<ObserverEnemy> observers = new ArrayList<ObserverEnemy>();
 
     // Tracks the state of the enemy
-    private EnemyState defaultState;
-    private EnemyState escapeState; 
     private EnemyState currentState;
 
     public Enemy(Dungeon dungeon, int x, int y) {
@@ -17,9 +15,7 @@ public class Enemy extends Entity implements SubjectEnemy {
         setImpassible(false);
         setName("enemy");
         this.dungeon = dungeon;
-        defaultState = new DefaultEnemyState(this);
-        escapeState = new EscapeEnemyState(this);
-        currentState = defaultState;
+        currentState = new DefaultEnemyState(this);
     }
 
     /**
@@ -40,9 +36,9 @@ public class Enemy extends Entity implements SubjectEnemy {
     }   
 
     public String getCurrentState() {
-        if (currentState == defaultState) {
+        if (currentState instanceof DefaultEnemyState) {
             return "defaultState";
-        } else if (currentState == escapeState) {
+        } else if (currentState instanceof EscapeEnemyState) {
             return "escapeState";
         }
         return "";
@@ -55,9 +51,9 @@ public class Enemy extends Entity implements SubjectEnemy {
     private void setEnemyState(Player player) {
         if (player.isInvincible()) {
             System.out.println("Changed enemy to escapeState");
-            currentState = escapeState;
+            currentState = new EscapeEnemyState(this);
         } else {
-            currentState = defaultState;
+            currentState = new DefaultEnemyState(this);
         }
     }
 
@@ -93,6 +89,62 @@ public class Enemy extends Entity implements SubjectEnemy {
         for (ObserverEnemy o : observers) {
             o.updateEnemy();
         }
+    }
 
+
+    public Boolean moveUp() {
+        if (getY() > 0 && !checkImpassible(this.getX(), this.getY() - 1)) {
+            this.setXPos(this.getX());
+            this.setYPos(this.getY() - 1);
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean moveDown() {
+        if (getY() < dungeon.getHeight() - 1 && !checkImpassible(this.getX(), this.getY() + 1)) {
+            this.setXPos(this.getX());
+            this.setYPos(this.getY() + 1);
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean moveLeft() {
+        if (getX() > 0 && !checkImpassible(this.getX() - 1, this.getY())) {
+            this.setXPos(this.getX() - 1);
+            this.setYPos(this.getY());
+            return true;
+        }
+        return false;
+    }
+
+    public Boolean moveRight() {
+        if (getX() < dungeon.getWidth() - 1 && !checkImpassible(this.getX() + 1, this.getY())) {
+            this.setXPos(this.getX() + 1);
+            this.setYPos(this.getY());
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks the coordinates to see if the entity there is impassible and allows 
+     * player movement
+     * @param x
+     * @param y
+     * @return
+     */
+    public Boolean checkImpassible(int x, int y) {
+        ArrayList<Entity> entityList = dungeon.getEntityList(x, y);
+        if (entityList == null) {
+            return false;
+        }
+        for (Entity e : entityList) {
+            if (e.isImpassible() || e instanceof Enemy) {
+                return true;
+            }
+        }
+        return false;
     }
 }

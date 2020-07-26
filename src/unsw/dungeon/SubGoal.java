@@ -85,7 +85,7 @@ public class SubGoal implements Goal, ObserverExit, ObserverBoulders, ObserverTr
             goalCompleted = true;
             compositeGoal.processGoal();
         }
-
+        System.out.println("Killed an enemy!");
     }
 
     //Checks all switches have been triggered, sets goal to complete if they are
