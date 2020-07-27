@@ -127,4 +127,12 @@ public class Inventory {
     public int potionCharges() {
         return potion.getCharges();
     }
+
+    public int getKeyId() {
+        return key.getId();
+    }
+
+    public void changeKeyId(int id){
+        key.setId(id);
+    }
 }
