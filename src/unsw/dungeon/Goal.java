@@ -8,4 +8,6 @@ public interface Goal {
 
     public String getName();
 
+    public void setCompositeGoal(CompositeGoal compositeGoal);
+
 }

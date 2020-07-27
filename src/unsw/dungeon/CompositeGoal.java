@@ -55,5 +55,10 @@ public class CompositeGoal implements Goal {
     public String getName() {
         return name;
     }
+
+    @Override
+    public void setCompositeGoal(CompositeGoal compositeGoal) {
+        return;
+    }
     
 }

@@ -50,7 +50,6 @@ public class Enemy extends Entity implements SubjectEnemy {
      */
     private void setEnemyState(Player player) {
         if (player.isInvincible()) {
-            System.out.println("Changed enemy to escapeState");
             currentState = new EscapeEnemyState(this);
         } else {
             currentState = new DefaultEnemyState(this);

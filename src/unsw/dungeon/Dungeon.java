@@ -64,7 +64,7 @@ public class Dungeon {
             FloorSwitch floorSwitch = (FloorSwitch) e;
             floorSwitch.register(observer);
         }
-        ((SubGoal) subgoal).setNumSwitches(switches.size());
+        ((SubGoalBoulders) subgoal).setNumSwitches(switches.size());
         subgoal.setName("boulders");
     }
 
@@ -80,7 +80,7 @@ public class Dungeon {
             Treasure treasure = (Treasure) e;
             treasure.register(observer);
         }
-        ((SubGoal) subgoal).setNumTreasure(treasureList.size());
+        ((SubGoalTreasure) subgoal).setNumTreasure(treasureList.size());
         subgoal.setName("treasure");
     }
 
@@ -96,7 +96,7 @@ public class Dungeon {
             Enemy enemy = (Enemy) e;
             enemy.register(observer);
         }
-        ((SubGoal) subgoal).setNumEnemies(enemyList.size());
+        ((SubGoalEnemy) subgoal).setNumEnemies(enemyList.size());
         subgoal.setName("enemy");
     }
 

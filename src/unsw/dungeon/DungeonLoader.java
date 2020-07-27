@@ -61,33 +61,33 @@ public abstract class DungeonLoader {
 
         switch (goal) {
         case "exit":
-            subgoal = new SubGoal();
+            subgoal = new SubGoalExit();
             dungeon.processExitGoal(subgoal);
             break;
         case "boulders": 
-            subgoal = new SubGoal();
+            subgoal = new SubGoalBoulders();
             dungeon.processBouldersGoal(subgoal);
             break;
         case "enemies":
-            subgoal = new SubGoal();
+            subgoal = new SubGoalEnemy();
             dungeon.processEnemiesGoal(subgoal);
             break;
         case "treasure": 
-            subgoal = new SubGoal();
+            subgoal = new SubGoalTreasure();
             dungeon.processTreasureGoal(subgoal);
             break;
         case "AND":
             JSONArray listSubgoals = jsonGoal.getJSONArray("subgoals");
             for (int i = 0; i < listSubgoals.length(); i++) {
                 Goal g = loadGoal(dungeon, listSubgoals.getJSONObject(i));
-                ((SubGoal) g).setCompositeGoal(compositeGoal);
+                g.setCompositeGoal(compositeGoal);
                 compositeGoal.addGoal(g);
             }
             break;
         }
         if (subgoal != null) {
             compositeGoal.addGoal(subgoal);
-            ((SubGoal) subgoal).setCompositeGoal(compositeGoal);
+            subgoal.setCompositeGoal(compositeGoal);
         }
         return subgoal;
     }
