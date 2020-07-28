@@ -5,14 +5,14 @@ public class SubGoalBoulders implements Goal, ObserverBoulders {
     private Boolean goalCompleted;
     private int numSwitches; 
     private String name;
-    private CompositeGoal compositeGoal;
+    private Goal compositeGoal;
     
     public SubGoalBoulders() {
         this.numSwitches = 0;
         this.goalCompleted = false;
     }
 
-    public void setCompositeGoal(CompositeGoal compositeGoal) {
+    public void setCompositeGoal(Goal compositeGoal) {
         this.compositeGoal = compositeGoal;
     }
 

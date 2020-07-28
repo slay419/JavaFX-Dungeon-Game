@@ -5,13 +5,13 @@ public class SubGoalTreasure implements Goal, ObserverTreasure {
     private Boolean goalCompleted;
     private int numTreasure;
     private String name;
-    private CompositeGoal compositeGoal;
+    private Goal compositeGoal;
     
     public SubGoalTreasure() {
         this.goalCompleted = false;
     }
 
-    public void setCompositeGoal(CompositeGoal compositeGoal) {
+    public void setCompositeGoal(Goal compositeGoal) {
         this.compositeGoal = compositeGoal;
     }
 

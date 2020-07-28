@@ -55,40 +55,74 @@ public abstract class DungeonLoader {
         String goal = jsonGoal.getString("goal");       
 
         CompositeGoal compositeGoal = new CompositeGoal();
+        JSONArray listSubgoals = null;
         Goal subgoal = null;
         
-        dungeon.addGoal(subgoal);
-
+        //dungeon.addGoal(subgoal);
+        /**
+         * For each of the goals, create a new goal object (leaf) and process it
+         * Processing it involves attaching observers in each associated entity class
+         * After creating the leaves, attach it to a composite goal to handle checking later
+         */
         switch (goal) {
         case "exit":
             subgoal = new SubGoalExit();
             dungeon.processExitGoal(subgoal);
+            compositeGoal.addGoal(subgoal);
+            subgoal.setCompositeGoal(compositeGoal);
             break;
         case "boulders": 
             subgoal = new SubGoalBoulders();
             dungeon.processBouldersGoal(subgoal);
+            compositeGoal.addGoal(subgoal);
+            subgoal.setCompositeGoal(compositeGoal);
             break;
         case "enemies":
             subgoal = new SubGoalEnemy();
             dungeon.processEnemiesGoal(subgoal);
+            compositeGoal.addGoal(subgoal);
+            subgoal.setCompositeGoal(compositeGoal);
             break;
         case "treasure": 
             subgoal = new SubGoalTreasure();
             dungeon.processTreasureGoal(subgoal);
-            break;
-        case "AND":
-            JSONArray listSubgoals = jsonGoal.getJSONArray("subgoals");
-            for (int i = 0; i < listSubgoals.length(); i++) {
-                Goal g = loadGoal(dungeon, listSubgoals.getJSONObject(i));
-                g.setCompositeGoal(compositeGoal);
-                compositeGoal.addGoal(g);
-            }
-            break;
-        }
-        if (subgoal != null) {
             compositeGoal.addGoal(subgoal);
             subgoal.setCompositeGoal(compositeGoal);
+            break;
+        case "AND":
+            /**
+             * Create a new composite goal 
+             * Use recursion to get the leaf goals inside the AND list
+             * Those goals will be the leaf goals - attach them to the composite goal
+             * Also set the composite goal inside the leaf goal to be later called in checking process
+             */
+            listSubgoals = jsonGoal.getJSONArray("subgoals");
+            for (int i = 0; i < listSubgoals.length(); i++) {
+                Goal g = loadGoal(dungeon, listSubgoals.getJSONObject(i));
+                compositeGoal.addGoal(g);
+                g.setCompositeGoal(compositeGoal);
+            }
+            subgoal = compositeGoal;
+            subgoal.setName("AND");
+            break;
+        case "OR":
+            /**
+             * Create a new compositeOrGoal 
+             * Use recursion to get each goal inside the list 
+             * Attach these leaf goals to the composite OR goal 
+             * 
+             */
+            listSubgoals = jsonGoal.getJSONArray("subgoals");
+            CompositeOrGoal orGoal = new CompositeOrGoal();
+            for (int i = 0; i < listSubgoals.length(); i++) {
+                Goal g = loadGoal(dungeon, listSubgoals.getJSONObject(i));
+                orGoal.addGoal(g);
+                g.setCompositeGoal(orGoal);
+            }
+            subgoal = orGoal;
+            subgoal.setName("OR");
         }
+
         return subgoal;
     }
 

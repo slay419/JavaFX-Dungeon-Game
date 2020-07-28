@@ -5,14 +5,14 @@ public class SubGoalEnemy implements Goal, ObserverEnemy {
     private Boolean goalCompleted;
     private int numEnemies;
     private String name;
-    private CompositeGoal compositeGoal;
+    private Goal compositeGoal;
     
     public SubGoalEnemy() {
         this.numEnemies = 0;
         this.goalCompleted = false;
     }
 
-    public void setCompositeGoal(CompositeGoal compositeGoal) {
+    public void setCompositeGoal(Goal compositeGoal) {
         this.compositeGoal = compositeGoal;
     }
 

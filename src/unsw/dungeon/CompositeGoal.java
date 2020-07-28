@@ -57,7 +57,8 @@ public class CompositeGoal implements Goal {
     }
 
     @Override
-    public void setCompositeGoal(CompositeGoal compositeGoal) {
+    public void setCompositeGoal(Goal compositeGoal) {
+        System.out.println("this should not happen");
         return;
     }
     
