@@ -22,12 +22,23 @@ public class Key extends Entity {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     //Adds a key to the inventory if the player doesn't already have one in inventory
     @Override
     public void process(Player player) {
         Inventory inventory = player.getInventory();
         if(!inventory.hasKey()){
             inventory.add(this);
+        }
+        else{
+            //swapId is the key in the inventories Id
+            //this.Id is the key being picked up Id
+            int swapId = inventory.getKeyId();
+            inventory.changeKeyId(this.id);
+            setId(swapId);
         }
     }
 }
