@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="83.0" layoutY="50.0" text="Super Cool Dungeon Explore 2">
+         <font>
+            <Font name="System" size="32.0" />
+         </font>
+      </Label>
+      <Button fx:id="advancedButton" ellipsisString="" layoutX="14.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleAdvancedButton" prefHeight="152.0" prefWidth="176.0" />
+      <Button fx:id="bouldersButton" ellipsisString="" layoutX="212.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleBouldersButton" prefHeight="152.0" prefWidth="176.0" />
+      <Button fx:id="mazeButton" ellipsisString="" layoutX="410.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleMazeButton" prefHeight="152.0" prefWidth="176.0" />
+      <Label layoutX="80.0" layoutY="312.0" text="Advanced" />
+      <Label layoutX="277.0" layoutY="312.0" text="Boulders" />
+      <Label layoutX="484.0" layoutY="312.0" text="Maze" />
+   </children>
+</Pane>
