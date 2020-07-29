@@ -42,20 +42,20 @@ public class MainMenuController {
     public void initialize(){
         Image advancedImage = new Image((new File("examples/advanced.png")).toURI().toString());
         ImageView advancedImageView = new ImageView(advancedImage);
-        advancedImageView.setFitHeight(130);
-        advancedImageView.setFitWidth(150);
+        advancedImageView.setFitHeight(152);
+        advancedImageView.setFitWidth(176);
         advancedButton.setGraphic(advancedImageView);
 
         Image bouldersImage = new Image((new File("examples/boulders.png")).toURI().toString());
         ImageView bouldersImageView = new ImageView(bouldersImage);
-        bouldersImageView.setFitHeight(130);
-        bouldersImageView.setFitWidth(150);
+        bouldersImageView.setFitHeight(152);
+        bouldersImageView.setFitWidth(176);
         bouldersButton.setGraphic(bouldersImageView);
 
         Image mazeImage = new Image((new File("examples/maze.png")).toURI().toString());
         ImageView mazeImageView = new ImageView(mazeImage);
-        mazeImageView.setFitHeight(130);
-        mazeImageView.setFitWidth(150);
+        mazeImageView.setFitHeight(152);
+        mazeImageView.setFitWidth(176);
         mazeButton.setGraphic(mazeImageView);
     }
 
