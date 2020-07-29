@@ -10,7 +10,7 @@
    <children>
       <Label layoutX="122.0" layoutY="51.0" text="Super Cool Dungeon Explore 2">
          <font>
-            <Font name="SilveradoMediumCondensed" size="32.0" />
+            <Font name="System" size="32.0" />
          </font>
       </Label>
       <Button fx:id="advancedButton" layoutX="47.0" layoutY="135.0" mnemonicParsing="false" onAction="#handleAdvancedButton" prefHeight="130.0" prefWidth="150.0" text="Button" />
