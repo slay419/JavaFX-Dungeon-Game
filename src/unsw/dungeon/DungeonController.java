@@ -44,8 +44,10 @@ public class DungeonController {
             }
         }
 
-        for (ImageView entity : initialEntities)
+        for (ImageView entity : initialEntities) {
             squares.getChildren().add(entity);
+            //dungeon.addImage(entity);
+        }
 
     }
 
@@ -67,7 +69,26 @@ public class DungeonController {
         default:
             break;
         }
+        //processEntities();
+    }
+
+    private void processEntities() {
+        for (ImageView i : initialEntities) {
+            if (!dungeon.getEntityImages().contains(i)) {
+                squares.getChildren().remove(i);
+            }
+        }
     }
 
 }
 
+/**
+ * Maybe after movement, check if there exists overlapping images
+ * If so then remove the image
+ * 
+ * Every movement do a entity list check in dungeon 
+ * If an entity has been removed then remove the image
+ * 
+ * https://coderanch.com/t/580998/java/remove-node
+ * squares.getChildren().remove(ImageView);
+ */

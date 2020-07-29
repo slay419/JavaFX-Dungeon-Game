@@ -6,6 +6,8 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.image.ImageView;
+
 /**
  * A dungeon in the interactive dungeon player.
  *
@@ -21,12 +23,14 @@ public class Dungeon {
     private List<Entity> entities;
     private List<Goal> goals;
     private Player player;
+    private List<ImageView> entityImages;
 
     public Dungeon(int width, int height) {
         this.width = width;
         this.height = height;
         this.entities = new ArrayList<>();
         this.goals = new ArrayList<>();
+        this.entityImages = new ArrayList<>();
         this.player = null;
     }
 
@@ -183,5 +187,12 @@ public class Dungeon {
     public Boolean entityExists(Entity entity) {
         return entities.contains(entity);
     }
+
+    public void addImage(ImageView image) {
+        entityImages.add(image);
+    }
     
+    public List<ImageView> getEntityImages() {
+        return entityImages;
+    }
 }
