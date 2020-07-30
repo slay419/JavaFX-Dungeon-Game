@@ -26,7 +26,10 @@ public class Level {
         Parent root = loader.load();
         scene = new Scene(root);
         root.requestFocus();
-
+        /**
+         * sub menu = new SubMenu() 
+         * attach controller
+         */
     }
 
     public void start(){

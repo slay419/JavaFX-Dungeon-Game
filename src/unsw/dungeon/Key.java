@@ -32,6 +32,7 @@ public class Key extends Entity {
         Inventory inventory = player.getInventory();
         if(!inventory.hasKey()){
             inventory.add(this);
+            player.removeImage(this);
         }
         else{
             //swapId is the key in the inventories Id

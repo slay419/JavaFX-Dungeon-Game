@@ -151,4 +151,12 @@ public class Player extends Entity {
         inventory.usePotion();
     }
 
+    public void removeImage(Entity entity) {
+        dungeon.removeImage(entity);
+    }
+
+    public void openDoor(Entity entity) {
+        dungeon.openDoor(entity);
+    }
+
 }

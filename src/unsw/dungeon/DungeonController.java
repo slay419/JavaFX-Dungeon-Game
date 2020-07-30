@@ -31,6 +31,7 @@ public class DungeonController {
         this.dungeon = dungeon;
         this.player = dungeon.getPlayer();
         this.initialEntities = new ArrayList<>(initialEntities);
+        dungeon.setController(this);
     }
 
     @FXML
@@ -46,7 +47,6 @@ public class DungeonController {
 
         for (ImageView entity : initialEntities) {
             squares.getChildren().add(entity);
-            //dungeon.addImage(entity);
         }
 
     }
@@ -69,26 +69,36 @@ public class DungeonController {
         default:
             break;
         }
-        //processEntities();
     }
 
-    private void processEntities() {
+    public void removeImage(Entity entity) {
+        int entityX = entity.getX();
+        int entityY = entity.getY();
         for (ImageView i : initialEntities) {
-            if (!dungeon.getEntityImages().contains(i)) {
+            if (i.getId().equals(entity.getName()) && GridPane.getColumnIndex(i).equals(entityX) && GridPane.getRowIndex(i).equals(entityY)) {
                 squares.getChildren().remove(i);
+                initialEntities.remove(i);
+                break;
             }
         }
     }
 
-}
+    public void openDoor(Entity entity) {
+        int entityX = entity.getX();
+        int entityY = entity.getY();
+        Image openDoorImage = new Image((new File("images/open_door.png")).toURI().toString());
+        ImageView view = new ImageView(openDoorImage);
+        
+        
+        for (ImageView i : initialEntities) {
+            if (entity.getName().equals("door") && GridPane.getColumnIndex(i).equals(entityX) && GridPane.getRowIndex(i).equals(entityY)) {
+                squares.getChildren().remove(i);
+                initialEntities.remove(i);
+                squares.add(view, entityX, entityY);
+                break;
+            }
+        }
+        
+    }
 
-/**
- * Maybe after movement, check if there exists overlapping images
- * If so then remove the image
- * 
- * Every movement do a entity list check in dungeon 
- * If an entity has been removed then remove the image
- * 
- * https://coderanch.com/t/580998/java/remove-node
- * squares.getChildren().remove(ImageView);
- */
+}

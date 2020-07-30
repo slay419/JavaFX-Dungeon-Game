@@ -25,10 +25,12 @@ public class Enemy extends Entity implements SubjectEnemy {
         if (player.isInvincible()) {
             player.killEnemy(this);
             notifyObserver();
+            player.removeImage(this);
         } else if (player.hasSword()) {
             player.useSword();
             player.killEnemy(this);
             notifyObserver();
+            player.removeImage(this);
         } else {
             System.out.println("You died");
             dungeon.removeEntity(player);

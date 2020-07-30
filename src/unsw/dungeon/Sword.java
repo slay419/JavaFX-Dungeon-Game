@@ -18,6 +18,7 @@ public class Sword extends Entity{
         Inventory inventory = player.getInventory();
         if(!inventory.hasSword()){
             inventory.add(this);
+            player.removeImage(this);
         }
     }
 

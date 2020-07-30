@@ -28,6 +28,7 @@ public class Treasure extends Entity implements SubjectTreasure {
         Inventory inventory = player.getInventory();
         inventory.add(this);
         notifyObserver();
+        player.removeImage(this);
     }
 
     @Override
@@ -49,4 +50,5 @@ public class Treasure extends Entity implements SubjectTreasure {
         }
 
     }
+
 }

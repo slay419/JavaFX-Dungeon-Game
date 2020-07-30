@@ -28,6 +28,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image wallImage;
     private Image exitImage;
     private Image doorImage;
+    //private Image openDoorImage;
     private Image keyImage;
     private Image treasureImage;
     private Image portalImage;
@@ -45,6 +46,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         wallImage = new Image((new File("images/brick_brown_0.png")).toURI().toString());
         exitImage = new Image((new File("images/exit.png")).toURI().toString());
         doorImage = new Image((new File("images/closed_door.png")).toURI().toString());
+        //openDoorImage = new Image((new File("images/open_door.png")).toURI().toString());
         keyImage = new Image((new File("images/key.png")).toURI().toString());
         treasureImage = new Image((new File("images/gold_pile.png")).toURI().toString());
         portalImage = new Image((new File("images/portal.png")).toURI().toString());
@@ -58,72 +60,84 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Entity player) {
         ImageView view = new ImageView(playerImage);
+        view.setId(player.getName());
         addEntity(player, view);
     }
 
     @Override
     public void onLoad(Wall wall) {
         ImageView view = new ImageView(wallImage);
+        view.setId(wall.getName());
         addEntity(wall, view);
     }
 
     @Override
     public void onLoad(Exit exit) {
         ImageView view = new ImageView(exitImage);
+        view.setId(exit.getName());
         addEntity(exit, view);
     }
 
     @Override
     public void onLoad(Door door) {
         ImageView view = new ImageView(doorImage);
+        view.setId(door.getName());
         addEntity(door, view);
     }
 
     @Override
     public void onLoad(Key key) {
         ImageView view = new ImageView(keyImage);
+        view.setId(key.getName());
         addEntity(key, view);
     }
 
     @Override
     public void onLoad(Treasure treasure) {
         ImageView view = new ImageView(treasureImage);
+        view.setId(treasure.getName());
         addEntity(treasure, view);
     }
 
     @Override
     public void onLoad(Portal portal) {
         ImageView view = new ImageView(portalImage);
+        view.setId(portal.getName());
         addEntity(portal, view);
     }
 
     @Override
     public void onLoad(Boulder boulder) {
         ImageView view = new ImageView(boulderImage);
+        view.setId(boulder.getName());
         addEntity(boulder, view);
     }
 
     @Override
     public void onLoad(FloorSwitch floorSwitch) {
         ImageView view = new ImageView(floorSwitchImage);
+        view.setId(floorSwitch.getName());
         addEntity(floorSwitch, view);
     }
 
     @Override
     public void onLoad(Enemy enemy) {
         ImageView view = new ImageView(enemyImage);
+        view.setId(enemy.getName());
         addEntity(enemy, view);
     }
 
     @Override 
     public void onLoad(InvincibilityPotion potion) {
         ImageView view = new ImageView(potionImage);
+        view.setId(potion.getName());
         addEntity(potion, view);
     }
         
     @Override
     public void onLoad(Sword sword) {
         ImageView view = new ImageView(swordImage);
+        view.setId(sword.getName());
         addEntity(sword, view);
     }
 
@@ -150,7 +164,7 @@ public class DungeonControllerLoader extends DungeonLoader {
             @Override
             public void changed(ObservableValue<? extends Number> observable,
                     Number oldValue, Number newValue) {
-                GridPane.setColumnIndex(node, newValue.intValue());
+                GridPane.setColumnIndex(node, newValue.intValue());      
             }
         });
         entity.y().addListener(new ChangeListener<Number>() {

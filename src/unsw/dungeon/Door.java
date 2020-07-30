@@ -23,8 +23,9 @@ public class Door extends Entity {
         return id;
     }
 
-    public void openDoor(){
+    public void openDoor(Player player){
         setImpassible(false);
+        player.openDoor(this);
     }
 
     @Override
@@ -32,7 +33,7 @@ public class Door extends Entity {
         Inventory inventory = player.getInventory();
         if (inventory.checkKey(id)) {
             inventory.useKey();
-            openDoor();
+            openDoor(player);
         }
 	}
     

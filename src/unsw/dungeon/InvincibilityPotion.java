@@ -25,6 +25,7 @@ public class InvincibilityPotion extends Entity {
     public void process(Player player) {
         Inventory inventory = player.getInventory();
         inventory.add(this);
+        player.removeImage(this);
     }
     
     /**

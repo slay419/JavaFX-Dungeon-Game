@@ -24,6 +24,7 @@ public class Dungeon {
     private List<Goal> goals;
     private Player player;
     private List<ImageView> entityImages;
+    private DungeonController controller;
 
     public Dungeon(int width, int height) {
         this.width = width;
@@ -128,6 +129,10 @@ public class Dungeon {
         entities.remove(entity);
     }
 
+    public void setController(DungeonController controller) {
+        this.controller = controller;
+    }
+
     /**
      * Returns the entity at a chosen tile (that isn't the player)
      * @param x The X position of the tile you want to check
@@ -194,5 +199,13 @@ public class Dungeon {
     
     public List<ImageView> getEntityImages() {
         return entityImages;
+    }
+
+    public void removeImage(Entity entity) {
+        controller.removeImage(entity);
+    }
+
+    public void openDoor(Entity entity) {
+        controller.openDoor(entity);
     }
 }
