@@ -19,6 +19,7 @@ public class Sword extends Entity{
         if(!inventory.hasSword()){
             inventory.add(this);
             player.removeImage(this);
+            player.updateChargesSwordUI(charges);
         }
     }
 
@@ -29,5 +30,4 @@ public class Sword extends Entity{
     public int getCharges() {
         return charges;
     }
-
 }

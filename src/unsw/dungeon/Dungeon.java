@@ -260,4 +260,25 @@ public class Dungeon {
     public int getTimer() {
         return timer;
     }
+
+    public void addImage(ImageView image, int x) {
+        controller.addImage(image, x);
+    }
+
+    public void removeImage(ImageView image, int x){
+        controller.removeImage(image, x);
+    }
+
+    public void updateChargesTreasureUI(){
+        controller.updateChargesTreasureUI();
+    }
+
+    public void updateChargesSwordUI(int charges){
+        controller.updateChargesSwordUI(charges);
+    }
+
+    public void updateChargesPotionUI(int charges){
+        controller.updateChargesPotionUI(charges);
+    }
+
 }

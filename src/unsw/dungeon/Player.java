@@ -3,6 +3,9 @@ package unsw.dungeon;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+
 /**
  * The player entity
  * 
@@ -168,6 +171,26 @@ public class Player extends Entity {
 
     public void showVictoryScreen() throws IOException {
         dungeon.showVictoryScreen();
+    }
+
+    public void addImage(ImageView image, int x){
+        dungeon.addImage(image, x);
+    }
+
+    public void removeImage(ImageView image, int x){
+        dungeon.removeImage(image, x);
+    }
+
+    public void updateChargesTreasureUI(){
+        dungeon.updateChargesTreasureUI();
+    }
+
+    public void updateChargesSwordUI(int charges){
+        dungeon.updateChargesSwordUI(charges);
+    }
+
+    public void updateChargesPotionUI(int charges){
+        dungeon.updateChargesPotionUI(charges);
     }
 
 }

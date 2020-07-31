@@ -17,9 +17,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-<<<<<<< Updated upstream
-import javafx.scene.control.Label;
-=======
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.CheckBoxTreeItem;
@@ -28,7 +25,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
->>>>>>> Stashed changes
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -59,6 +55,10 @@ public class DungeonController {
     private Timeline timeline;
     private StringProperty timer;
     private Label timerLabel;
+
+    private Label treasureCount = new Label("0");
+    private Label swordCharges = new Label("0");
+    private Label potionCharges = new Label("0");
 
     private VictoryScreen victoryScreen;
 
@@ -115,7 +115,6 @@ public class DungeonController {
         int floor = dungeon.getHeight();
 
         squares.add(new ImageView(keyDark), 0, floor);
-        //squares.add(new Separator(Orientation.VERTICAL), 1, floor);
         squares.add(new ImageView(treasureDark), 1, floor);
         squares.add(new ImageView(swordDark), 2, floor);
         squares.add(new ImageView(potionDark), 3, floor);
@@ -259,6 +258,13 @@ public class DungeonController {
         victoryScreen.start();
     }
 
+    public void showPauseScreen() throws IOException {
+        timeline.stop();
+        victoryScreen = new VictoryScreen(stage, this);
+        victoryScreen.setText("Paused");
+        victoryScreen.start();
+    }
+
     private void countdownTick() throws IOException {
         int timerInt = Integer.parseInt(timer.getValue());
         //System.out.println("time left: " + timerInt);
@@ -272,6 +278,30 @@ public class DungeonController {
 
     public void startCountdown() {
         timeline.play();
+    }
+
+    public void addImage(ImageView image, int x) {
+        squares.add(image, x, dungeon.getHeight());
+    }
+
+    public void removeImage(ImageView image, int x){
+        squares.getChildren().remove(image);
+    }
+
+    public void updateChargesTreasureUI(){
+        int prevCount = Integer.valueOf(treasureCount.getText());
+        System.out.println("Prev count is: " + prevCount);
+        int newCount = prevCount + 1;
+        System.out.println("New count is : " + newCount);
+        treasureCount.setText(String.valueOf(newCount));
+    }
+    
+    public void updateChargesSwordUI(int charges){
+        swordCharges.setText(Integer.toString(charges));
+    }
+
+    public void updateChargesPotionUI(int charges){
+        potionCharges.setText(Integer.toString(charges));
     }
 
 }
