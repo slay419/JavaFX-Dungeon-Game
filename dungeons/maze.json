@@ -1,6 +1,7 @@
 {
   "width": 20,
   "height": 18,
+  "timer": 30,
   "entities": [
     {
       "x": 2,
@@ -1149,6 +1150,6 @@
     }
   ],
   "goal-condition": {
-    "goal": "enemies"
+    "goal": "treasure"
   }
 }

@@ -28,7 +28,6 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image wallImage;
     private Image exitImage;
     private Image doorImage;
-    //private Image openDoorImage;
     private Image keyImage;
     private Image treasureImage;
     private Image portalImage;
@@ -46,7 +45,6 @@ public class DungeonControllerLoader extends DungeonLoader {
         wallImage = new Image((new File("images/brick_brown_0.png")).toURI().toString());
         exitImage = new Image((new File("images/exit.png")).toURI().toString());
         doorImage = new Image((new File("images/closed_door.png")).toURI().toString());
-        //openDoorImage = new Image((new File("images/open_door.png")).toURI().toString());
         keyImage = new Image((new File("images/key.png")).toURI().toString());
         treasureImage = new Image((new File("images/gold_pile.png")).toURI().toString());
         portalImage = new Image((new File("images/portal.png")).toURI().toString());

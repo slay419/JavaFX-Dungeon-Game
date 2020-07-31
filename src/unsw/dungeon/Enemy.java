@@ -1,5 +1,6 @@
 package unsw.dungeon;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Enemy extends Entity implements SubjectEnemy {
@@ -19,7 +20,8 @@ public class Enemy extends Entity implements SubjectEnemy {
     }
 
     /**
-     * This function will only be called if the player moves onto the same tile as the enemy
+     * This function will only be called if the player moves onto the same tile as
+     * the enemy
      */
     public void processEnemy(Player player) {
         if (player.isInvincible()) {
@@ -34,6 +36,11 @@ public class Enemy extends Entity implements SubjectEnemy {
         } else {
             System.out.println("You died");
             dungeon.removeEntity(player);
+            try {
+                dungeon.showDefeatScreen();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }   
 

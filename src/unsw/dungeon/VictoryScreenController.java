@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 
 public class VictoryScreenController {
 
@@ -12,6 +13,9 @@ public class VictoryScreenController {
 
     @FXML
     private Button restartButton;
+
+    @FXML
+    private Text textDisplay;
 
     private DungeonController controller;
 
@@ -29,6 +33,10 @@ public class VictoryScreenController {
     public void handleMenuButton() throws IOException {
         System.out.println("main menu");
         controller.goToMainMenu();
+    }
+
+    public void setText(String text) {
+        textDisplay.setText(text);
     }
 
 }

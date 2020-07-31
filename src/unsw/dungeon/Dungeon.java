@@ -20,7 +20,7 @@ import javafx.scene.image.ImageView;
  */
 public class Dungeon {
 
-    private int width, height;
+    private int width, height, timer;
     private List<Entity> entities;
     private List<Goal> goals;
     private Player player;
@@ -227,5 +227,24 @@ public class Dungeon {
 
     public void showVictoryScreen() throws IOException {
         controller.showVictoryScreen();
+    }
+
+    public void showDefeatScreen() throws IOException {
+        controller.showDefeatScreen();
+    }
+
+    public void processCompositeGoal(Goal goal) {
+        if (goal instanceof CompositeGoal) {
+            CompositeGoal g = (CompositeGoal) goal;
+            g.setDungeon(this);
+        }
+    }
+
+    public void setTimer(int timer) {
+        this.timer = timer;
+    }
+
+    public int getTimer() {
+        return timer;
     }
 }

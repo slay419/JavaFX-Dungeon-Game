@@ -1,17 +1,20 @@
 package unsw.dungeon;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class CompositeGoal implements Goal {
 
-    private String name; 
+    private String name;
     private ArrayList<Goal> subGoals;
+    private Dungeon dungeon;
 
     public CompositeGoal() {
         subGoals = new ArrayList<Goal>();
     }
 
-    //Process goal checks if all subgoals are completed (return true). If all are completed then it will return true
+    // Process goal checks if all subgoals are completed (return true). If all are
+    // completed then it will return true
     public Boolean processGoal() {
         for (Goal s : subGoals) {
             if (!s.processGoal()) {
@@ -19,6 +22,11 @@ public class CompositeGoal implements Goal {
             }
         }
         System.out.println("Completed all goals!");
+        try {
+            dungeon.showVictoryScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return true;
     }
 
@@ -44,6 +52,10 @@ public class CompositeGoal implements Goal {
             }
         }
         return true;
+    }
+
+    public void setDungeon(Dungeon dungeon) {
+        this.dungeon = dungeon;
     }
 
     @Override

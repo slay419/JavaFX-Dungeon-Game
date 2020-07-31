@@ -3,15 +3,26 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,16 +44,36 @@ public class DungeonController {
     private Dungeon dungeon;
     private Level currentLevel;
 
-    // private VictoryScreenController controller;
+    private StringProperty timer;
+    private Label timerLabel;
+
     private VictoryScreen victoryScreen;
+    private DefeatScreen defeatScreen;
 
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
         this.dungeon = dungeon;
         this.player = dungeon.getPlayer();
         this.initialEntities = new ArrayList<>(initialEntities);
         dungeon.setController(this);
-        // victoryScreen = new VictoryScreen(stage)
-        // controller = new VictoryScreenController();
+        timer = new SimpleStringProperty(String.valueOf(dungeon.getTimer()));
+
+        Timeline timeline = new Timeline();
+        EventHandler<ActionEvent> countdownEvent = new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent T) {
+                try {
+                    countdownTick();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        };
+        KeyFrame keyframe = new KeyFrame(Duration.millis(1000), countdownEvent);
+        timeline.getKeyFrames().add(keyframe);
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 
     @FXML
@@ -55,7 +86,18 @@ public class DungeonController {
                 squares.add(new ImageView(ground), x, y);
             }
         }
-
+        
+        timerLabel = new Label();
+        timerLabel.textProperty().bindBidirectional(timer);
+        
+        squares.add(timerLabel, dungeon.getWidth(), dungeon.getHeight());
+        /*
+        This will be used for adding an inventory/goals bar
+        int y = dungeon.getHeight();
+        for (int x = 0; x < 4; x++) {
+            squares.add(new ImageView(ground), x, y);
+        }
+        */
         for (ImageView entity : initialEntities) {
             squares.getChildren().add(entity);
         }
@@ -138,8 +180,24 @@ public class DungeonController {
 
     public void showVictoryScreen() throws IOException {
         victoryScreen = new VictoryScreen(stage, this);
+        victoryScreen.setText("Victory!");
         victoryScreen.start();
         // Add victory screen to constructor and call screen.start()
+    }
+
+    public void showDefeatScreen() throws IOException {
+        victoryScreen = new VictoryScreen(stage, this);
+        victoryScreen.setText("Defeat!");
+        victoryScreen.start();
+    }
+
+    private void countdownTick() throws IOException {
+        int timerInt = Integer.parseInt(timer.getValue());
+        timerInt--;
+        if (timerInt == 0) {
+            showDefeatScreen();
+        }
+        timerLabel.setText(String.valueOf(timerInt));
     }
 
 }

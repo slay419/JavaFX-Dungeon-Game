@@ -32,6 +32,10 @@ public class VictoryScreen {
         stage.show();
     }
 
+    public void setText(String text) {
+        controller.setText(text);
+    }
+
     public VictoryScreenController getController() {
         return controller;
     }

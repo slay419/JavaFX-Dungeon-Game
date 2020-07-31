@@ -20,12 +20,12 @@ public class Exit extends Entity implements SubjectExit {
      * @return
      * @throws IOException
      */
-    public Boolean reachedExit(Player player) throws IOException {
+    public Boolean reachedExit(Player player) {
         int playerX = player.getX();
         int playerY = player.getY();
         if (playerX == this.getX() && playerY == this.getY()) {
             notifyObserver();
-            player.showVictoryScreen();
+            //player.showVictoryScreen();
             return true;
         }
         return false;
@@ -33,12 +33,8 @@ public class Exit extends Entity implements SubjectExit {
 
     @Override
     public void process(Player player) {
-        try {
-            if (reachedExit(player)) {
-                System.out.println("Reached the exit!");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (reachedExit(player)) {
+            System.out.println("Reached the exit!");
         }
     }
 

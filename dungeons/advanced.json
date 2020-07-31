@@ -1,6 +1,7 @@
 {
   "width": 18,
   "height": 16,
+  "timer": 30,
   "entities": [
     {
       "x": 6,
@@ -608,15 +609,14 @@
       "type": "exit"
     }
   ],
-  "goal-condition": {
-    "goal": "AND",
-    "subgoals": [
-      {
-        "goal": "exit"
-      },
-      {
-        "goal": "treasure"
-      }
-    ]
-  }
+  "goal-condition": 
+    { "goal": "AND", "subgoals":
+      [ { "goal": "exit" },
+        { "goal": "OR", "subgoals":
+          [ {"goal": "enemies" },
+            {"goal": "treasure" }
+          ]
+        }
+      ]
+    }
 }

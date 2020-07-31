@@ -31,8 +31,10 @@ public abstract class DungeonLoader {
     public Dungeon load() {
         int width = json.getInt("width");
         int height = json.getInt("height");
+        int timer = json.getInt("timer");
 
         Dungeon dungeon = new Dungeon(width, height);
+        dungeon.setTimer(timer);
 
         JSONArray jsonEntities = json.getJSONArray("entities");
 
@@ -41,7 +43,8 @@ public abstract class DungeonLoader {
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
-        loadGoal(dungeon, jsonGoals);
+        Goal goal = loadGoal(dungeon, jsonGoals);
+        dungeon.processCompositeGoal(goal);
         return dungeon;
     }
 
@@ -55,6 +58,7 @@ public abstract class DungeonLoader {
         String goal = jsonGoal.getString("goal");       
 
         CompositeGoal compositeGoal = new CompositeGoal();
+        dungeon.processCompositeGoal(compositeGoal);
         JSONArray listSubgoals = null;
         Goal subgoal = null;
         
