@@ -3,6 +3,8 @@ package test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
+
 import org.junit.jupiter.api.Test;
 
 import unsw.dungeon.Dungeon;
@@ -11,7 +13,7 @@ import unsw.dungeon.Player;
 
 public class ExitTest {
     @Test
-    public void playerNotAtExit() {
+    public void playerNotAtExit() throws IOException {
         Dungeon d = new Dungeon(10, 10);
         Player player = new Player(d, 1, 1);
         Exit exit = new Exit(10 ,10);
@@ -21,7 +23,7 @@ public class ExitTest {
     }
 
     @Test
-    public void playerAtExit() {
+    public void playerAtExit() throws IOException {
         Dungeon d = new Dungeon(10, 10);
         Player player = new Player(d, 10, 10);
         Exit exit = new Exit(10, 10);
@@ -31,7 +33,7 @@ public class ExitTest {
     }
 
     @Test
-    public void playerMoveToExit() {
+    public void playerMoveToExit() throws IOException {
         Dungeon d = new Dungeon(10, 10);
         Player player = new Player(d, 9, 8);
         Exit exit = new Exit(9, 9);

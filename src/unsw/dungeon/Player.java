@@ -1,9 +1,11 @@
 package unsw.dungeon;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * The player entity
+ * 
  * @author Robert Clifton-Everest
  *
  */
@@ -14,6 +16,7 @@ public class Player extends Entity {
 
     /**
      * Create a player positioned in square (x,y)
+     * 
      * @param x
      * @param y
      */
@@ -50,20 +53,21 @@ public class Player extends Entity {
 
     /**
      * Checking tiles of where the player will move
-     * @param x - future x position 
-     * @param y - future y position 
+     * 
+     * @param x - future x position
+     * @param y - future y position
      */
     private void processMovement(int x, int y) {
 
         ArrayList<Entity> entityList = dungeon.getEntityList(x, y);
-        
-        // Check if the next tile is impassible or not 
+
+        // Check if the next tile is impassible or not
         if (!checkImpassible(x, y)) {
             // Move the player if it's not impassible
             setXPos(x);
             setYPos(y);
             processPotion();
-        }        
+        }
         // Calls the entity process method in the child class
         if (entityList != null) {
             for (Entity e : entityList) {
@@ -72,11 +76,12 @@ public class Player extends Entity {
         }
         // Enemies will move after the player
         moveEnemies();
-    } 
+    }
 
     /**
-     * Checks the coordinates to see if the entity there is impassible and allows 
+     * Checks the coordinates to see if the entity there is impassible and allows
      * player movement
+     * 
      * @param x
      * @param y
      * @return
@@ -96,6 +101,7 @@ public class Player extends Entity {
 
     /**
      * Removes the item from the level
+     * 
      * @param entity
      */
     public void pickUp(Entity entity) {
@@ -106,12 +112,13 @@ public class Player extends Entity {
         return inventory;
     }
 
-    public ArrayList<Entity> getEntityList(int x, int y){
+    public ArrayList<Entity> getEntityList(int x, int y) {
         return dungeon.getEntityList(x, y);
     }
 
     /**
      * Searches the level for a list of matching entities
+     * 
      * @return
      */
     public ArrayList<Entity> levelEntites(String name) {
@@ -119,12 +126,12 @@ public class Player extends Entity {
     }
 
     /**
-     * @return - true if the player has a sword or potion in their inventory 
+     * @return - true if the player has a sword or potion in their inventory
      */
     public Boolean isInvincible() {
         return inventory.hasPotion();
     }
-    
+
     /**
      * Moves all the enemies in the dungeon
      */
@@ -157,6 +164,10 @@ public class Player extends Entity {
 
     public void openDoor(Entity entity) {
         dungeon.openDoor(entity);
+    }
+
+    public void showVictoryScreen() throws IOException {
+        dungeon.showVictoryScreen();
     }
 
 }

@@ -12,20 +12,27 @@ public class Level {
     private String title;
     private DungeonController controller;
     private Scene scene;
+    private VictoryScreen victoryScreen;
+    private String fxmlLevel;
 
     public Level(Stage stage, String level) throws IOException{
         this.stage = stage;
         title = "Dungeon";
         
         DungeonControllerLoader dungeonLoader = new DungeonControllerLoader(level);
+        fxmlLevel = level;
 
         controller = dungeonLoader.loadController();
+        controller.setStage(stage);
+        controller.setCurrentLevel(this);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
         loader.setController(controller);
         Parent root = loader.load();
         scene = new Scene(root);
         root.requestFocus();
+
+        //victoryScreen = new VictoryScreen(stage);
         /**
          * sub menu = new SubMenu() 
          * attach controller
@@ -40,6 +47,10 @@ public class Level {
 
     public DungeonController getController(){
         return controller;
+    }
+
+    public String getLevel() {
+        return fxmlLevel;
     }
     
 }

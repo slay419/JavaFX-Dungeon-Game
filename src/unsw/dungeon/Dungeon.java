@@ -3,6 +3,7 @@
  */
 package unsw.dungeon;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class Dungeon {
 
     /**
      * Adds a goal to the Goals list in the Dungeon class
+     * 
      * @param goal The goal to be added
      */
     public void addGoal(Goal goal) {
@@ -45,6 +47,7 @@ public class Dungeon {
 
     /**
      * processExitGoal registers the subgoal as an observer for an Exit type goal
+     * 
      * @param subgoal Exit type subgoal requires the player to reach the Exit
      */
     public void processExitGoal(Goal subgoal) {
@@ -58,13 +61,16 @@ public class Dungeon {
     }
 
     /**
-     * processBouldersGoal registers the subgoal as an observer for an Boulder type goal
-     * @param subgoal Boulders type subogoal requires the player to push a boulder onto all switches
+     * processBouldersGoal registers the subgoal as an observer for an Boulder type
+     * goal
+     * 
+     * @param subgoal Boulders type subogoal requires the player to push a boulder
+     *                onto all switches
      */
     public void processBouldersGoal(Goal subgoal) {
         ArrayList<Entity> switches = findEntities("floorSwitch");
         ObserverBoulders observer = (ObserverBoulders) subgoal;
-        // attach this obs to all switches 
+        // attach this obs to all switches
         for (Entity e : switches) {
             FloorSwitch floorSwitch = (FloorSwitch) e;
             floorSwitch.register(observer);
@@ -74,8 +80,11 @@ public class Dungeon {
     }
 
     /**
-     * processTreasuresGoal registers the subgoal as an observer for an Treasures type goal
-     * @param subgoal Treasures type subgoal requires the player to collect all treasures
+     * processTreasuresGoal registers the subgoal as an observer for an Treasures
+     * type goal
+     * 
+     * @param subgoal Treasures type subgoal requires the player to collect all
+     *                treasures
      */
     public void processTreasureGoal(Goal subgoal) {
         ArrayList<Entity> treasureList = findEntities("treasure");
@@ -90,7 +99,9 @@ public class Dungeon {
     }
 
     /**
-     * processEnemiesGoal registers the subgoal as an observer for an Enemies type goal
+     * processEnemiesGoal registers the subgoal as an observer for an Enemies type
+     * goal
+     * 
      * @param subgoal Enemies type subgoal requires the player to kill all enemies
      */
     public void processEnemiesGoal(Goal subgoal) {
@@ -135,6 +146,7 @@ public class Dungeon {
 
     /**
      * Returns the entity at a chosen tile (that isn't the player)
+     * 
      * @param x The X position of the tile you want to check
      * @param y The Y position of the tile you want to check
      * @return
@@ -143,7 +155,7 @@ public class Dungeon {
         for (Entity e : entities) {
             int entityX = e.getX();
             int entityY = e.getY();
-            
+
             if (entityX == x && entityY == y && !(e instanceof Player)) {
                 return e;
             }
@@ -153,6 +165,7 @@ public class Dungeon {
 
     /**
      * Returns a list of all entities at a chosen tile (that isn't the player)
+     * 
      * @param x The X position of the tile you want to check
      * @param y The Y position of the tile you want to check
      * @return
@@ -162,11 +175,11 @@ public class Dungeon {
         for (Entity e : entities) {
             int entityX = e.getX();
             int entityY = e.getY();
-            
+
             if (entityX == x && entityY == y && !(e instanceof Player)) {
                 eList.add(e);
             }
-            
+
         }
         if (eList.isEmpty()) {
             return null;
@@ -175,7 +188,9 @@ public class Dungeon {
     }
 
     /**
-     * Loops through the list of all entities in the dungeon and returns a list of matching entity names
+     * Loops through the list of all entities in the dungeon and returns a list of
+     * matching entity names
+     * 
      * @return
      */
     public ArrayList<Entity> findEntities(String name) {
@@ -188,7 +203,8 @@ public class Dungeon {
         return result;
     }
 
-    //Helper function to detect if there is an entity in the entity list (for testing)
+    // Helper function to detect if there is an entity in the entity list (for
+    // testing)
     public Boolean entityExists(Entity entity) {
         return entities.contains(entity);
     }
@@ -196,7 +212,7 @@ public class Dungeon {
     public void addImage(ImageView image) {
         entityImages.add(image);
     }
-    
+
     public List<ImageView> getEntityImages() {
         return entityImages;
     }
@@ -207,5 +223,9 @@ public class Dungeon {
 
     public void openDoor(Entity entity) {
         controller.openDoor(entity);
+    }
+
+    public void showVictoryScreen() throws IOException {
+        controller.showVictoryScreen();
     }
 }

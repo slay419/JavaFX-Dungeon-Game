@@ -30,12 +30,14 @@ public class DungeonApplication extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();*/
         MainMenu mainMenu = new MainMenu(primaryStage);
+        /*
         advanced = new Level(primaryStage, "advanced.json");
         boulders = new Level(primaryStage, "boulders.json");
         maze = new Level(primaryStage, "maze.json");
         mainMenu.getController().setAdvancedLevel(advanced);
         mainMenu.getController().setBouldersLevel(boulders);
         mainMenu.getController().setMazeLevel(maze);
+        */
         mainMenu.start();
     }
 
