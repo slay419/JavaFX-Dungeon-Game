@@ -44,11 +44,11 @@ public class DungeonController {
     private Dungeon dungeon;
     private Level currentLevel;
 
+    private Timeline timeline;
     private StringProperty timer;
     private Label timerLabel;
 
     private VictoryScreen victoryScreen;
-    private DefeatScreen defeatScreen;
 
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
         this.dungeon = dungeon;
@@ -57,7 +57,7 @@ public class DungeonController {
         dungeon.setController(this);
         timer = new SimpleStringProperty(String.valueOf(dungeon.getTimer()));
 
-        Timeline timeline = new Timeline();
+        timeline = new Timeline();
         EventHandler<ActionEvent> countdownEvent = new EventHandler<ActionEvent>() {
 
             @Override
@@ -73,7 +73,6 @@ public class DungeonController {
         KeyFrame keyframe = new KeyFrame(Duration.millis(1000), countdownEvent);
         timeline.getKeyFrames().add(keyframe);
         timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
     }
 
     @FXML
@@ -179,13 +178,14 @@ public class DungeonController {
     }
 
     public void showVictoryScreen() throws IOException {
+        timeline.stop();
         victoryScreen = new VictoryScreen(stage, this);
         victoryScreen.setText("Victory!");
         victoryScreen.start();
-        // Add victory screen to constructor and call screen.start()
     }
 
     public void showDefeatScreen() throws IOException {
+        timeline.stop();
         victoryScreen = new VictoryScreen(stage, this);
         victoryScreen.setText("Defeat!");
         victoryScreen.start();
@@ -193,11 +193,17 @@ public class DungeonController {
 
     private void countdownTick() throws IOException {
         int timerInt = Integer.parseInt(timer.getValue());
+        System.out.println("time left: " + timerInt);
         timerInt--;
         if (timerInt == 0) {
+            System.out.println("Ran out of time!");
             showDefeatScreen();
         }
         timerLabel.setText(String.valueOf(timerInt));
+    }
+
+    public void startCountdown() {
+        timeline.play();
     }
 
 }

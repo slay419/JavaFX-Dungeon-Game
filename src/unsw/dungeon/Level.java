@@ -24,7 +24,6 @@ public class Level {
 
         controller = dungeonLoader.loadController();
         controller.setStage(stage);
-        controller.setCurrentLevel(this);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
         loader.setController(controller);
@@ -32,7 +31,9 @@ public class Level {
         scene = new Scene(root);
         root.requestFocus();
 
-        //victoryScreen = new VictoryScreen(stage);
+
+
+
         /**
          * sub menu = new SubMenu() 
          * attach controller
@@ -42,6 +43,8 @@ public class Level {
     public void start(){
         stage.setTitle(title);
         stage.setScene(scene);
+        controller.setCurrentLevel(this);
+        controller.startCountdown();
         stage.show();
     }
 
