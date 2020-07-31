@@ -256,7 +256,16 @@ public class Dungeon {
         controller.removeImage(image, x);
     }
 
-    public void updateChargesUI(int charges){
-        controller.updateChargesUI(charges);
+    public void updateChargesTreasureUI(){
+        controller.updateChargesTreasureUI();
     }
+
+    public void updateChargesSwordUI(int charges){
+        controller.updateChargesSwordUI(charges);
+    }
+
+    public void updateChargesPotionUI(int charges){
+        controller.updateChargesPotionUI(charges);
+    }
+
 }

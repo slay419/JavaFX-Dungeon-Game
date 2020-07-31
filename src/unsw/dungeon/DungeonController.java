@@ -253,12 +253,20 @@ public class DungeonController {
         squares.getChildren().remove(image);
     }
 
-    public void updateChargesUI(int charges){
-        potionCharges.setText(Integer.toString(charges));
+    public void updateChargesTreasureUI(){
+        int prevCount = Integer.valueOf(treasureCount.getText());
+        System.out.println("Prev count is: " + prevCount);
+        int newCount = prevCount + 1;
+        System.out.println("New count is : " + newCount);
+        treasureCount.setText(String.valueOf(newCount));
+    }
+    
+    public void updateChargesSwordUI(int charges){
+        swordCharges.setText(Integer.toString(charges));
     }
 
-    private void bindCharge(Label label){
-        player.bindCharge(label);
+    public void updateChargesPotionUI(int charges){
+        potionCharges.setText(Integer.toString(charges));
     }
 
 }

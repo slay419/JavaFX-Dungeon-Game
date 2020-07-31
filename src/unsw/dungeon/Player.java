@@ -181,11 +181,16 @@ public class Player extends Entity {
         dungeon.removeImage(image, x);
     }
 
-    public void bindCharge(Label label){
-        inventory.bindCharge(label);
+    public void updateChargesTreasureUI(){
+        dungeon.updateChargesTreasureUI();
     }
 
-    public void updateChargesUI(int charges){
-        dungeon.updateChargesUI(charges);
+    public void updateChargesSwordUI(int charges){
+        dungeon.updateChargesSwordUI(charges);
     }
+
+    public void updateChargesPotionUI(int charges){
+        dungeon.updateChargesPotionUI(charges);
+    }
+
 }

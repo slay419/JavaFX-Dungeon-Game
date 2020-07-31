@@ -84,6 +84,7 @@ public class Inventory {
         if(this.treasure.isEmpty()){
             addImage(treasureView, 1);
         }
+        updateChargesTreasureUI();
         this.treasure.add(treasure);
     }
 
@@ -139,6 +140,7 @@ public class Inventory {
 
     public void useSword() {
         sword.consumeCharge();
+        player.updateChargesSwordUI(sword.getCharges());
         if (sword.getCharges() == 0) {
             removeSword();
         }
@@ -176,8 +178,7 @@ public class Inventory {
         player.removeImage(image, x);
     }
 
-    public void bindCharge(Label label){
-        SimpleStringProperty treasureSize = new SimpleStringProperty(String.valueOf(treasure.size()));
-        label.textProperty().bind(treasureSize);
+    public void updateChargesTreasureUI(){
+        player.updateChargesTreasureUI();
     }
 }
