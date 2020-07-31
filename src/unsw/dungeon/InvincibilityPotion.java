@@ -26,6 +26,7 @@ public class InvincibilityPotion extends Entity {
         Inventory inventory = player.getInventory();
         inventory.add(this);
         player.removeImage(this);
+        player.updateChargesUI(charges);
     }
     
     /**

@@ -14,9 +14,21 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Orientation;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+<<<<<<< Updated upstream
 import javafx.scene.control.Label;
+=======
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.CheckBoxTreeItem;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
+>>>>>>> Stashed changes
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -79,6 +91,8 @@ public class DungeonController {
     public void initialize() {
         Image ground = new Image((new File("images/dirt_0_new.png")).toURI().toString());
 
+        // initialise goal 
+
         // Add the ground first so it is below all other entities
         for (int x = 0; x < dungeon.getWidth(); x++) {
             for (int y = 0; y < dungeon.getHeight(); y++) {
@@ -90,13 +104,67 @@ public class DungeonController {
         timerLabel.textProperty().bindBidirectional(timer);
         
         squares.add(timerLabel, dungeon.getWidth(), dungeon.getHeight());
+        
+        //This will be used for adding an inventory/goals bar
+        //Silhouettes
+        Image keyDark = new Image((new File("images/keyDark.png")).toURI().toString());
+        Image treasureDark = new Image((new File("images/treasureDark.png")).toURI().toString());
+        Image swordDark = new Image((new File("images/swordDark.png")).toURI().toString());
+        Image potionDark = new Image((new File("images/potionDark.png")).toURI().toString());
+
+        int floor = dungeon.getHeight();
+
+        squares.add(new ImageView(keyDark), 0, floor);
+        //squares.add(new Separator(Orientation.VERTICAL), 1, floor);
+        squares.add(new ImageView(treasureDark), 1, floor);
+        squares.add(new ImageView(swordDark), 2, floor);
+        squares.add(new ImageView(potionDark), 3, floor);
+        squares.add(treasureCount, 1, floor + 1);
+        squares.add(swordCharges, 2, floor + 1);
+        squares.add(potionCharges, 3, floor + 1);
+
+        //Add pause button
+        Button pause = new Button("Pause");
+        squares.add(pause, 4, dungeon.getHeight(), 2, 1);
+        pause.setOnAction(new EventHandler<ActionEvent>(){
+            @Override public void handle(ActionEvent T){
+                try {
+                    showPauseScreen();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                };
+            }
+        });
+        TreeItem<String> goals = new TreeItem<String>("Goals to do!");
+        goals.setExpanded(true);
+        
+        List<CompositeGoal> goalList = dungeon.getCompositeGoals();
+        for (CompositeGoal g : goalList) {
+            goals.getChildren().add(new TreeItem<String>(g.getName()));
+        }
+        TreeView<String> treeView = new TreeView<String>(goals);
+        squares.add(treeView, dungeon.getWidth(), 0, 1, dungeon.getHeight());
+
         /*
-        This will be used for adding an inventory/goals bar
-        int y = dungeon.getHeight();
-        for (int x = 0; x < 4; x++) {
-            squares.add(new ImageView(ground), x, y);
+        for (CompositeGoal g : goalList) {
+            System.out.println("goal: " + g.getName());
+            TreeView<String> treeView = new TreeView<String>(new TreeItem<String>(g.getName()));
+            squares.add(treeView, dungeon.getWidth(), 0, 1, dungeon.getHeight());
+            //goals.getChildren().add(new TreeItem<String>(g.getName()));
         }
         */
+        /*
+        goals.getChildren().addAll(
+            new TreeItem<String>("Test \u2713"),
+            new TreeItem<String>("Item 2")
+            //new TreeItem<String>("Item 3")
+        );
+        
+        
+        
+        //Add goals
+        */
+
         for (ImageView entity : initialEntities) {
             squares.getChildren().add(entity);
         }
@@ -193,7 +261,7 @@ public class DungeonController {
 
     private void countdownTick() throws IOException {
         int timerInt = Integer.parseInt(timer.getValue());
-        System.out.println("time left: " + timerInt);
+        //System.out.println("time left: " + timerInt);
         timerInt--;
         if (timerInt == 0) {
             System.out.println("Ran out of time!");

@@ -45,6 +45,12 @@ public abstract class DungeonLoader {
         }
         Goal goal = loadGoal(dungeon, jsonGoals);
         dungeon.processCompositeGoal(goal);
+        if (goal instanceof CompositeGoal) {
+            CompositeGoal g = (CompositeGoal) goal;
+            dungeon.addCompositeGoal(g);
+            System.out.println("calling from loader: found: " + g.getName());
+        }
+        //System.out.println("Found goal: " + goal.getName());
         return dungeon;
     }
 

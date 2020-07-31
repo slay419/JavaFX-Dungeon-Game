@@ -23,6 +23,7 @@ public class Dungeon {
     private int width, height, timer;
     private List<Entity> entities;
     private List<Goal> goals;
+    private List<CompositeGoal> compositeGoals;
     private Player player;
     private List<ImageView> entityImages;
     private DungeonController controller;
@@ -33,6 +34,7 @@ public class Dungeon {
         this.entities = new ArrayList<>();
         this.goals = new ArrayList<>();
         this.entityImages = new ArrayList<>();
+        this.compositeGoals = new ArrayList<>();
         this.player = null;
     }
 
@@ -237,7 +239,18 @@ public class Dungeon {
         if (goal instanceof CompositeGoal) {
             CompositeGoal g = (CompositeGoal) goal;
             g.setDungeon(this);
+            //System.out.println("goal name is: " + goal.getName());
+            //compositeGoals.add(g);
         }
+    }
+
+    public void addCompositeGoal(CompositeGoal goal) {
+        System.out.println("Added goal: " + goal.getName());
+        compositeGoals.add(goal);
+    }
+
+    public List<CompositeGoal> getCompositeGoals() {
+        return compositeGoals;
     }
 
     public void setTimer(int timer) {
