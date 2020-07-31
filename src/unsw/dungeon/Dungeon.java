@@ -247,4 +247,16 @@ public class Dungeon {
     public int getTimer() {
         return timer;
     }
+
+    public void addImage(ImageView image, int x) {
+        controller.addImage(image, x);
+    }
+
+    public void removeImage(ImageView image, int x){
+        controller.removeImage(image, x);
+    }
+
+    public void updateChargesUI(int charges){
+        controller.updateChargesUI(charges);
+    }
 }

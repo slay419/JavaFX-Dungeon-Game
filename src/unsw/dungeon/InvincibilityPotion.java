@@ -34,6 +34,7 @@ public class InvincibilityPotion extends Entity {
      */
     public void useCharge(Player player) {
         setCharges(getCharges() - 1);
+        player.updateChargesUI(charges);
         if (getCharges() == 0) {
             Inventory inventory = player.getInventory();
             inventory.removePotion();

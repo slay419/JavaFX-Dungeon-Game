@@ -1,7 +1,13 @@
 package unsw.dungeon;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Inventory {
     
@@ -12,13 +18,27 @@ public class Inventory {
     private Sword sword;
     private InvincibilityPotion potion;
     
+    private ImageView keyView;
+    private ImageView treasureView;
+    private ImageView swordView;
+    private ImageView potionView;
+
     /**
      * 
      * @param player The player the inventory is tied to
      */
     public Inventory(Player player){
+        Image keyImage = new Image((new File("images/key.png")).toURI().toString());
+        Image treasureImage = new Image((new File("images/gold_pile.png")).toURI().toString());
+        Image swordImage = new Image((new File("images/greatsword_1_new.png")).toURI().toString());
+        Image potionImage = new Image((new File("images/bubbly.png")).toURI().toString());
         this.player = player;
         this.treasure = new ArrayList<Treasure>();
+        this.keyView = new ImageView(keyImage);
+        this.treasureView = new ImageView(treasureImage);
+        this.swordView = new ImageView(swordImage);
+        this.potionView = new ImageView(potionImage);
+
     }
 
 
@@ -61,23 +81,32 @@ public class Inventory {
     }
 
     private void addTreasure(Treasure treasure) {
+        if(this.treasure.isEmpty()){
+            addImage(treasureView, 1);
+        }
         this.treasure.add(treasure);
     }
 
     private void addKey(Key key) {
         this.key = key;
+        addImage(keyView, 0);
     }
 
     private void addSword(Sword sword){
         this.sword = sword;
+        addImage(swordView, 2);
     }
 
     private void addPotion(InvincibilityPotion potion) {
+        if(!hasPotion()){
+            addImage(potionView, 3);
+        }
         this.potion = potion;
     }
 
     public void useKey(){
         this.key = null;
+        removeImage(keyView, 0);
     }
 
     public int countTreasure() {
@@ -105,6 +134,7 @@ public class Inventory {
 
     public void removeSword() {
         sword = null;
+        removeImage(swordView, 0);
     }
 
     public void useSword() {
@@ -122,6 +152,7 @@ public class Inventory {
 
     public void removePotion() {
         potion = null;
+        removeImage(potionView, 0);
     }
 
     public int potionCharges() {
@@ -134,5 +165,19 @@ public class Inventory {
 
     public void changeKeyId(int id){
         key.setId(id);
+    
+    }
+
+    public void addImage(ImageView image, int x){
+        player.addImage(image, x);
+    }
+
+    public void removeImage(ImageView image, int x){
+        player.removeImage(image, x);
+    }
+
+    public void bindCharge(Label label){
+        SimpleStringProperty treasureSize = new SimpleStringProperty(String.valueOf(treasure.size()));
+        label.textProperty().bind(treasureSize);
     }
 }

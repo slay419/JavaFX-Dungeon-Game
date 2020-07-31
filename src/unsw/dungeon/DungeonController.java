@@ -16,7 +16,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -47,6 +49,10 @@ public class DungeonController {
     private Timeline timeline;
     private StringProperty timer;
     private Label timerLabel;
+
+    private Label treasureCount = new Label("0");
+    private Label swordCharges = new Label("0");
+    private Label potionCharges = new Label("0");
 
     private VictoryScreen victoryScreen;
 
@@ -90,13 +96,39 @@ public class DungeonController {
         timerLabel.textProperty().bindBidirectional(timer);
         
         squares.add(timerLabel, dungeon.getWidth(), dungeon.getHeight());
-        /*
-        This will be used for adding an inventory/goals bar
-        int y = dungeon.getHeight();
-        for (int x = 0; x < 4; x++) {
-            squares.add(new ImageView(ground), x, y);
-        }
-        */
+        
+        //This will be used for adding an inventory/goals bar
+        //Silhouettes
+        Image keyDark = new Image((new File("images/keyDark.png")).toURI().toString());
+        Image treasureDark = new Image((new File("images/treasureDark.png")).toURI().toString());
+        Image swordDark = new Image((new File("images/swordDark.png")).toURI().toString());
+        Image potionDark = new Image((new File("images/potionDark.png")).toURI().toString());
+
+        int floor = dungeon.getHeight();
+
+        squares.add(new ImageView(keyDark), 0, floor);
+        squares.add(new ImageView(treasureDark), 1, floor);
+        squares.add(new ImageView(swordDark), 2, floor);
+        squares.add(new ImageView(potionDark), 3, floor);
+        squares.add(treasureCount, 1, floor + 1);
+        squares.add(swordCharges, 2, floor + 1);
+        squares.add(potionCharges, 3, floor + 1);
+
+        //Add pause button
+        Button pause = new Button("Pause");
+        squares.add(pause, 4, dungeon.getHeight(), 2, 1);
+        pause.setOnAction(new EventHandler<ActionEvent>(){
+            @Override public void handle(ActionEvent T){
+                try {
+                    showPauseScreen();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                };
+            }
+        });
+
+        //Add goals
+
         for (ImageView entity : initialEntities) {
             squares.getChildren().add(entity);
         }
@@ -191,6 +223,13 @@ public class DungeonController {
         victoryScreen.start();
     }
 
+    public void showPauseScreen() throws IOException {
+        timeline.stop();
+        victoryScreen = new VictoryScreen(stage, this);
+        victoryScreen.setText("Paused");
+        victoryScreen.start();
+    }
+
     private void countdownTick() throws IOException {
         int timerInt = Integer.parseInt(timer.getValue());
         System.out.println("time left: " + timerInt);
@@ -204,6 +243,22 @@ public class DungeonController {
 
     public void startCountdown() {
         timeline.play();
+    }
+
+    public void addImage(ImageView image, int x) {
+        squares.add(image, x, dungeon.getHeight());
+    }
+
+    public void removeImage(ImageView image, int x){
+        squares.getChildren().remove(image);
+    }
+
+    public void updateChargesUI(int charges){
+        potionCharges.setText(Integer.toString(charges));
+    }
+
+    private void bindCharge(Label label){
+        player.bindCharge(label);
     }
 
 }
