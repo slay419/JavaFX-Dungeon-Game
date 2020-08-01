@@ -1,15 +1,18 @@
 package unsw.dungeon;
 
 import java.io.File;
+import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 public class MainMenuController {
 
+    private Stage stage;
     private Level advanced;
     private Level boulders;
     private Level maze;
@@ -23,18 +26,28 @@ public class MainMenuController {
     @FXML
     private Button mazeButton;
 
+    public MainMenuController(Stage stage) {
+        this.stage = stage;
+    }
+
     @FXML
-    public void handleAdvancedButton(ActionEvent event){
+    public void handleAdvancedButton(ActionEvent event) throws IOException {
+        advanced = new Level(stage, "advanced.json");
+        setAdvancedLevel(advanced);
         advanced.start();
     }
 
     @FXML
-    public void handleBouldersButton(ActionEvent event){
+    public void handleBouldersButton(ActionEvent event) throws IOException {
+        boulders = new Level(stage, "boulders.json");
+        setBouldersLevel(boulders);
         boulders.start();
     }
 
     @FXML
-    public void handleMazeButton(ActionEvent event){
+    public void handleMazeButton(ActionEvent event) throws IOException {
+        maze = new Level(stage, "maze.json");
+        setMazeLevel(maze);
         maze.start();
     }
 

@@ -21,19 +21,19 @@ public class MainMenu {
         this.stage = stage;
         title = "Main Menu";
         
-        controller = new MainMenuController();
+        controller = new MainMenuController(stage);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenuView.fxml"));
         loader.setController(controller);
 
         Parent root = loader.load();
         scene = new Scene(root);
 
-        advanced = new Level(stage, "advanced.json");
-        boulders = new Level(stage, "boulders.json");
-        maze = new Level(stage, "maze.json");
-        getController().setAdvancedLevel(advanced);
-        getController().setBouldersLevel(boulders);
-        getController().setMazeLevel(maze);
+        //advanced = new Level(stage, "advanced.json");
+        //boulders = new Level(stage, "boulders.json");
+        //maze = new Level(stage, "maze.json");
+        //getController().setAdvancedLevel(advanced);
+        //getController().setBouldersLevel(boulders);
+        //getController().setMazeLevel(maze);
     }
 
     public void start(){

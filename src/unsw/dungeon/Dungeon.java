@@ -245,11 +245,12 @@ public class Dungeon {
     }
 
     public void addCompositeGoal(CompositeGoal goal) {
-        System.out.println("Added goal: " + goal.getName());
+        //System.out.println("Added goal: " + goal.getName());
         compositeGoals.add(goal);
     }
 
     public List<CompositeGoal> getCompositeGoals() {
+        System.out.println("test: " + compositeGoals.size());
         return compositeGoals;
     }
 

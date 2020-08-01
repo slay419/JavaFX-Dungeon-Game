@@ -1,6 +1,7 @@
 package unsw.dungeon;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javafx.animation.Animation;
@@ -134,24 +135,18 @@ public class DungeonController {
                 };
             }
         });
-        TreeItem<String> goals = new TreeItem<String>("Goals to do!");
-        goals.setExpanded(true);
         
-        List<CompositeGoal> goalList = dungeon.getCompositeGoals();
-        for (CompositeGoal g : goalList) {
-            goals.getChildren().add(new TreeItem<String>(g.getName()));
-        }
-        TreeView<String> treeView = new TreeView<String>(goals);
+        
+        TreeView<String> treeView = new TreeView<String>();
+        CompositeGoal compositeGoal = dungeon.getCompositeGoals().get(0);
+        TreeItem<String> rootGoal = new TreeItem<String>("Complete these goals!");
+        rootGoal.setExpanded(true);
+        
+        TreeItem<String> subGoal = subTreeItem(rootGoal, compositeGoal);
+        treeView.setRoot(rootGoal);
+
         squares.add(treeView, dungeon.getWidth(), 0, 1, dungeon.getHeight());
 
-        /*
-        for (CompositeGoal g : goalList) {
-            System.out.println("goal: " + g.getName());
-            TreeView<String> treeView = new TreeView<String>(new TreeItem<String>(g.getName()));
-            squares.add(treeView, dungeon.getWidth(), 0, 1, dungeon.getHeight());
-            //goals.getChildren().add(new TreeItem<String>(g.getName()));
-        }
-        */
         /*
         goals.getChildren().addAll(
             new TreeItem<String>("Test \u2713"),
@@ -159,15 +154,87 @@ public class DungeonController {
             //new TreeItem<String>("Item 3")
         );
         
-        
-        
-        //Add goals
         */
 
         for (ImageView entity : initialEntities) {
             squares.getChildren().add(entity);
         }
 
+    }
+
+
+    public TreeItem<String> subTreeItem(TreeItem<String> root, Goal goal) {
+        if (goal instanceof CompositeGoal) {
+            System.out.println("found composite goal");
+            CompositeGoal g = (CompositeGoal) goal;
+            for (Goal subGoal : g.getSubGoals()) {
+                //System.out.println("goal: " + subGoal.getName());
+                root.getChildren().add(subTreeItem(root, subGoal));
+            }
+        } else if (goal instanceof CompositeOrGoal) {
+            System.out.println("found composite or goal");
+            CompositeOrGoal g = (CompositeOrGoal) goal;
+            for (Goal subGoal : g.getSubGoals()) {
+                System.out.println("goal: " + subGoal.getName());
+                root.getChildren().add(subTreeItem(root, subGoal));
+            }
+        } else {
+            return new TreeItem<String>(goal.getName());
+        }
+        return null;
+    }
+
+    public TreeItem<String> newGoalItem() {
+        /*
+        TreeItem<String> goalsRoot = new TreeItem<String>("Goals to do!");
+        TreeItem<String> subGoal = new TreeItem<String>("AndGoal");
+        TreeItem<String> subGoal2 = new TreeItem<String>("Subgoal1");
+        TreeItem<String> subGoal3 = new TreeItem<String>("Subgoal2");
+        goalsRoot.getChildren().add(subGoal);
+        subGoal.getChildren().add(subGoal2);
+        subGoal.getChildren().add(subGoal3);
+
+        TreeView<String> treeView = new TreeView<String>();
+        treeView.setRoot(goalsRoot);
+        */
+
+        TreeItem<String> goalsRoot = new TreeItem<String>("Goals to do!");
+
+        for (CompositeGoal g : dungeon.getCompositeGoals()) {
+            TreeItem<String> andGoal = new TreeItem<String>("Complete ALL of these!");
+            processTreeSubGoals(g, andGoal);
+        }
+
+
+
+
+
+        for (CompositeGoal g : dungeon.getCompositeGoals()) {
+            TreeItem<String> andGoal = new TreeItem<String>("Complete ALL of these!");
+            for (Goal s : g.getSubGoals()) {
+                TreeItem<String> subGoal = treeSubGoal(s);
+                andGoal.getChildren().add(subGoal);
+            }
+            goalsRoot.getChildren().add(andGoal);
+        }
+        
+
+        return null;
+        
+    }
+
+    public void processTreeSubGoals(CompositeGoal goal, TreeItem<String> root) {
+        for (Goal g : goal.getSubGoals()) {
+            if (g instanceof CompositeGoal) {
+                //TreeView<String> newTree = newGoalTree();
+                //root.getChildren().add(newTree);
+            }
+        }
+    }
+
+    public TreeItem<String> treeSubGoal(Goal goal) {
+        TreeItem<String> subGoal = new TreeItem<String>(goal.getName());
+        return subGoal;
     }
 
     @FXML

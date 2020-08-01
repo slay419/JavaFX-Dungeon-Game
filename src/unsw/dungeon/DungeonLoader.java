@@ -45,10 +45,10 @@ public abstract class DungeonLoader {
         }
         Goal goal = loadGoal(dungeon, jsonGoals);
         dungeon.processCompositeGoal(goal);
-        if (goal instanceof CompositeGoal) {
+        if (goal instanceof CompositeGoal /*|| goal instanceof CompositeOrGoal*/) {
             CompositeGoal g = (CompositeGoal) goal;
             dungeon.addCompositeGoal(g);
-            System.out.println("calling from loader: found: " + g.getName());
+            //System.out.println("calling from loader: found: " + g.getName());
         }
         //System.out.println("Found goal: " + goal.getName());
         return dungeon;
@@ -80,24 +80,28 @@ public abstract class DungeonLoader {
             dungeon.processExitGoal(subgoal);
             compositeGoal.addGoal(subgoal);
             subgoal.setCompositeGoal(compositeGoal);
+            dungeon.addCompositeGoal(compositeGoal);
             break;
         case "boulders": 
             subgoal = new SubGoalBoulders();
             dungeon.processBouldersGoal(subgoal);
             compositeGoal.addGoal(subgoal);
             subgoal.setCompositeGoal(compositeGoal);
+            dungeon.addCompositeGoal(compositeGoal);
             break;
         case "enemies":
             subgoal = new SubGoalEnemy();
             dungeon.processEnemiesGoal(subgoal);
             compositeGoal.addGoal(subgoal);
             subgoal.setCompositeGoal(compositeGoal);
+            dungeon.addCompositeGoal(compositeGoal);
             break;
         case "treasure": 
             subgoal = new SubGoalTreasure();
             dungeon.processTreasureGoal(subgoal);
             compositeGoal.addGoal(subgoal);
             subgoal.setCompositeGoal(compositeGoal);
+            dungeon.addCompositeGoal(compositeGoal);
             break;
         case "AND":
             /**

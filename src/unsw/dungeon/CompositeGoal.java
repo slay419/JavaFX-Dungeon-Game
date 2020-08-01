@@ -58,6 +58,13 @@ public class CompositeGoal implements Goal {
         this.dungeon = dungeon;
     }
 
+    public ArrayList<Goal> getSubGoals() {
+        for (Goal g : subGoals) {
+            System.out.println(g.getName());
+        }
+        return subGoals;
+    }
+
     @Override
     public void setName(String name) {
         this.name = name;

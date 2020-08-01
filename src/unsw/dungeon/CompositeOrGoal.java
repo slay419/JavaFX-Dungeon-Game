@@ -28,6 +28,10 @@ public class CompositeOrGoal implements Goal {
         subGoals.add(subgoal);
     }
 
+    public ArrayList<Goal> getSubGoals() {
+        return subGoals;
+    }
+
     @Override
     public void setName(String name) {
         this.name = name;
