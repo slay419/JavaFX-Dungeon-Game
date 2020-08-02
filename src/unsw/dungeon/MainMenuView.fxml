@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.4" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="83.0" layoutY="50.0" text="Super Cool Dungeon Explore 2">
          <font>
@@ -18,5 +18,6 @@
       <Label layoutX="80.0" layoutY="312.0" text="Advanced" />
       <Label layoutX="277.0" layoutY="312.0" text="Boulders" />
       <Label layoutX="484.0" layoutY="312.0" text="Maze" />
+      <Button fx:id="tutorialButton" layoutX="275.0" layoutY="352.0" mnemonicParsing="false" onAction="#handleTutorialButton" text="Tutorial" />
    </children>
 </Pane>

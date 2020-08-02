@@ -10,10 +10,6 @@ import javafx.stage.Stage;
 
 public class DungeonApplication extends Application {
 
-    private Level advanced;
-    private Level boulders;
-    private Level maze;
-
     @Override
     public void start(Stage primaryStage) throws IOException {
         /*primaryStage.setTitle("Dungeon");

@@ -234,7 +234,7 @@ public class Dungeon {
     public void showDefeatScreen() throws IOException {
         controller.showDefeatScreen();
     }
-
+    
     public void processCompositeGoal(Goal goal) {
         if (goal instanceof CompositeGoal) {
             CompositeGoal g = (CompositeGoal) goal;
