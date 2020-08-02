@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.scene.image.ImageView;
 
 /**
@@ -115,7 +116,7 @@ public class Dungeon {
             enemy.register(observer);
         }
         ((SubGoalEnemy) subgoal).setNumEnemies(enemyList.size());
-        subgoal.setName("enemy");
+        subgoal.setName("enemies");
     }
 
     public int getWidth() {
@@ -251,6 +252,9 @@ public class Dungeon {
 
     public List<CompositeGoal> getCompositeGoals() {
         System.out.println("test: " + compositeGoals.size());
+        for (CompositeGoal g : compositeGoals) {
+            System.out.println("found inside list: " + g.getName());
+        }
         return compositeGoals;
     }
 
@@ -280,6 +284,11 @@ public class Dungeon {
 
     public void updateChargesPotionUI(int charges){
         controller.updateChargesPotionUI(charges);
+    }
+
+    public void bindEnemyCount(IntegerProperty enemiesKilled, Goal goal) {
+        SubGoalEnemy subGoal = (SubGoalEnemy) goal;
+        subGoal.bindEnemyCount(enemiesKilled);
     }
 
 }

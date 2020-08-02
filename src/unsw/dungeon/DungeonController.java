@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -58,6 +59,10 @@ public class DungeonController {
     private StringProperty timer;
     private Label timerLabel;
 
+    private IntegerProperty enemyCounter;
+    private IntegerProperty treasureCounter;
+    private IntegerProperty boulderCounter;
+
     private Label treasureCount = new Label("0");
     private Label swordCharges = new Label("0");
     private Label potionCharges = new Label("0");
@@ -74,6 +79,9 @@ public class DungeonController {
         this.initialEntities = new ArrayList<>(initialEntities);
         dungeon.setController(this);
         timer = new SimpleStringProperty(String.valueOf(dungeon.getTimer()));
+        enemyCounter = new SimpleIntegerProperty(0);
+        treasureCounter = new SimpleIntegerProperty(0);
+        boulderCounter = new SimpleIntegerProperty(0);
 
         timeline = new Timeline();
         EventHandler<ActionEvent> countdownEvent = new EventHandler<ActionEvent>() {
@@ -142,9 +150,10 @@ public class DungeonController {
         
         
         TreeView<String> treeView = new TreeView<String>();
-        CompositeGoal compositeGoal = dungeon.getCompositeGoals().get(0);
+        List<CompositeGoal> compositeGoals = dungeon.getCompositeGoals();
+        CompositeGoal compositeGoal = compositeGoals.get(compositeGoals.size() - 1);
         for (Goal g: compositeGoal.getSubGoals()) {
-            System.out.println("goalname: " + g.getName());
+            System.out.println("goalname inside controller: " + g.getName());
         }
         System.out.println("Goal name is: " + compositeGoal.getName());
         TreeItem<String> rootGoal = new TreeItem<String>("Complete these goals!");
@@ -174,23 +183,60 @@ public class DungeonController {
 
     public TreeItem<String> subTreeItem(TreeItem<String> root, Goal goal) {
         if (goal instanceof CompositeGoal) {
-            System.out.println("found composite goal");
+            TreeItem<String> newRoot = new TreeItem<String>("Complete ALL of these");
+            System.out.println("found composite goal: " + goal.getName());
             CompositeGoal g = (CompositeGoal) goal;
             for (Goal subGoal : g.getSubGoals()) {
-                //System.out.println("goal: " + subGoal.getName());
-                root.getChildren().add(subTreeItem(root, subGoal));
+                System.out.println("goal: " + subGoal.getName());
+                newRoot.getChildren().add(subTreeItem(newRoot, subGoal));
+                newRoot.setExpanded(true);
             }
+            root.getChildren().add(newRoot);
+            root.setExpanded(true);
         } else if (goal instanceof CompositeOrGoal) {
-            System.out.println("found composite or goal");
+            TreeItem<String> newRoot = new TreeItem<String>("Complete AT LEAST ONE of these");
+            System.out.println("found composite or goal: " + goal.getName());
             CompositeOrGoal g = (CompositeOrGoal) goal;
             for (Goal subGoal : g.getSubGoals()) {
                 System.out.println("goal: " + subGoal.getName());
-                root.getChildren().add(subTreeItem(root, subGoal));
+                newRoot.getChildren().add(subTreeItem(newRoot, subGoal));
+                newRoot.setExpanded(true);
             }
+            root.getChildren().add(newRoot);
         } else {
-            return new TreeItem<String>(goal.getName());
+            // Change the string name in this one
+            String goalText = processGoalName(goal);
+            TreeItem<String> leafGoal = new TreeItem<String>(goalText);
+            //processGoalName(leafGoal, goal);
+            return leafGoal;
         }
         return null;
+    }
+
+    public String processGoalName(Goal goal) {
+        String goalName = goal.getName();
+        String result = "";
+        switch (goalName) {
+        case "enemies":
+            dungeon.bindEnemyCount(enemyCounter, goal);
+            int numKilled = enemyCounter.getValue();
+            int enemyCount = dungeon.findEntities("enemy").size();
+            result = "Kill all enemies: " + numKilled + " /" + enemyCount;
+            break;
+        case "boulders":
+            int switchCount = dungeon.findEntities("floorSwitch").size();
+            result = "Trigger all switches: " + "/" + switchCount;
+            break;
+        case "treasure":
+            int treasureCount = dungeon.findEntities("treasure").size();
+            result = "Collect all treasure: " + "/" + treasureCount;
+            break;
+        case "exit":
+            int exitCount = dungeon.findEntities("exit").size();
+            result = "Find the exit: " + "/" + exitCount;
+            break;
+        }
+        return result;
     }
 
     public TreeItem<String> newGoalItem() {
