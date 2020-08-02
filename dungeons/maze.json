@@ -251,7 +251,7 @@
     {
       "x": 18,
       "y": 1,
-      "type": "wall"
+      "type": "brokenWall"
     },
     {
       "x": 19,

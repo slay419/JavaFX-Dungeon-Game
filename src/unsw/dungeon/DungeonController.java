@@ -116,7 +116,7 @@ public class DungeonController {
         timerLabel = new Label();
         timerLabel.textProperty().bindBidirectional(timer);
         
-        squares.add(timerLabel, dungeon.getWidth(), dungeon.getHeight());
+        squares.add(timerLabel, dungeon.getWidth(), 0);
         
         //This will be used for adding an inventory/goals bar
         //Silhouettes
@@ -147,7 +147,22 @@ public class DungeonController {
                 };
             }
         });
-        
+
+        /*
+        TreeItem<String> goalsRoot = new TreeItem<String>("Goals to do!");
+        TreeItem<String> subGoal = new TreeItem<String>("AndGoal");
+        subGoal.setExpanded(true);
+        TreeItem<String> subGoal2 = new TreeItem<String>("Subgoal1");
+        TreeItem<String> subGoal3 = new TreeItem<String>("Subgoal2");
+        goalsRoot.getChildren().add(subGoal);
+        subGoal.getChildren().add(subGoal2);
+        subGoal.getChildren().add(subGoal3);
+
+        TreeView<String> treeView = new TreeView<String>();
+        treeView.setRoot(goalsRoot);
+        goalsRoot.setExpanded(true);
+        squares.add(treeView, dungeon.getWidth(), 0, 1, dungeon.getHeight() + 1);
+        */
         
         TreeView<String> treeView = new TreeView<String>();
         List<CompositeGoal> compositeGoals = dungeon.getCompositeGoals();
@@ -163,8 +178,8 @@ public class DungeonController {
         rootGoal.getChildren().add(subGoal);
         treeView.setRoot(rootGoal);
 
-        squares.add(treeView, dungeon.getWidth(), 0, 1, dungeon.getHeight() + 1);
-
+        squares.add(treeView, dungeon.getWidth(), 1, 1, dungeon.getHeight() + 1);
+        
         /*
         goals.getChildren().addAll(
             new TreeItem<String>("Test \u2713"),

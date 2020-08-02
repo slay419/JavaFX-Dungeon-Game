@@ -217,8 +217,11 @@ public abstract class DungeonLoader {
             onLoad(sword);
             entity = sword;
             break;
-
-        // TODO Handle other possible entities
+        case "brokenWall":
+            BrokenWall brokenWall = new BrokenWall(x, y);
+            onLoad(brokenWall);
+            entity = brokenWall;
+            break;
         }
         dungeon.addEntity(entity);
     }
@@ -246,6 +249,8 @@ public abstract class DungeonLoader {
     public abstract void onLoad(InvincibilityPotion invincibilityPotion);
     
     public abstract void onLoad(Sword sword);
+
+    public abstract void onLoad(BrokenWall brokenWall);
 
     // TODO Create additional abstract methods for the other entities
 
