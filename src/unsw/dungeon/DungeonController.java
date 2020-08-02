@@ -30,6 +30,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -61,6 +62,10 @@ public class DungeonController {
     private Label swordCharges = new Label("0");
     private Label potionCharges = new Label("0");
 
+    private Label tutorialText = new Label();
+    private Boolean isTutorial = false;
+    private int tutorialNumber = 0;
+
     private VictoryScreen victoryScreen;
 
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
@@ -91,7 +96,6 @@ public class DungeonController {
     @FXML
     public void initialize() {
         Image ground = new Image((new File("images/dirt_0_new.png")).toURI().toString());
-
         // initialise goal 
 
         // Add the ground first so it is below all other entities
@@ -150,7 +154,7 @@ public class DungeonController {
         rootGoal.getChildren().add(subGoal);
         treeView.setRoot(rootGoal);
 
-        squares.add(treeView, dungeon.getWidth(), 0, 1, dungeon.getHeight());
+        squares.add(treeView, dungeon.getWidth(), 0, 1, dungeon.getHeight() + 1);
 
         /*
         goals.getChildren().addAll(
@@ -306,9 +310,15 @@ public class DungeonController {
     }
 
     public void restartLevel() throws IOException {
-        String fxmlLevel = currentLevel.getLevel();
-        Level level = new Level(stage, fxmlLevel);
-        level.start();
+        if(isTutorial){
+            tutorialNumber = tutorialNumber - 1;
+            showTutorialScreen(tutorialNumber);
+        }
+        else{
+            String fxmlLevel = currentLevel.getLevel();
+            Level level = new Level(stage, fxmlLevel);
+            level.start();
+        }
     }
 
     public void goToMainMenu() throws IOException {
@@ -317,10 +327,15 @@ public class DungeonController {
     }
 
     public void showVictoryScreen() throws IOException {
-        timeline.stop();
-        victoryScreen = new VictoryScreen(stage, this);
-        victoryScreen.setText("Victory!");
-        victoryScreen.start();
+        if(isTutorial){
+            showTutorialScreen(tutorialNumber);
+        }
+        else{
+            timeline.stop();
+            victoryScreen = new VictoryScreen(stage, this);
+            victoryScreen.setText("Victory!");
+            victoryScreen.start();
+        }
     }
 
     public void showDefeatScreen() throws IOException {
@@ -335,6 +350,12 @@ public class DungeonController {
         victoryScreen = new VictoryScreen(stage, this);
         victoryScreen.setText("Paused");
         victoryScreen.start();
+    }
+
+    public void showTutorialScreen(int tutorialNumber) throws IOException {
+        timeline.stop();
+        MainMenu menu = new MainMenu(stage);
+        menu.getController().getNextTutorialLevel(tutorialNumber);
     }
 
     private void countdownTick() throws IOException {
@@ -376,4 +397,14 @@ public class DungeonController {
         potionCharges.setText(Integer.toString(charges));
     }
 
+    public void showTutorialText(String text){
+        tutorialText.setText(text);
+        tutorialText.setTextFill(Color.WHITE);
+        squares.add(tutorialText, 0 , 0, dungeon.getWidth(), 2);
+    }
+
+    public void setTutorial(Boolean isTutorial, int tutorialNumber){
+        this.isTutorial = isTutorial;
+        this.tutorialNumber = tutorialNumber;
+    }
 }

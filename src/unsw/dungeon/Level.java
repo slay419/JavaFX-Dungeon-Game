@@ -56,4 +56,7 @@ public class Level {
         return fxmlLevel;
     }
     
+    public void setTutorial(Boolean isTutorial, int levelNumber){
+        controller.setTutorial(isTutorial, levelNumber);
+    }
 }
