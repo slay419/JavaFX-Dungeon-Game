@@ -139,10 +139,15 @@ public class DungeonController {
         
         TreeView<String> treeView = new TreeView<String>();
         CompositeGoal compositeGoal = dungeon.getCompositeGoals().get(0);
+        for (Goal g: compositeGoal.getSubGoals()) {
+            System.out.println("goalname: " + g.getName());
+        }
+        System.out.println("Goal name is: " + compositeGoal.getName());
         TreeItem<String> rootGoal = new TreeItem<String>("Complete these goals!");
         rootGoal.setExpanded(true);
         
         TreeItem<String> subGoal = subTreeItem(rootGoal, compositeGoal);
+        rootGoal.getChildren().add(subGoal);
         treeView.setRoot(rootGoal);
 
         squares.add(treeView, dungeon.getWidth(), 0, 1, dungeon.getHeight());

@@ -59,9 +59,9 @@ public class CompositeGoal implements Goal {
     }
 
     public ArrayList<Goal> getSubGoals() {
-        for (Goal g : subGoals) {
-            System.out.println(g.getName());
-        }
+        //for (Goal g : subGoals) {
+        //    System.out.println(g.getName());
+       // }
         return subGoals;
     }
 
