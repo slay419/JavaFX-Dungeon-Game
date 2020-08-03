@@ -8,9 +8,9 @@ public class BrokenWall extends Entity {
         setName("brokenWall");
     }
 
+    //The broken wall entity functions as a secret level starter
     @Override
     public void process(Player player) {
-        System.out.println("found a broken wall");
         player.moveToSecretLevel("secretLevel1.json");
     }
 }

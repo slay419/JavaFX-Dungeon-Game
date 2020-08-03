@@ -11,15 +11,11 @@ public class IcyFloor extends Entity {
 
     @Override
     public void process(Player player) {
-        // System.out.println("found an icy floor");
         int prevX = player.getPrevX();
         int prevY = player.getPrevY();
-        System.out.println("Old coords are: (" + prevX + ", " + prevY + ")");
 
         int iceX = getX();
         int iceY = getY();
-
-        System.out.println("Ice coords are: (" + iceX + ", " + iceY + ")");
 
         // Sliding horizontally
         if (prevY == iceY) {
@@ -41,15 +37,4 @@ public class IcyFloor extends Entity {
             }
         }
     }
-
-    /**
-     * While the player is touching ice, it will continue to move in the direction they are going
-     * @param player
-     */
-    private void slideRight(Player player) {
-        player.moveLeft();
-        player.moveLeft();     
-    }
-
-    
 }

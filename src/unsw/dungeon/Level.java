@@ -12,7 +12,6 @@ public class Level {
     private String title;
     private DungeonController controller;
     private Scene scene;
-    private VictoryScreen victoryScreen;
     private String fxmlLevel;
 
     public Level(Stage stage, String level) throws IOException{
@@ -56,11 +55,5 @@ public class Level {
         return fxmlLevel;
     }
     
-    public void setTutorial(Boolean isTutorial, int levelNumber){
-        controller.setTutorial(isTutorial, levelNumber);
-    }
-
-    public void setSecret(Boolean isSecret) {
-        controller.setSecret(isSecret);
-    }
+    
 }

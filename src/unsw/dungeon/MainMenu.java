@@ -13,10 +13,6 @@ public class MainMenu {
     private MainMenuController controller;
     private Scene scene;
 
-    private Level advanced;
-    private Level boulders;
-    private Level maze;
-
     public MainMenu(Stage stage) throws IOException{
         this.stage = stage;
         title = "Main Menu";
@@ -27,13 +23,6 @@ public class MainMenu {
 
         Parent root = loader.load();
         scene = new Scene(root);
-
-        //advanced = new Level(stage, "advanced.json");
-        //boulders = new Level(stage, "boulders.json");
-        //maze = new Level(stage, "maze.json");
-        //getController().setAdvancedLevel(advanced);
-        //getController().setBouldersLevel(boulders);
-        //getController().setMazeLevel(maze);
     }
 
     public void start(){

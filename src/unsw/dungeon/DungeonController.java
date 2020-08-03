@@ -1,31 +1,21 @@
 package unsw.dungeon;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Separator;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
@@ -61,10 +51,6 @@ public class DungeonController {
     private StringProperty timer;
     private Label timerLabel;
 
-    private IntegerProperty enemyCounter;
-    private IntegerProperty treasureCounter;
-    private IntegerProperty boulderCounter;
-
     private Label treasureCount = new Label("0");
     private Label swordCharges = new Label("0");
     private Label potionCharges = new Label("0");
@@ -72,10 +58,10 @@ public class DungeonController {
     private Label tutorialText = new Label();
     private Boolean isTutorial = false;
     private int tutorialNumber = 0;
-    private Boolean isSecret = false;
     private SecretLevel secretLevel;
 
     private VictoryScreen victoryScreen;
+    private TutorialLevel tutorialLevel;
 
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
         this.dungeon = dungeon;
@@ -83,9 +69,6 @@ public class DungeonController {
         this.initialEntities = new ArrayList<>(initialEntities);
         dungeon.setController(this);
         timer = new SimpleStringProperty("Time remaining: " + String.valueOf(dungeon.getTimer()));
-        enemyCounter = new SimpleIntegerProperty(0);
-        treasureCounter = new SimpleIntegerProperty(0);
-        boulderCounter = new SimpleIntegerProperty(0);
 
         timeline = new Timeline();
         EventHandler<ActionEvent> countdownEvent = new EventHandler<ActionEvent>() {
@@ -191,10 +174,8 @@ public class DungeonController {
     private TreeItem<String> subTreeItem(TreeItem<String> root, Goal goal) {
         if (goal instanceof CompositeGoal) {
             TreeItem<String> newRoot = new TreeItem<String>("Complete ALL of these");
-            System.out.println("found composite goal: " + goal.getName());
             CompositeGoal g = (CompositeGoal) goal;
             for (Goal subGoal : g.getSubGoals()) {
-                System.out.println("goal: " + subGoal.getName());
                 newRoot.getChildren().add(subTreeItem(newRoot, subGoal));
                 newRoot.setExpanded(true);
             }
@@ -202,10 +183,8 @@ public class DungeonController {
             root.setExpanded(true);
         } else if (goal instanceof CompositeOrGoal) {
             TreeItem<String> newRoot = new TreeItem<String>("Complete AT LEAST ONE of these");
-            System.out.println("found composite or goal: " + goal.getName());
             CompositeOrGoal g = (CompositeOrGoal) goal;
             for (Goal subGoal : g.getSubGoals()) {
-                System.out.println("goal: " + subGoal.getName());
                 newRoot.getChildren().add(subTreeItem(newRoot, subGoal));
                 newRoot.setExpanded(true);
             }
@@ -214,7 +193,6 @@ public class DungeonController {
             // Change the string name in this one
             String goalText = processGoalName(goal);
             TreeItem<String> leafGoal = new TreeItem<String>(goalText);
-            //processGoalName(leafGoal, goal);
             return leafGoal;
         }
         return null;
@@ -361,15 +339,13 @@ public class DungeonController {
 
     public void showTutorialScreen(int tutorialNumber) throws IOException {
         timeline.stop();
-        MainMenu menu = new MainMenu(stage);
-        menu.getController().getNextTutorialLevel(tutorialNumber);
+        tutorialLevel.getNextTutorialLevel(stage, tutorialNumber);
     }
 
     private void countdownTick() throws IOException {
         String message = timer.getValue();
         String substring = message.replace("Time remaining: ", "");
         int timerInt = Integer.parseInt(substring);
-        //System.out.println("time left: " + timerInt);
         timerInt--;
         if (timerInt == 10) {
             timerLabel.setTextFill(Paint.valueOf("red"));
@@ -380,7 +356,6 @@ public class DungeonController {
             fadeTransition.play();
         }
         if (timerInt == 0) {
-            System.out.println("Ran out of time!");
             showDefeatScreen();
         }
         timerLabel.setText("Time remaining: " + String.valueOf(timerInt));
@@ -400,9 +375,7 @@ public class DungeonController {
 
     public void updateChargesTreasureUI(){
         int prevCount = Integer.valueOf(treasureCount.getText());
-        System.out.println("Prev count is: " + prevCount);
         int newCount = prevCount + 1;
-        System.out.println("New count is : " + newCount);
         treasureCount.setText(String.valueOf(newCount));
     }
     
@@ -420,13 +393,10 @@ public class DungeonController {
         squares.add(tutorialText, 0 , 0, dungeon.getWidth(), 2);
     }
 
-    public void setTutorial(Boolean isTutorial, int tutorialNumber){
+    public void setTutorial(Boolean isTutorial, int tutorialNumber, TutorialLevel level){
         this.isTutorial = isTutorial;
         this.tutorialNumber = tutorialNumber;
-    }
-
-    public void setSecret(Boolean isSecret) {
-        this.isSecret = isSecret;
+        this.tutorialLevel = level; 
     }
 
     public void pauseTimeline() {
@@ -439,9 +409,8 @@ public class DungeonController {
 
     public void startSecretLevel(String level) throws IOException {
         this.secretLevel = new SecretLevel(stage, level);
-        //secretLevel.setContoller(this);
-        System.out.println("initialised new secret level");
         pauseTimeline();
         secretLevel.startSecretLevel(level);
     }
+
 }

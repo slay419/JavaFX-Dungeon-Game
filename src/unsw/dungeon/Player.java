@@ -3,7 +3,6 @@ package unsw.dungeon;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
 /**

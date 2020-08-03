@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.beans.property.IntegerProperty;
 import javafx.scene.image.ImageView;
 
 /**
@@ -240,13 +239,10 @@ public class Dungeon {
         if (goal instanceof CompositeGoal) {
             CompositeGoal g = (CompositeGoal) goal;
             g.setDungeon(this);
-            //System.out.println("goal name is: " + goal.getName());
-            //compositeGoals.add(g);
         }
     }
 
     public void addCompositeGoal(CompositeGoal goal) {
-        //System.out.println("Added goal: " + goal.getName());
         compositeGoals.add(goal);
     }
 
@@ -280,11 +276,6 @@ public class Dungeon {
 
     public void updateChargesPotionUI(int charges){
         controller.updateChargesPotionUI(charges);
-    }
-
-    public void bindEnemyCount(IntegerProperty enemiesKilled, Goal goal) {
-        SubGoalEnemy subGoal = (SubGoalEnemy) goal;
-        subGoal.bindEnemyCount(enemiesKilled);
     }
 
     public void moveToSecretLevel(String level) {

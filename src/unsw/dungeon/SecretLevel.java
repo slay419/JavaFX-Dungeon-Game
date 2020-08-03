@@ -15,15 +15,7 @@ public class SecretLevel extends Level {
     }
 
     public void startSecretLevel(String level) throws IOException {
-        //Level secretLevel = new Level(getStage(), level);
-        this.setSecret(true);
         this.start();
         getController().pauseTimeline();
-    }
-
-    public void showNextSecretLevel() {
-        if (currentLevel.equals("secretLevel1.json")) {
-            System.out.println("trying to find next level");
-        }
     }
 }
