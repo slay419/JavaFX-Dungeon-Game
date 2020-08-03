@@ -34,7 +34,6 @@ public class Enemy extends Entity implements SubjectEnemy {
             notifyObserver();
             player.removeImage(this);
         } else {
-            System.out.println("You died");
             dungeon.removeEntity(player);
             try {
                 dungeon.showDefeatScreen();

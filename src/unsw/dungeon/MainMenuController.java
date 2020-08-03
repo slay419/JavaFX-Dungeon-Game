@@ -18,7 +18,7 @@ public class MainMenuController {
     private Level medium;
     private Level advanced;
 
-    private Level tutorial;
+    private TutorialLevel tutorial;
     private String[] textList = {"Test", "Are you awake? Better get moving shouldn't you?\n        Did you forget how to walk... \n                Use the up, down, left and right arrow keys."
     ,"                        The walls are alive.\nYou'll need to navigate them. \n                              The path isn't always clear..."
     ,"Sometimes a path will need to be made...\n              Are you strong enough?"
@@ -71,7 +71,10 @@ public class MainMenuController {
     @FXML
     public void handleTutorialButton(ActionEvent event) throws IOException {
         startTutorialLevel(1);
+        tutorial = new TutorialLevel(stage, "tutorial1.json");
+        tutorial.startTutorialLevel(1);
     }
+
     @FXML
     public void initialize(){
         Image basicImage = new Image((new File("examples/basic.png")).toURI().toString());

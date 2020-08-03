@@ -59,9 +59,6 @@ public class CompositeGoal implements Goal {
     }
 
     public ArrayList<Goal> getSubGoals() {
-        //for (Goal g : subGoals) {
-        //    System.out.println(g.getName());
-       // }
         return subGoals;
     }
 
@@ -77,7 +74,6 @@ public class CompositeGoal implements Goal {
 
     @Override
     public void setCompositeGoal(Goal compositeGoal) {
-        System.out.println("this should not happen");
         return;
     }
     

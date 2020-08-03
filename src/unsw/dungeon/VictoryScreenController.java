@@ -31,13 +31,11 @@ public class VictoryScreenController {
 
     @FXML
     public void handleRestartButton() throws IOException {
-        System.out.println("restart");
         controller.restartLevel();
     }
 
     @FXML
     public void handleMenuButton() throws IOException {
-        System.out.println("main menu");
         controller.goToMainMenu();
     }
 

@@ -258,6 +258,4 @@ public abstract class DungeonLoader {
 
     public abstract void onLoad(IcyFloor icyFloor);
 
-    // TODO Create additional abstract methods for the other entities
-
 }

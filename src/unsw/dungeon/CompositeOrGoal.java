@@ -13,10 +13,8 @@ public class CompositeOrGoal implements Goal {
 
     @Override
     public Boolean processGoal() {
-        System.out.println("Calling OR process goal");
         for (Goal s : subGoals) {
             if (s.processGoal()) {
-                System.out.println("Completed one of the goals!");
                 return true;
             }
         }
@@ -24,7 +22,6 @@ public class CompositeOrGoal implements Goal {
     }
 
     public void addGoal(Goal subgoal) {
-        System.out.println("Added or goal: " + subgoal.getName());
         subGoals.add(subgoal);
     }
 
