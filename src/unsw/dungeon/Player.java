@@ -19,6 +19,8 @@ public class Player extends Entity {
 
     private int prevX, prevY;
 
+    private Boolean visitedSecret1, visitedSecret2;
+
     /**
      * Create a player positioned in square (x,y)
      * 
@@ -32,6 +34,8 @@ public class Player extends Entity {
         setName("player");
         this.prevX = x;
         this.prevY = y;
+        this.visitedSecret1 = false;
+        this.visitedSecret2 = false;
     }
 
     public void setOldPosition() {
@@ -140,6 +144,22 @@ public class Player extends Entity {
         return prevY;
     }
 
+    public Boolean visitedLevel1() {
+        return visitedSecret1;
+    }
+
+    public void setVisitedLevel1(Boolean visited) {
+        visitedSecret1 = visited;
+    }
+
+    public Boolean visitedLevel2() {
+        return visitedSecret2;
+    }
+
+    public void setVisitedLevel2(Boolean visited) {
+        visitedSecret2 = visited;
+    }
+
     /**
      * Searches the level for a list of matching entities
      * 
@@ -227,6 +247,10 @@ public class Player extends Entity {
 
     public void updateChargesPotionUI(int charges){
         dungeon.updateChargesPotionUI(charges);
+    }
+
+    public void moveToSecretLevel(String level) {
+        dungeon.moveToSecretLevel(level);
     }
 
 }

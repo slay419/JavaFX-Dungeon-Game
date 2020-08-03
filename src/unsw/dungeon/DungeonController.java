@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
@@ -17,6 +17,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -32,6 +33,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -70,6 +72,8 @@ public class DungeonController {
     private Label tutorialText = new Label();
     private Boolean isTutorial = false;
     private int tutorialNumber = 0;
+    private Boolean isSecret = false;
+    private SecretLevel secretLevel;
 
     private VictoryScreen victoryScreen;
 
@@ -78,7 +82,7 @@ public class DungeonController {
         this.player = dungeon.getPlayer();
         this.initialEntities = new ArrayList<>(initialEntities);
         dungeon.setController(this);
-        timer = new SimpleStringProperty(String.valueOf(dungeon.getTimer()));
+        timer = new SimpleStringProperty("Time remaining: " + String.valueOf(dungeon.getTimer()));
         enemyCounter = new SimpleIntegerProperty(0);
         treasureCounter = new SimpleIntegerProperty(0);
         boulderCounter = new SimpleIntegerProperty(0);
@@ -127,7 +131,9 @@ public class DungeonController {
     private void initialiseTimer() {
         timerLabel = new Label();
         timerLabel.textProperty().bindBidirectional(timer);
-        squares.add(timerLabel, dungeon.getWidth(), 0);
+        timerLabel.setAlignment(Pos.CENTER_RIGHT);
+        timerLabel.setMinWidth(115);
+        squares.add(timerLabel, dungeon.getWidth(), 0, 1, 1);
     }
 
     private void initialiseInventory() {
@@ -167,10 +173,7 @@ public class DungeonController {
         TreeView<String> treeView = new TreeView<String>();
         List<CompositeGoal> compositeGoals = dungeon.getCompositeGoals();
         CompositeGoal compositeGoal = compositeGoals.get(compositeGoals.size() - 1);
-        for (Goal g: compositeGoal.getSubGoals()) {
-            System.out.println("goalname inside controller: " + g.getName());
-        }
-        System.out.println("Goal name is: " + compositeGoal.getName());
+
         TreeItem<String> rootGoal = new TreeItem<String>("Complete these goals!");
         rootGoal.setExpanded(true);
         
@@ -323,6 +326,9 @@ public class DungeonController {
     public void showVictoryScreen() throws IOException {
         if(isTutorial){
             showTutorialScreen(tutorialNumber);
+        } else if (isSecret) {
+            System.out.println("finished secret level");
+            secretLevel.showNextSecretLevel();
         }
         else{
             timeline.stop();
@@ -353,14 +359,24 @@ public class DungeonController {
     }
 
     private void countdownTick() throws IOException {
-        int timerInt = Integer.parseInt(timer.getValue());
+        String message = timer.getValue();
+        String substring = message.replace("Time remaining: ", "");
+        int timerInt = Integer.parseInt(substring);
         //System.out.println("time left: " + timerInt);
         timerInt--;
+        if (timerInt == 10) {
+            timerLabel.setTextFill(Paint.valueOf("red"));
+            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), timerLabel);
+            fadeTransition.setFromValue(1.0);
+            fadeTransition.setToValue(0.0);
+            fadeTransition.setCycleCount(Animation.INDEFINITE);
+            fadeTransition.play();
+        }
         if (timerInt == 0) {
             System.out.println("Ran out of time!");
             showDefeatScreen();
         }
-        timerLabel.setText(String.valueOf(timerInt));
+        timerLabel.setText("Time remaining: " + String.valueOf(timerInt));
     }
 
     public void startCountdown() {
@@ -400,5 +416,25 @@ public class DungeonController {
     public void setTutorial(Boolean isTutorial, int tutorialNumber){
         this.isTutorial = isTutorial;
         this.tutorialNumber = tutorialNumber;
+    }
+
+    public void setSecret(Boolean isSecret) {
+        this.isSecret = isSecret;
+    }
+
+    public void pauseTimeline() {
+        timeline.pause();
+    }
+
+    public void setSecretLevel(SecretLevel level) {
+        this.secretLevel = level;
+    }
+
+    public void startSecretLevel(String level) throws IOException {
+        this.secretLevel = new SecretLevel(stage, level);
+        //secretLevel.setContoller(this);
+        System.out.println("initialised new secret level");
+        pauseTimeline();
+        secretLevel.startSecretLevel(level);
     }
 }

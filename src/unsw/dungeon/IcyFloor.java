@@ -30,7 +30,7 @@ public class IcyFloor extends Entity {
                 // Sliding left
                 player.moveLeft();
             }
-        } else if (prevX == iceY) {
+        } else if (prevX == iceX) {
             // Sliding vertically
             if (prevY < iceY) {
                 // Sliding down

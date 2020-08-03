@@ -11,5 +11,6 @@ public class BrokenWall extends Entity {
     @Override
     public void process(Player player) {
         System.out.println("found a broken wall");
+        player.moveToSecretLevel("secretLevel1.json");
     }
 }

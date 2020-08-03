@@ -251,10 +251,6 @@ public class Dungeon {
     }
 
     public List<CompositeGoal> getCompositeGoals() {
-        System.out.println("test: " + compositeGoals.size());
-        for (CompositeGoal g : compositeGoals) {
-            System.out.println("found inside list: " + g.getName());
-        }
         return compositeGoals;
     }
 
@@ -291,4 +287,11 @@ public class Dungeon {
         subGoal.bindEnemyCount(enemiesKilled);
     }
 
+    public void moveToSecretLevel(String level) {
+        try {
+            controller.startSecretLevel(level);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

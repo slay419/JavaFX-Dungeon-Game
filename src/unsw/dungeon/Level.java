@@ -30,14 +30,6 @@ public class Level {
         Parent root = loader.load();
         scene = new Scene(root);
         root.requestFocus();
-
-
-
-
-        /**
-         * sub menu = new SubMenu() 
-         * attach controller
-         */
     }
 
     public void start(){
@@ -48,6 +40,14 @@ public class Level {
         stage.show();
     }
 
+    public Stage getStage() {
+        return stage;
+    }
+    
+    public void setContoller(DungeonController controller) {
+        this.controller = controller;
+    }
+    
     public DungeonController getController(){
         return controller;
     }
@@ -58,5 +58,9 @@ public class Level {
     
     public void setTutorial(Boolean isTutorial, int levelNumber){
         controller.setTutorial(isTutorial, levelNumber);
+    }
+
+    public void setSecret(Boolean isSecret) {
+        controller.setSecret(isSecret);
     }
 }
