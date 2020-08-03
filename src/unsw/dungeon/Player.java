@@ -17,6 +17,8 @@ public class Player extends Entity {
     private Dungeon dungeon;
     private Inventory inventory;
 
+    private int prevX, prevY;
+
     /**
      * Create a player positioned in square (x,y)
      * 
@@ -28,28 +30,39 @@ public class Player extends Entity {
         this.dungeon = dungeon;
         this.inventory = new Inventory(this);
         setName("player");
+        this.prevX = x;
+        this.prevY = y;
+    }
+
+    public void setOldPosition() {
+        prevX = getX();
+        prevY = getY();
     }
 
     public void moveUp() {
         if (getY() > 0) {
+            setOldPosition();
             processMovement(getX(), getY() - 1);
         }
     }
 
     public void moveDown() {
         if (getY() < dungeon.getHeight() - 1) {
+            setOldPosition();
             processMovement(getX(), getY() + 1);
         }
     }
 
     public void moveLeft() {
         if (getX() > 0) {
+            setOldPosition();
             processMovement(getX() - 1, getY());
         }
     }
 
     public void moveRight() {
         if (getX() < dungeon.getWidth() - 1) {
+            setOldPosition();
             processMovement(getX() + 1, getY());
         }
     }
@@ -119,6 +132,14 @@ public class Player extends Entity {
         return dungeon.getEntityList(x, y);
     }
 
+    public int getPrevX() {
+        return prevX;
+    }
+
+    public int getPrevY() {
+        return prevY;
+    }
+
     /**
      * Searches the level for a list of matching entities
      * 
@@ -133,6 +154,21 @@ public class Player extends Entity {
      */
     public Boolean isInvincible() {
         return inventory.hasPotion();
+    }
+
+    public Boolean isOnIce() {
+        System.out.println("currently on: " + getX() + ", " + getY());
+        ArrayList<Entity> entities = dungeon.getEntityList(getX(), getY());
+        if (entities == null) {
+            System.out.println("foudn null");
+            return false;
+        }
+        Entity icyFloor = checkEntityList(entities, "icyFloor");
+        if (icyFloor != null) {
+            System.out.println("on ice");
+            return true;
+        }
+        return false;
     }
 
     /**

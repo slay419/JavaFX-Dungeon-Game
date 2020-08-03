@@ -2,7 +2,7 @@ package unsw.dungeon;
 
 public class BrokenWall extends Entity {
 
-    public BrokenWall(int x, int y){
+    public BrokenWall(int x, int y) {
         super(x, y);
         setImpassible(false);
         setName("brokenWall");
@@ -10,6 +10,6 @@ public class BrokenWall extends Entity {
 
     @Override
     public void process(Player player) {
-        
+        System.out.println("found a broken wall");
     }
 }
