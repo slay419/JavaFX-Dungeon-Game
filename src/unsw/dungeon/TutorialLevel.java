@@ -6,7 +6,6 @@ import javafx.stage.Stage;
 
 public class TutorialLevel extends Level {
     
-    private String currentLevel;
     private String[] textList = {"Test", "Are you awake? Better get moving shouldn't you?\n        Did you forget how to walk... \n                Use the up, down, left and right arrow keys."
     ,"                        The walls are alive.\nYou'll need to navigate them. \n                              The path isn't always clear..."
     ,"Sometimes a path will need to be made...\n              Are you strong enough?"
@@ -21,7 +20,6 @@ public class TutorialLevel extends Level {
     
     public TutorialLevel(Stage stage, String level) throws IOException {
         super(stage, level);
-        currentLevel = level;
     }
 
     public void getNextTutorialLevel(Stage stage, int levelNumber) throws IOException {
@@ -31,9 +29,14 @@ public class TutorialLevel extends Level {
 
     public void startTutorialLevel(int levelNumber) throws IOException{
         String level = "tutorial" + levelNumber + ".json";
-        this.setTutorial(true, levelNumber);
-        this.getController().showTutorialText(textList[levelNumber]);
-        this.start();
+        TutorialLevel newLevel = new TutorialLevel(getStage(), level);
+        newLevel.setTutorial(true, levelNumber);
+        newLevel.getController().showTutorialText(textList[levelNumber]);
+        newLevel.start();
+    }
+
+    public void setTutorial(Boolean isTutorial, int levelNumber){
+        getController().setTutorial(isTutorial, levelNumber, this);
     }
 
 }

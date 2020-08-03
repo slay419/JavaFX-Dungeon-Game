@@ -61,6 +61,7 @@ public class DungeonController {
     private SecretLevel secretLevel;
 
     private VictoryScreen victoryScreen;
+    private TutorialLevel tutorialLevel;
 
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
         this.dungeon = dungeon;
@@ -338,8 +339,7 @@ public class DungeonController {
 
     public void showTutorialScreen(int tutorialNumber) throws IOException {
         timeline.stop();
-        MainMenu menu = new MainMenu(stage);
-        menu.getController().getNextTutorialLevel(tutorialNumber);
+        tutorialLevel.getNextTutorialLevel(stage, tutorialNumber);
     }
 
     private void countdownTick() throws IOException {
@@ -393,9 +393,10 @@ public class DungeonController {
         squares.add(tutorialText, 0 , 0, dungeon.getWidth(), 2);
     }
 
-    public void setTutorial(Boolean isTutorial, int tutorialNumber){
+    public void setTutorial(Boolean isTutorial, int tutorialNumber, TutorialLevel level){
         this.isTutorial = isTutorial;
         this.tutorialNumber = tutorialNumber;
+        this.tutorialLevel = level; 
     }
 
     public void pauseTimeline() {
@@ -411,4 +412,5 @@ public class DungeonController {
         pauseTimeline();
         secretLevel.startSecretLevel(level);
     }
+
 }
