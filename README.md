@@ -424,3 +424,5 @@ Fill in here.
 ### Week-09
 
 Fill in here.
+
+1SP = 1 Hour in user stories
