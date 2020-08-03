@@ -56,7 +56,7 @@ public class MainMenuController {
 
     @FXML
     public void handleBouldersButton(ActionEvent event) throws IOException {
-        boulders = new Level(stage, "boulders.json");
+        boulders = new Level(stage, "medium.json");
         setBouldersLevel(boulders);
         boulders.start();
     }
