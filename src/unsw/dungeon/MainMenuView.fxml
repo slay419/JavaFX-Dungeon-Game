@@ -5,19 +5,19 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.4" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="83.0" layoutY="50.0" text="Super Cool Dungeon Explore 2">
+      <Label layoutX="83.0" layoutY="48.0" text="Super Cool Dungeon Explore 2">
          <font>
             <Font name="System" size="32.0" />
          </font>
       </Label>
-      <Button fx:id="advancedButton" ellipsisString="" layoutX="14.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleAdvancedButton" prefHeight="152.0" prefWidth="176.0" />
-      <Button fx:id="bouldersButton" ellipsisString="" layoutX="212.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleBouldersButton" prefHeight="152.0" prefWidth="176.0" />
-      <Button fx:id="mazeButton" ellipsisString="" layoutX="410.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleMazeButton" prefHeight="152.0" prefWidth="176.0" />
-      <Label layoutX="80.0" layoutY="312.0" text="Advanced" />
-      <Label layoutX="277.0" layoutY="312.0" text="Boulders" />
-      <Label layoutX="484.0" layoutY="312.0" text="Maze" />
+      <Button fx:id="basicButton" ellipsisString="" layoutX="14.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleBasicButton" prefHeight="152.0" prefWidth="176.0" />
+      <Button fx:id="mediumButton" ellipsisString="" layoutX="212.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleMediumButton" prefHeight="152.0" prefWidth="176.0" />
+      <Button fx:id="advancedButton" ellipsisString="" layoutX="410.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleAdvancedButton" prefHeight="152.0" prefWidth="176.0" />
+      <Label layoutX="89.0" layoutY="312.0" text="Basic" />
+      <Label layoutX="278.0" layoutY="312.0" text="Medium" />
+      <Label layoutX="472.0" layoutY="312.0" text="Advanced" />
       <Button fx:id="tutorialButton" layoutX="275.0" layoutY="352.0" mnemonicParsing="false" onAction="#handleTutorialButton" text="Tutorial" />
    </children>
 </Pane>
