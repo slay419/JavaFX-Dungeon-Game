@@ -113,11 +113,24 @@ public class DungeonController {
             }
         }
         
+        initialiseTimer();
+        initialiseInventory();
+        initialisePauseButton();
+        initialiseGoalsUI();        
+
+        for (ImageView entity : initialEntities) {
+            squares.getChildren().add(entity);
+        }
+
+    }
+
+    private void initialiseTimer() {
         timerLabel = new Label();
         timerLabel.textProperty().bindBidirectional(timer);
-        
         squares.add(timerLabel, dungeon.getWidth(), 0);
-        
+    }
+
+    private void initialiseInventory() {
         //This will be used for adding an inventory/goals bar
         //Silhouettes
         Image keyDark = new Image((new File("images/keyDark.png")).toURI().toString());
@@ -134,8 +147,9 @@ public class DungeonController {
         squares.add(treasureCount, 1, floor + 1);
         squares.add(swordCharges, 2, floor + 1);
         squares.add(potionCharges, 3, floor + 1);
+    }
 
-        //Add pause button
+    private void initialisePauseButton() {
         Button pause = new Button("Pause");
         squares.add(pause, 4, dungeon.getHeight(), 2, 1);
         pause.setOnAction(new EventHandler<ActionEvent>(){
@@ -147,23 +161,9 @@ public class DungeonController {
                 };
             }
         });
+    }
 
-        /*
-        TreeItem<String> goalsRoot = new TreeItem<String>("Goals to do!");
-        TreeItem<String> subGoal = new TreeItem<String>("AndGoal");
-        subGoal.setExpanded(true);
-        TreeItem<String> subGoal2 = new TreeItem<String>("Subgoal1");
-        TreeItem<String> subGoal3 = new TreeItem<String>("Subgoal2");
-        goalsRoot.getChildren().add(subGoal);
-        subGoal.getChildren().add(subGoal2);
-        subGoal.getChildren().add(subGoal3);
-
-        TreeView<String> treeView = new TreeView<String>();
-        treeView.setRoot(goalsRoot);
-        goalsRoot.setExpanded(true);
-        squares.add(treeView, dungeon.getWidth(), 0, 1, dungeon.getHeight() + 1);
-        */
-        
+    private void initialiseGoalsUI() {
         TreeView<String> treeView = new TreeView<String>();
         List<CompositeGoal> compositeGoals = dungeon.getCompositeGoals();
         CompositeGoal compositeGoal = compositeGoals.get(compositeGoals.size() - 1);
@@ -179,24 +179,9 @@ public class DungeonController {
         treeView.setRoot(rootGoal);
 
         squares.add(treeView, dungeon.getWidth(), 1, 1, dungeon.getHeight() + 1);
-        
-        /*
-        goals.getChildren().addAll(
-            new TreeItem<String>("Test \u2713"),
-            new TreeItem<String>("Item 2")
-            //new TreeItem<String>("Item 3")
-        );
-        
-        */
-
-        for (ImageView entity : initialEntities) {
-            squares.getChildren().add(entity);
-        }
-
     }
 
-
-    public TreeItem<String> subTreeItem(TreeItem<String> root, Goal goal) {
+    private TreeItem<String> subTreeItem(TreeItem<String> root, Goal goal) {
         if (goal instanceof CompositeGoal) {
             TreeItem<String> newRoot = new TreeItem<String>("Complete ALL of these");
             System.out.println("found composite goal: " + goal.getName());
@@ -228,7 +213,7 @@ public class DungeonController {
         return null;
     }
 
-    public String processGoalName(Goal goal) {
+    private String processGoalName(Goal goal) {
         String goalName = goal.getName();
         String result = "";
         switch (goalName) {
@@ -254,58 +239,6 @@ public class DungeonController {
         return result;
     }
 
-    public TreeItem<String> newGoalItem() {
-        /*
-        TreeItem<String> goalsRoot = new TreeItem<String>("Goals to do!");
-        TreeItem<String> subGoal = new TreeItem<String>("AndGoal");
-        TreeItem<String> subGoal2 = new TreeItem<String>("Subgoal1");
-        TreeItem<String> subGoal3 = new TreeItem<String>("Subgoal2");
-        goalsRoot.getChildren().add(subGoal);
-        subGoal.getChildren().add(subGoal2);
-        subGoal.getChildren().add(subGoal3);
-
-        TreeView<String> treeView = new TreeView<String>();
-        treeView.setRoot(goalsRoot);
-        */
-
-        TreeItem<String> goalsRoot = new TreeItem<String>("Goals to do!");
-
-        for (CompositeGoal g : dungeon.getCompositeGoals()) {
-            TreeItem<String> andGoal = new TreeItem<String>("Complete ALL of these!");
-            processTreeSubGoals(g, andGoal);
-        }
-
-
-
-
-
-        for (CompositeGoal g : dungeon.getCompositeGoals()) {
-            TreeItem<String> andGoal = new TreeItem<String>("Complete ALL of these!");
-            for (Goal s : g.getSubGoals()) {
-                TreeItem<String> subGoal = treeSubGoal(s);
-                andGoal.getChildren().add(subGoal);
-            }
-            goalsRoot.getChildren().add(andGoal);
-        }
-        
-
-        return null;
-        
-    }
-
-    public void processTreeSubGoals(CompositeGoal goal, TreeItem<String> root) {
-        for (Goal g : goal.getSubGoals()) {
-            if (g instanceof CompositeGoal) {
-                //TreeView<String> newTree = newGoalTree();
-                //root.getChildren().add(newTree);
-            }
-        }
-    }
-
-    public TreeItem<String> treeSubGoal(Goal goal) {
-        TreeItem<String> subGoal = new TreeItem<String>(goal.getName());
-        return subGoal;
-    }
 
     @FXML
     public void handleKeyPress(KeyEvent event) {
