@@ -613,8 +613,9 @@
     { "goal": "AND", "subgoals":
       [ { "goal": "exit" },
         { "goal": "OR", "subgoals":
-          [ {"goal": "enemies" },
-            {"goal": "treasure" }
+          [ 
+            {"goal": "exit" },
+            {"goal": "enemies" }
           ]
         }
       ]

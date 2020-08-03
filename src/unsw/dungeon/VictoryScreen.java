@@ -39,4 +39,8 @@ public class VictoryScreen {
     public VictoryScreenController getController() {
         return controller;
     }
+
+    public void addResumeButton() {
+        controller.createResumeButton();
+    }
 }

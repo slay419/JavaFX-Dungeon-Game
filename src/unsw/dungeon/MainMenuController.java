@@ -63,7 +63,7 @@ public class MainMenuController {
 
     @FXML
     public void handleAdvancedButton(ActionEvent event) throws IOException {
-        advanced = new Level(stage, "maze.json");
+        advanced = new Level(stage, "secretLevel2.json");
         setAdvancedLevel(advanced);
         advanced.start();
     }
@@ -86,7 +86,7 @@ public class MainMenuController {
         mediumImageView.setFitWidth(176);
         mediumButton.setGraphic(mediumImageView);
 
-        Image advancedImage = new Image((new File("examples/maze.png")).toURI().toString());
+        Image advancedImage = new Image((new File("examples/advanced.png")).toURI().toString());
         ImageView advancedImageView = new ImageView(advancedImage);
         advancedImageView.setFitHeight(152);
         advancedImageView.setFitWidth(176);

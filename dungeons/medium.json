@@ -186,7 +186,7 @@
       {
         "x": 0,
         "y": 5,
-        "type": "wall"
+        "type": "brokenWall"
       },
       {
         "x": 0,
@@ -749,12 +749,25 @@
         "type": "wall"
       },
       {
+        "x": 13,
+        "y": 6,
+        "type": "treasure"
+      },
+      {
         "x": 7,
         "y": 8,
         "type": "player"
       }
     ],
-    "goal-condition":{ 
-      "goal": "exit"
+    "goal-condition": 
+    { "goal": "AND", "subgoals":
+      [ { "goal": "exit" },
+        { "goal": "OR", "subgoals":
+          [ 
+            {"goal": "treasure" },
+            {"goal": "enemies" }
+          ]
+        }
+      ]
     }
   }

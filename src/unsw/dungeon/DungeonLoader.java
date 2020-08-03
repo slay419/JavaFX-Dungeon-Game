@@ -46,14 +46,13 @@ public abstract class DungeonLoader {
         Goal goal = loadGoal(dungeon, jsonGoals);
         //System.out.println("calling from loader: found: " + goal.getName());
         dungeon.processCompositeGoal(goal);
-        if (goal instanceof CompositeGoal /*|| goal instanceof CompositeOrGoal*/) {
+        if (goal instanceof CompositeGoal) {
             CompositeGoal g = (CompositeGoal) goal;
             for (Goal subgoal : g.getSubGoals()) {
                 System.out.println("found goal: " + subgoal.getName());
             }
             System.out.println("Added goal: " + g.getName());
             dungeon.addCompositeGoal(g);
-            
         }
         //System.out.println("Found goal: " + goal.getName());
         return dungeon;

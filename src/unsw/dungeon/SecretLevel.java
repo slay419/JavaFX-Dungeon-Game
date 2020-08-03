@@ -15,9 +15,9 @@ public class SecretLevel extends Level {
     }
 
     public void startSecretLevel(String level) throws IOException {
-        Level secretLevel = new Level(getStage(), level);
-        secretLevel.setSecret(true);
-        secretLevel.start();
+        //Level secretLevel = new Level(getStage(), level);
+        this.setSecret(true);
+        this.start();
         getController().pauseTimeline();
     }
 

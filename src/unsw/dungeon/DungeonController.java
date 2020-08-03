@@ -157,7 +157,7 @@ public class DungeonController {
 
     private void initialisePauseButton() {
         Button pause = new Button("Pause");
-        squares.add(pause, 4, dungeon.getHeight(), 2, 1);
+        squares.add(pause, dungeon.getWidth() - 2, dungeon.getHeight(), 2, 1);
         pause.setOnAction(new EventHandler<ActionEvent>(){
             @Override public void handle(ActionEvent T){
                 try {
@@ -167,6 +167,10 @@ public class DungeonController {
                 };
             }
         });
+    }
+
+    public void resumeLevel() {
+        currentLevel.start();
     }
 
     private void initialiseGoalsUI() {
@@ -221,22 +225,27 @@ public class DungeonController {
         String result = "";
         switch (goalName) {
         case "enemies":
-            dungeon.bindEnemyCount(enemyCounter, goal);
-            int numKilled = enemyCounter.getValue();
             int enemyCount = dungeon.findEntities("enemy").size();
-            result = "Kill all enemies: " + numKilled + " /" + enemyCount;
+            if (enemyCount > 1) {
+                result = "Kill " + enemyCount + " enemies!";
+            } else if (enemyCount == 1) {
+                result = "Kill the enemy!";
+            }
             break;
         case "boulders":
             int switchCount = dungeon.findEntities("floorSwitch").size();
-            result = "Trigger all switches: " + "/" + switchCount;
+            result = "Trigger the " + switchCount + " switches!";
             break;
         case "treasure":
             int treasureCount = dungeon.findEntities("treasure").size();
-            result = "Collect all treasure: " + "/" + treasureCount;
+            if (treasureCount > 1) {
+                result = "Collect the " + treasureCount + " treasure piles!";
+            } else if (treasureCount == 1) {
+                result = "Collect the treasure pile!";
+            }
             break;
         case "exit":
-            int exitCount = dungeon.findEntities("exit").size();
-            result = "Find the exit: " + "/" + exitCount;
+            result = "Find the exit!";
             break;
         }
         return result;
@@ -326,10 +335,7 @@ public class DungeonController {
     public void showVictoryScreen() throws IOException {
         if(isTutorial && tutorialNumber < 11){
             showTutorialScreen(tutorialNumber);
-        } else if (isSecret) {
-            System.out.println("finished secret level");
-            secretLevel.showNextSecretLevel();
-        }
+        } 
         else{
             timeline.stop();
             victoryScreen = new VictoryScreen(stage, this);
@@ -349,6 +355,7 @@ public class DungeonController {
         timeline.stop();
         victoryScreen = new VictoryScreen(stage, this);
         victoryScreen.setText("Paused");
+        victoryScreen.addResumeButton();
         victoryScreen.start();
     }
 
