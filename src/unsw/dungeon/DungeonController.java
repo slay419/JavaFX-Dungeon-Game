@@ -324,7 +324,7 @@ public class DungeonController {
     }
 
     public void showVictoryScreen() throws IOException {
-        if(isTutorial){
+        if(isTutorial && tutorialNumber < 11){
             showTutorialScreen(tutorialNumber);
         } else if (isSecret) {
             System.out.println("finished secret level");
