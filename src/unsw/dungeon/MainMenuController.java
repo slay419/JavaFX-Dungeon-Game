@@ -23,8 +23,8 @@ public class MainMenuController {
     ,"                        The walls are alive.\nYou'll need to navigate them. \n                              The path isn't always clear..."
     ,"Sometimes a path will need to be made...\n              Are you strong enough?"
     ,"The path is blocked by a door. \n               But for every door, a key must exist."
-    ,"It appears we aren't alone in this place. You can flee now, but\n       -I...\n won't always be here to protect\n                -you...\n"
-    ,"Sometimes the 'Door' isn't a Door\n         and\nthe 'Key' isn't a Key.\n               You and I, we don't get to hide..."
+    ,"It appears we aren't alone in this place. You can flee now, but I...\n won't always be here to protect\n                -you...\n"
+    ,"Sometimes the 'Door' isn't a Door and\n       the 'Key' isn't a Key.\n               You and I, we don't get to hide..."
     ,"Pay attention of what you've been asked to do. \n       Sometimes there won't be a path out.."
     ,"Sometimes you'll require to use that brain of yours."
     ,"Othertimes you'll have to use your brawns."
@@ -49,7 +49,7 @@ public class MainMenuController {
 
     @FXML
     public void handleAdvancedButton(ActionEvent event) throws IOException {
-        advanced = new Level(stage, "advanced.json");
+        advanced = new Level(stage, "basic.json");
         setAdvancedLevel(advanced);
         advanced.start();
     }

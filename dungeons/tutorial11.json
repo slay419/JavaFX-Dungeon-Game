@@ -241,28 +241,13 @@
         "type": "player"
       },
       {
-        "x": 13,
-        "y": 8,
-        "type": "enemy"
-      },
-      {
         "x": 10,
         "y": 4,
         "type": "enemy"
       },
       {
         "x": 5,
-        "y": 6,
-        "type": "enemy"
-      },
-      {
-        "x": 12,
-        "y": 3,
-        "type": "enemy"
-      },
-      {
-        "x": 11,
-        "y": 4,
+        "y": 8,
         "type": "enemy"
       },
       {
